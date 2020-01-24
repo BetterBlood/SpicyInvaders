@@ -16,6 +16,8 @@ namespace SpicyInvader_V_01
         private Ship _ship;
         private Menu _menu;
 
+        private int test = 3; // temporaire inutile
+
         public Game()
         {
             Console.WindowWidth = 71;
