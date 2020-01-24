@@ -12,10 +12,9 @@ namespace SpicyInvader_V_01
 
         static public int _score; // static public car on a besoin de pouvoir le modifier et de l'atteindre dans le main ainsi que dans d'autres classes
 
-        Fleet _fleet;
-        Ship _ship;
-
-        Menu _menu;
+        private Fleet _fleet;
+        private Ship _ship;
+        private Menu _menu;
 
         public Game()
         {
