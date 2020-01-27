@@ -166,7 +166,11 @@ namespace SpicyInvader_V_01
         public void Clear()
         {
             Console.SetCursorPosition(_xPos, _yPos);
-            Console.Write("     "); // TODO : modifier ça en fonction de la taille du vaisseau
+            // Console.Write("     "); // TODO : modifier ça en fonction de la taille du vaisseau
+            for (int i = 0; i < _shape.Length; i++)
+            {
+                Console.Write(" ");
+            }
         }
 
         public void UpdateMissile(Fleet a_fleet)

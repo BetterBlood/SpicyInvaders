@@ -44,9 +44,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Boss.cs" />
+    <Compile Include="EnumMissileType.cs" />
     <Compile Include="Fleet.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="ICanFire.cs" />
     <Compile Include="Invader.cs" />
+    <Compile Include="Level.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Missile.cs" />
     <Compile Include="Position.cs" />
