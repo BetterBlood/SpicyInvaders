@@ -16,7 +16,7 @@ namespace SpicyInvader_V_01
 
         private bool _rightDirection;
 
-        private string _shape;
+        private Shape _newShape;
         private int _speed;
 
         public Invader() : this(5, 0) { }
@@ -25,13 +25,15 @@ namespace SpicyInvader_V_01
 
         public Invader(int a_xPos, int a_yPos, bool a_rightDisplay)
         {
+            // TODO : implémenter des missile pour les invaders, voir pour faire qu'ils ne se tirent pas à travers et pour faire qu'ils puissent toucher le vaisseau
             _xSize = 4;
             _ySize = 1;
 
             _position = new Position(a_xPos, a_yPos);
             _pointNumber = 1;
 
-            _shape = "=()=";
+            _newShape = new Shape("=()=");
+
             _speed = 1;
             _rightDirection = a_rightDisplay;
         }
@@ -93,18 +95,12 @@ namespace SpicyInvader_V_01
 
         public void Draw()
         {
-            Console.SetCursorPosition(_position.X, _position.Y);
-            Console.Write(_shape);
+            _newShape.Draw(new Position(_position.X, _position.Y));
         }
 
         public void Clear()
         {
-            Console.SetCursorPosition(_position.X, _position.Y); // ne gère pas le retour a la ligne lors du placement
-
-            for (int i = 0; i < _shape.Length; i++)
-            {
-                Console.Write(" ");
-            }
+            _newShape.Clear(new Position(_position.X, _position.Y));
         }
 
         public List<Position> GetPositions()
