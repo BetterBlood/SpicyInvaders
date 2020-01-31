@@ -45,10 +45,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Boss.cs" />
+    <Compile Include="Class1.cs" />
     <Compile Include="EnumMissileType.cs" />
     <Compile Include="Fleet.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="ICanFire.cs" />
+    <Compile Include="IMovable.cs" />
+    <Compile Include="IDrawable.cs" />
     <Compile Include="Invader.cs" />
     <Compile Include="Level.cs" />
     <Compile Include="Menu.cs" />

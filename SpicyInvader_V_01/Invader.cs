@@ -16,7 +16,7 @@ namespace SpicyInvader_V_01
 
         private bool _rightDirection;
 
-        private Shape _newShape;
+        private Shape _shape;
         private int _speed;
 
         public Invader() : this(5, 0) { }
@@ -32,7 +32,7 @@ namespace SpicyInvader_V_01
             _position = new Position(a_xPos, a_yPos);
             _pointNumber = 1;
 
-            _newShape = new Shape("=()=");
+            _shape = new Shape("=()=");
 
             _speed = 1;
             _rightDirection = a_rightDisplay;
@@ -95,12 +95,12 @@ namespace SpicyInvader_V_01
 
         public void Draw()
         {
-            _newShape.Draw(new Position(_position.X, _position.Y));
+            _shape.Draw(new Position(_position.X, _position.Y));
         }
 
         public void Clear()
         {
-            _newShape.Clear(new Position(_position.X, _position.Y));
+            _shape.Clear(new Position(_position.X, _position.Y));
         }
 
         public List<Position> GetPositions()

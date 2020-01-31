@@ -25,6 +25,7 @@ namespace SpicyInvader_V_01
             _BossStage = false;
 
             InitInvaders(a_fleetLevel);
+            InitBosses(1);
         }
         public Fleet(int a_fleetLevel, bool a_bossStage)
         {
@@ -46,7 +47,7 @@ namespace SpicyInvader_V_01
         public void InitBosses(int a_lvl)
         {
             // TODO : voir si j'ai pas oublié un truc ici, spoiler : surement oui, comparer avec InnitInvaders juste en dessous !!
-            _bosses.Add(new Boss(a_lvl, "test4testtest4  test"));
+            _bosses.Add(new Boss(a_lvl, "  \\__/4 -<==>-4  \\__/"));
         }
 
         public void InitInvaders(int a_fleet_lvl)
@@ -104,6 +105,12 @@ namespace SpicyInvader_V_01
                 {
                     invader.Move();
                     invader.Draw();
+                }
+
+                foreach (Boss boss in _bosses)
+                {
+                    //boss.Move(); 
+                    boss.Draw();
                 }
             }
         }

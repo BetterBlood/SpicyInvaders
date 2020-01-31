@@ -12,7 +12,7 @@ namespace SpicyInvader_V_01
         private Position _position;
 
         private int _speed;
-        private string _shape;
+        private string _shape; // TODO : modifier en Shape
 
         private bool _missileFired;
 
@@ -34,8 +34,6 @@ namespace SpicyInvader_V_01
                 default:
                     break;
             }
-
-            
         }
 
         private void InitNormalMissiles()

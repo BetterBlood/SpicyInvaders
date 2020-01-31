@@ -12,7 +12,7 @@ namespace SpicyInvader_V_01
         private int _xPos;
         private int _yPos;
 
-        private Shape _newShape;
+        private Shape _shape;
         private int _xSize;
 
         private int _speed;
@@ -24,7 +24,7 @@ namespace SpicyInvader_V_01
             _xPos = 50;
             _yPos = 21;
 
-            _newShape = new Shape("_/-\\_4 \\*/ ");
+            _shape = new Shape("_/-\\_4 \\*/ ");
 
             _xSize = 5;
             _speed = 1;
@@ -160,13 +160,13 @@ namespace SpicyInvader_V_01
 
         public void Draw()
         {
-            List<List<string>> shape = _newShape.GetShape();
-            _newShape.Draw(new Position(_xPos, _yPos));
+            List<List<string>> shape = _shape.GetShape();
+            _shape.Draw(new Position(_xPos, _yPos));
         }
 
         public void Clear()
         {
-            _newShape.Clear(new Position(_xPos, _yPos));
+            _shape.Clear(new Position(_xPos, _yPos));
         }
 
         public void UpdateMissile(Fleet a_fleet)
