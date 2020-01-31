@@ -15,7 +15,7 @@ namespace SpicyInvader_V_01
     {
         static void Main(string[] args)
         {
-            Game game = new Game();
+            Game game = new Game(); // salut
             
             int tics = 0;
 
