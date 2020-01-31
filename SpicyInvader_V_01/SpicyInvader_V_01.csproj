@@ -44,14 +44,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Boss.cs" />
+    <Compile Include="Class1.cs" />
+    <Compile Include="EnumMissileType.cs" />
     <Compile Include="Fleet.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="ICanFire.cs" />
+    <Compile Include="IMovable.cs" />
+    <Compile Include="IDrawable.cs" />
     <Compile Include="Invader.cs" />
+    <Compile Include="Level.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Missile.cs" />
     <Compile Include="Position.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Shape.cs" />
     <Compile Include="Ship.cs" />
   </ItemGroup>
   <ItemGroup>

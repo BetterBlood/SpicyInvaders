@@ -93,7 +93,7 @@ namespace SpicyInvader_V_01
                 _menu.DisplayScore();
                 _menu.DisplayHUV(_ship);
 
-                if (_fleet.IsDefeated())
+                if (_fleet.FleetIsDefeated())
                 {
                     fleetLvl++;
                     _fleet.InitInvaders(fleetLvl);

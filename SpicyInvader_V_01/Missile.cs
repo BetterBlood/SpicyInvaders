@@ -8,20 +8,45 @@ namespace SpicyInvader_V_01
 {
     class Missile
     {
+        private EnumMissileType _missileType;
         private Position _position;
 
         private int _speed;
-        private string _shape;
+        private string _shape; // TODO : modifier en Shape
 
         private bool _missileFired;
 
-        public Missile()
+        public Missile() : this (EnumMissileType.Normal) { }
+
+        public Missile(EnumMissileType a_missileType)
         {
             _position = new Position(-1, -1);
+            _missileType = a_missileType;
 
+            switch (a_missileType)
+            {
+                case EnumMissileType.Normal:
+                    InitNormalMissiles();
+                    break;
+                case EnumMissileType.Lazer:
+                    InitLazerMissiles();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void InitNormalMissiles()
+        {
             _speed = 1;
             _shape = "*";
+            _missileFired = false;
+        }
 
+        private void InitLazerMissiles()
+        {
+            _speed = -1;
+            _shape = "||";
             _missileFired = false;
         }
 
