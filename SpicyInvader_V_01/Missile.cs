@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -88,6 +89,7 @@ namespace SpicyInvader_V_01
                         // TODO : appel d'une méthode d'explosion des invader ?? ( au lieu de clear, mais pas compatible avec invaders.Remove(invader);)
                         invader.Clear();
                         invaders.Remove(invader);
+                        new SoundPlayer("..//..//Sounds//EnnemyDeath.wav").Play();
                         return true;
                     }
                 }
