@@ -138,7 +138,7 @@ namespace SpicyInvader_V_01
                 if (!missile.IsFired())
                 {
                     missile.Fire(new Position(_xPos + 2, _yPos - 1));
-                    new SoundPlayer("Sounds//LazerFire.wav").Play();
+                    new SoundPlayer("..//..//Sounds//LazerFire.wav").Play();
                     return;
                 }
                 else
