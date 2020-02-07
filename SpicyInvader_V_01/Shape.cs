@@ -10,6 +10,8 @@ namespace SpicyInvader_V_01
     {
         //on considère ici qu'une silhouhaite est réctangulaire
         private List<List<string>> _shapes;
+        private List<int> _tailles; // la taille de la liste est sa hauteur // chaque nombre de la liste est la taille de la ligne
+        //private HitBox _hitbox; // TODO : faire une class hitbox ou bien faire un tableau de boolean
 
         //public Shape()
         //{
@@ -19,6 +21,7 @@ namespace SpicyInvader_V_01
         public Shape(List<List<string>> a_shapes)
         {
             _shapes = a_shapes;
+            InitTaille();
         }
 
         public Shape(string a_shapes)
@@ -43,6 +46,11 @@ namespace SpicyInvader_V_01
                     _shapes[i].Add(charInString.ToString());
                 }
             }
+        }
+
+        private void InitTaille()
+        {
+            _tailles = new List<int>(); // ICI !!!!!!
         }
 
         public int GetHorizontalLenght()
