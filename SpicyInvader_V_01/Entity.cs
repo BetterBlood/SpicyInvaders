@@ -129,27 +129,35 @@ namespace SpicyInvader_V_01
         {
             Clear();
 
-            if (a_direction.Equals("right"))
+            switch (a_direction)
             {
-               
-                if (_position.X + _xSize < Console.WindowWidth - 1) // TODO : réglé ce problème
-                {
-                    _position.X++;
-                }
-                
-            }
-            else if (a_direction.Equals("left"))
-            {
-                
-                if (_position.X > 0)
-                {
-                    _position.X--;
-                }
-                
-            }
-            else
-            {
-                //normalement pas possible de se déplacer de haut en bas, à voir....
+                case "right":
+                    if (_position.X + _shape.GetHorizontalHightSize() < Console.WindowWidth - 1)
+                    {
+                        _position.X++;
+                    }
+                    break;
+                case "left":
+                    if (_position.X > 0)
+                    {
+                        _position.X--;
+                    }
+                    break;
+                case "up":
+                    if (_position.Y > 0)
+                    {
+                        _position.Y--;
+                    }
+                    break;
+                case "down":
+                    if (_position.Y + _shape.GetSizes().Count < Console.WindowHeight - 1)
+                    {
+                        _position.Y++;
+                    }
+                    break;
+                default:
+                    //normalement pas possible de se déplacer dans d'autres directions, à voir....
+                    break;
             }
         }
     }
