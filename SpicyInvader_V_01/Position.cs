@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SpicyInvader_V_01
 {
-    class Position
+    public class Position
     {
         public int X { get; set; }
         public int Y { get; set; }
