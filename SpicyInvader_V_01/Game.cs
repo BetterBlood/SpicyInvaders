@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SpicyInvader_V_01
 {
-    class Game
+    public class Game
     {
         private int fleetLvl = 1;
 
@@ -45,14 +45,14 @@ namespace SpicyInvader_V_01
                     //Touche fléchée gauche
                     case ConsoleKey.LeftArrow:
                         //Décalage de la position de référence
-                        _ship.PrivateMove("left");
+                        _ship.PrivateMove(EnumDirection.LEFT);
 
                         break;
 
                     //Touche fléchée droite
                     case ConsoleKey.RightArrow:
                         //Décalage de la position de référence
-                        _ship.PrivateMove("right");
+                        _ship.PrivateMove(EnumDirection.RIGHT);
 
                         break;
 

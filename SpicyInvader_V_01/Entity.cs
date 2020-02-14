@@ -14,6 +14,8 @@ namespace SpicyInvader_V_01
 
         private List<Missile> _missiles;
 
+        private int _lifePoints; // TODO : ajouter les point de vie ici et surtout dans la méthode qui dit si le truc touché est mort
+
         public Entity() : this(EnumDirection.DOWN) { }
 
         public Entity(EnumDirection a_missileDirection) : this (" ceci4estun4 test", new Position(0, 0), 0, a_missileDirection) { }
@@ -42,7 +44,6 @@ namespace SpicyInvader_V_01
             {
                 if (!missile.IsFired())
                 {
-                    Console.SetCursorPosition(30, 23);
                     return true;
                 }
             }
@@ -127,31 +128,31 @@ namespace SpicyInvader_V_01
             _shape.Clear(new Position(_position.X, _position.Y));
         }
 
-        public void PrivateMove(string a_direction)
+        public void PrivateMove(EnumDirection a_direction)
         {
             Clear();
 
             switch (a_direction)
             {
-                case "right":
+                case EnumDirection.RIGHT:
                     if (_position.X + _shape.GetHorizontalHightSize() < Console.WindowWidth - 1)
                     {
                         _position.X++;
                     }
                     break;
-                case "left":
+                case EnumDirection.LEFT:
                     if (_position.X > 0)
                     {
                         _position.X--;
                     }
                     break;
-                case "up":
+                case EnumDirection.UP:
                     if (_position.Y > 0)
                     {
                         _position.Y--;
                     }
                     break;
-                case "down":
+                case EnumDirection.DOWN:
                     if (_position.Y + _shape.GetSizes().Count < Console.WindowHeight - 1)
                     {
                         _position.Y++;

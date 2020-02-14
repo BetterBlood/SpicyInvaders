@@ -9,7 +9,7 @@ namespace SpicyInvader_V_01
     public interface IMovebale
     {
 
-        void PrivateMove(string a_direction);
+        void PrivateMove(EnumDirection a_direction);
 
     }
 }

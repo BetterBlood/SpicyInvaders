@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SpicyInvader_V_01
 {
-    class Menu // classe utilitaire à propos des menus
+    public class Menu // classe utilitaire à propos des menus
     {
         private const string NEW_GAME = "nouvelle partie";
         private const string CONTINUE = "continuer";

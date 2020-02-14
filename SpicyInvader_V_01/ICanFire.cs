@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SpicyInvader_V_01
 {
-    interface ICanFire
+    public interface ICanFire
     {
 
         void InitBasesMissiles(int a_missileNumber, EnumDirection a_missileDirection);

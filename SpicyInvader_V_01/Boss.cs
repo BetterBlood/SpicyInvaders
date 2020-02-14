@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SpicyInvader_V_01
 {
-    class Boss : IMovebale, IDrawable, ICanFire
+    public class Boss : Enemy, IMovebale, IDrawable, ICanFire
     {
         private int _lvl;
         private int _lifePoints;
@@ -14,7 +14,7 @@ namespace SpicyInvader_V_01
         private Position _position;
         private Shape _shape;
 
-        public Boss(int a_lvl, string a_shape)
+        public Boss(int a_lvl, string a_shape) : base (a_shape, new Position(7,8), 3) 
         {
             _lvl = a_lvl;
             _lifePoints = a_lvl * 10;
@@ -23,21 +23,5 @@ namespace SpicyInvader_V_01
             _shape = new Shape(a_shape);
         }
         
-        public void Draw()
-        {
-            _shape.Draw(_position);
-        }
-
-        public void Clear()
-        {
-            _shape.Clear(_position);
-        }
-
-        public void PrivateMove(string a_direction)
-        {
-            // TODO : fair la classe mère des ennemis pour pouvoir override PrivateMove ainsi que la classe mère des entitées !!!!!!!!!!!! !!!!!!!!!!!! !!!!!!!!!!
-        }
-
-        // TODO : implémenter le déplacement, l'affichage et l'effacage (Move, Draw et Clear) ( surrement avec une interface)
     }
 }

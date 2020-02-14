@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SpicyInvader_V_01
 {
-    class Ship
+    public class Ship : Ally
     {
         private int _xPos;
         private int _yPos;
@@ -19,7 +19,7 @@ namespace SpicyInvader_V_01
 
         private List<Missile> _missiles;
 
-        public Ship()
+        public Ship() : base ("_/-\\_4 \\*/ ", new Position(50, 26), 2)
         {
             _xPos = 50;
             _yPos = 21;
@@ -85,69 +85,6 @@ namespace SpicyInvader_V_01
             }
         }
 
-        public bool IsAMissileNotFired()
-        {
-            foreach (Missile missile in _missiles)
-            {
-                if (!missile.IsFired())
-                {
-                    Console.SetCursorPosition(30, 23);
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        public int GetMissileYPos()
-        {
-            foreach (Missile missile in _missiles)
-            {
-                if (missile.IsFired())
-                {
-                    return missile.GetY();
-                }
-            }
-            return -1;
-        }
-
-        public int GetMissilesCapacity()
-        {
-            return _missiles.Count();
-        }
-
-        public int HowManyMissilesLeft()
-        {
-            int nbrMissilesLeft = 0;
-
-            foreach (Missile missile in _missiles)
-            {
-                if (!missile.IsFired())
-                {
-                    nbrMissilesLeft++;
-                }
-            }
-
-            return nbrMissilesLeft;
-        }
-
-        public void Fire()
-        {
-            foreach (Missile missile in _missiles)
-            {
-                if (!missile.IsFired())
-                {
-                    missile.Fire(new Position(_xPos + 2, _yPos - 1));
-                    new SoundPlayer("..//..//Sounds//LazerFire.wav").Play();
-                    return;
-                }
-                else
-                {
-                    // nothing to do
-                }
-            }
-        }
-
         public int GetX()
         {
             return _xPos;
@@ -156,36 +93,6 @@ namespace SpicyInvader_V_01
         public int GetY()
         {
             return _yPos;
-        }
-
-        public void Draw()
-        {
-            List<List<string>> shape = _shape.GetShape();
-            _shape.Draw(new Position(_xPos, _yPos));
-        }
-
-        public void Clear()
-        {
-            _shape.Clear(new Position(_xPos, _yPos));
-        }
-
-        public void UpdateMissile(Fleet a_fleet)
-        {
-            foreach (Missile missile in _missiles)
-            {
-                if (missile.IsFired())
-                {
-                    if (missile.Move(a_fleet)) // on dessin le missile seulement s'il n'a pas explosé
-                    {
-                        missile.Draw();
-                    }
-                }
-                else
-                {
-                    //missile.Rearmed();
-                    // ne fait rien car le missile n'est pas lancé
-                }
-            }
         }
     }
 }
