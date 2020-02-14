@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 
 namespace SpicyInvader_V_01
 {
-    abstract class Entity : ICanFire, IDrawable, IMovebale
+    public abstract class Entity : ICanFire, IDrawable, IMovebale
     {
         private Shape _shape;
         private Position _position;
 
         private List<Missile> _missiles;
+
 
         public Entity() : this (" ceci4estun4 test", new Position(0, 0), 0) { }
 
@@ -156,7 +157,7 @@ namespace SpicyInvader_V_01
                     }
                     break;
                 default:
-                    //normalement pas possible de se déplacer dans d'autres directions, à voir....
+                    //normalement pas possible de se déplacer dans d'autres directions, à voir....diagonales ?
                     break;
             }
         }
