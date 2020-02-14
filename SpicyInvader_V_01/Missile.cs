@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SpicyInvader_V_01
 {
-    class Missile
+    public class Missile
     {
         private EnumMissileType _missileType;
         private Position _position;
@@ -67,13 +67,14 @@ namespace SpicyInvader_V_01
                     _position.Y++;
                     break;
                 case EnumDirection.LEFT:
+                    //normalement pas possible mais on verra
                     break;
-                case EnumDirection.RFIGHT:
+                case EnumDirection.RIGHT:
+                    // normallement impossible mais on verra
                     break;
                 default:
                     break;
             }
-            _position.Y--;
             
 
             if (IsInvaderHit(a_fleet))

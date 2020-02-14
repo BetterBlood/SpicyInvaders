@@ -11,6 +11,6 @@ namespace SpicyInvader_V_01
         UP,
         DOWN,
         LEFT,
-        RFIGHT
+        RIGHT
     }
 }

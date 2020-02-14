@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace SpicyInvader_V_01
 {
-    interface IDrawable
+    public interface IDrawable
     {
-
         void Draw();
         void Clear();
     }

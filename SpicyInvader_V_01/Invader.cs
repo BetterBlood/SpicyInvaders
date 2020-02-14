@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SpicyInvader_V_01
 {
-    class Invader
+    public class Invader
     {
         static public int _xSize = 4;
         private int _ySize;

@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ally.cs" />
     <Compile Include="Boss.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="Entity.cs" />

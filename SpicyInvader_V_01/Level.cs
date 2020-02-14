@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SpicyInvader_V_01
 {
-    class Level
+    public class Level
     {
         private int _lvlNumber;
         private Fleet fleet;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SpicyInvader_V_01
 {
-    class Shape
+    public class Shape
     {
         //on considère ici qu'une silhouhaite est réctangulaire
         private List<List<string>> _shapes;
