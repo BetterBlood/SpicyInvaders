@@ -38,7 +38,7 @@ namespace SpicyInvader_V_01
         {
             for (int i = 0; i < a_missileNumber; i++)
             {
-                _missiles.Add(new Missile());
+                _missiles.Add(new Missile(EnumDirection.UP));
             }
         }
 

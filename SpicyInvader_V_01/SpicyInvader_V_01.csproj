@@ -45,9 +45,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Boss.cs" />
-    <Compile Include="Class1.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="Entity.cs" />
+    <Compile Include="EnumDirection.cs" />
     <Compile Include="EnumMissileType.cs" />
     <Compile Include="Fleet.cs" />
     <Compile Include="Game.cs" />

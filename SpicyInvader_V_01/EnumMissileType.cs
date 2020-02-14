@@ -11,4 +11,5 @@ namespace SpicyInvader_V_01
         Normal,
         Lazer
     }
+
 }
