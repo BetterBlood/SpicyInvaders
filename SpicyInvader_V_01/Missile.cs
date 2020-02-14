@@ -16,12 +16,14 @@ namespace SpicyInvader_V_01
         private string _shape; // TODO : modifier en Shape
 
         private bool _missileFired;
+        private EnumDirection _missileDirection; // true signifie que le missile monte, false qu'il descend
 
-        public Missile() : this (EnumMissileType.Normal) { }
+        public Missile(EnumDirection a_direction) : this (EnumMissileType.Normal, a_direction) { }
 
-        public Missile(EnumMissileType a_missileType)
+        public Missile(EnumMissileType a_missileType, EnumDirection a_direction)
         {
             _position = new Position(-1, -1);
+            _missileDirection = a_direction;
             _missileType = a_missileType;
 
             switch (a_missileType)
@@ -53,11 +55,26 @@ namespace SpicyInvader_V_01
 
         public bool Move(Fleet a_fleet) // return true si le mouvement a eut lieu sans rencontrer qqch
         {
+            // TODO : modifier en List de vaisseau ou bien d'iunvader ou de boss a attaquer (genre une liste d'entity)
+
             Clear();
-            for (int i = 0; i < _speed; i++)
+            switch (_missileDirection)
             {
-                _position.Y--;
+                case EnumDirection.UP:
+                    _position.Y--;
+                    break;
+                case EnumDirection.DOWN:
+                    _position.Y++;
+                    break;
+                case EnumDirection.LEFT:
+                    break;
+                case EnumDirection.RFIGHT:
+                    break;
+                default:
+                    break;
             }
+            _position.Y--;
+            
 
             if (IsInvaderHit(a_fleet))
             {

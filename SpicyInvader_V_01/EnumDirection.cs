@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace SpicyInvader_V_01
 {
-    class Enemy : Entity
+    public enum EnumDirection
     {
-        public Enemy()
-        {
-            
-        }
+        UP,
+        DOWN,
+        LEFT,
+        RFIGHT
     }
 }

@@ -9,7 +9,7 @@ namespace SpicyInvader_V_01
     interface ICanFire
     {
 
-        void InitBasesMissiles(int a_missileNumber);
+        void InitBasesMissiles(int a_missileNumber, EnumDirection a_missileDirection);
 
         bool IsAMissileNotFired();
 

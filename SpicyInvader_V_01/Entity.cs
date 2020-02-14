@@ -14,24 +14,25 @@ namespace SpicyInvader_V_01
 
         private List<Missile> _missiles;
 
+        public Entity() : this(EnumDirection.DOWN) { }
 
-        public Entity() : this (" ceci4estun4 test", new Position(0, 0), 0) { }
+        public Entity(EnumDirection a_missileDirection) : this (" ceci4estun4 test", new Position(0, 0), 0, a_missileDirection) { }
 
-        public Entity(string a_shape, Position a_position, int a_nbrMissile)
+        public Entity(string a_shape, Position a_position, int a_nbrMissile, EnumDirection a_missileDirection)
         {
             _shape = new Shape(a_shape);
             _position = a_position;
             
-            InitBasesMissiles(a_nbrMissile);
+            InitBasesMissiles(a_nbrMissile, a_missileDirection);
         }
 
-        public void InitBasesMissiles(int a_missileNumber)
+        public void InitBasesMissiles(int a_missileNumber, EnumDirection a_missileDirection)
         {
             _missiles = new List<Missile>();
 
             for (int i = 0; i < a_missileNumber; i++)
             {
-                _missiles.Add(new Missile());
+                _missiles.Add(new Missile(a_missileDirection));
             }
         }
 
