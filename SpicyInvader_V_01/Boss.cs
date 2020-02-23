@@ -17,5 +17,10 @@ namespace SpicyInvader_V_01
             _pointNumber = a_lvl * 2;
         }
 
+
+        protected override Position GetFirePosition()
+        {
+            return new Position(_position.X + 3, _position.Y + 4);
+        }
     }
 }

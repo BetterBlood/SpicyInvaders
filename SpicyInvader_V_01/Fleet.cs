@@ -24,8 +24,8 @@ namespace SpicyInvader_V_01
         {
             _enemies = new List<Enemy>();
 
-            _bossStage = a_bossStage;
-
+            _bossStage = a_bossStage; 
+            //_bossStage = true; // TODO : c'est un test pour calibrer les missile du boss
             InitEnemies(a_fleetLevel);
         }
 
@@ -68,7 +68,7 @@ namespace SpicyInvader_V_01
 
         public void Update()
         {
-            foreach (Enemy enemy in _enemies)  // !! 4 !!! modification des boucle foreach
+            foreach (Enemy enemy in _enemies)
             {
                 enemy.DetectorBridge();
             }

@@ -12,7 +12,7 @@ namespace SpicyInvader_V_01
         private EnumMissileType _missileType;
         private Position _position;
 
-        private string _shape; // TODO : modifier en Shape
+        private Shape _shape;
         private int _power;
 
         private bool _missileFired;
@@ -47,14 +47,14 @@ namespace SpicyInvader_V_01
 
         private void InitNormalMissiles()
         {
-            _shape = "*";
+            _shape = new Shape("*");
             _missileFired = false;
             _power = 1;
         }
 
         private void InitLazerMissiles()
         {
-            _shape = "||";
+            _shape = new Shape("||");
             _missileFired = false;
             _power = 3;
         }
@@ -105,7 +105,7 @@ namespace SpicyInvader_V_01
                 return false;
             }
 
-            if (_position.Y <= 0)
+            if (_position.Y <= 0 || _position.Y >= 27)// TODO: mettre 27 en constant quelque part, ptetre dans ship
             {
                 Rearmed();
                 return false;
@@ -168,19 +168,15 @@ namespace SpicyInvader_V_01
         {
             if (_position.X >= 0 && _position.Y >= 0 && _position.Y <= 27) // TODO : mettre 27 en constant quelque part, ptetre dans ship
             {
-                Console.SetCursorPosition(_position.X, _position.Y);
-                Console.Write(" "); // voir en fonction de la taille du missile
+                _shape.Clear(_position);
             }
-            
-
         }
 
         public void Draw()
         {
             if (_position.Y != 0 && _position.Y <= 27) // TODO : mettre 27 en constant quelque part, ptetre dans ship
             {
-                Console.SetCursorPosition(_position.X, _position.Y);
-                Console.Write(_shape);
+                _shape.Draw(_position);
             }
         }
 

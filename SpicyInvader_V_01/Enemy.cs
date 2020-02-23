@@ -41,12 +41,9 @@ namespace SpicyInvader_V_01
 
         public void DetectorBridge()
         {
-            if (_rightDirection && _position.X + GetHorizontalHightSize() >= Console.WindowWidth - 3 || !_rightDirection && _position.X <= 1) // détecte si on arrive proche de l'écran
+            if (_rightDirection && _position.X + GetHorizontalHightSize() >= Console.WindowWidth - 1 || !_rightDirection && _position.X <= 1) // détecte si on arrive proche de l'écran
             {
                 _isChange = true;
-            }
-            else
-            {
             }
         }
         static public void ChangMove()
@@ -102,7 +99,7 @@ namespace SpicyInvader_V_01
             }
         }
 
-        protected Position GetFirePosition()
+        protected virtual Position GetFirePosition()
         {
             return new Position(_position.X + 2, _position.Y + 1); // TODO : redéfinir ça dans boss mot clé : new !
         }
