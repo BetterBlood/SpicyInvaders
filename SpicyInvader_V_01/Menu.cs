@@ -20,8 +20,10 @@ namespace SpicyInvader_V_01
         public const string GAME_OVER = "game over";
 
         public const int MISSILE_DISPLAY_POSITION_X = 30;
-        public const int MISSILE_DISPLAY_POSITION_Y = 23;
+        public const int MISSILE_DISPLAY_POSITION_Y = 29;
 
+
+        public const char STRING_SHAPE_SEPARATOR = '4';  // ATTENTION : on ne peut donc pas utiliser le chiffre 4 pour la construction de silhouette 
 
         public void ShowMenu(string a_menuType)
         {

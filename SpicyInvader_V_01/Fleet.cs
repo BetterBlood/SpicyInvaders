@@ -10,33 +10,30 @@ namespace SpicyInvader_V_01
     {
         private int _numberOfInvader;
 
-        List<Invader> _invaders;
-        List<Boss> _bosses;
+        private List<Enemy> _enemies;
 
-        private bool _BossStage;
+        private bool _bossStage;
+
+        static public int _yFleet = 0;
 
         public Fleet() : this(3) { }
 
-        public Fleet(int a_fleetLevel)
-        {
-            _invaders = new List<Invader>();
-            _bosses = new List<Boss>(); // TODO : réunir les deuc liste en une liste d'ennemis
+        public Fleet(int a_fleetLevel) : this (a_fleetLevel, false) { }
 
-            _BossStage = false;
-
-            InitInvaders(a_fleetLevel);
-            InitBosses(1);
-        }
         public Fleet(int a_fleetLevel, bool a_bossStage)
         {
-            _invaders = new List<Invader>();
-            _bosses = new List<Boss>();
+            _enemies = new List<Enemy>();
 
-            _BossStage = a_bossStage;
+            _bossStage = a_bossStage;
 
-            if (a_bossStage)
+            InitEnemies(a_fleetLevel);
+        }
+
+        private void InitEnemies(int a_fleetLevel)
+        {
+            if (_bossStage)
             {
-                InitBosses(a_fleetLevel);
+                InitBosses(a_fleetLevel / 5); // TODO : utiliser un chiffre prédéfinit quelquepart car il represente la distance entre deux stage de BOSS
             }
             else
             {
@@ -47,101 +44,71 @@ namespace SpicyInvader_V_01
         public void InitBosses(int a_lvl)
         {
             // TODO : voir si j'ai pas oublié un truc ici, spoiler : surement oui, comparer avec InnitInvaders juste en dessous !!
-            _bosses.Add(new Boss(a_lvl, "  \\__/4 -<==>-4  \\__/"));
+            _enemies.Add(new Boss(a_lvl, "  \\__/4 -<==>-4  \\__/"));
         }
 
         public void InitInvaders(int a_fleet_lvl)
         {
-            _numberOfInvader = 3 + a_fleet_lvl*2;
-            
-            int invaderSize = 4;
-            int y = 0;
-            int decalage = 0;
-            int gap = 2;
+            _numberOfInvader = 3 + a_fleet_lvl * 2;
 
-            bool rightDisplay = true;
+            int invaderSize = 4; // ptetre mettre en static dans Invader la taille par défaut genre un Invader.Width() ?
+            int y = 0;
 
             for (int i = 0, j = 0; i < _numberOfInvader; i++, j++)
             {
-                if (rightDisplay && j * (invaderSize + 1) + invaderSize + 1 >= Console.WindowWidth)
+                if (i % 5 == 0)
                 {
                     j = 0;
                     y++;
-                    rightDisplay = false;
-                    decalage = 5;
-                }
-                else if (!rightDisplay && Console.WindowWidth - (j * (invaderSize + 1) + invaderSize - 2) < 0)
-                {
-                    j = 0;
-                    y++;
-                    rightDisplay = true;
-                    decalage = 0;
                 }
 
-                if (rightDisplay)
-                {
-                    _invaders.Add(new Invader(j * (invaderSize + 1), y, rightDisplay));
-                }
-                else
-                {
-                    _invaders.Add(new Invader(Console.WindowWidth - (j * (invaderSize + 1) + invaderSize - 2), y, rightDisplay));
-                }
+                _enemies.Add(new Invader(new Position(j * (invaderSize + 1), y), true));
             }
         }
 
         public void Update()
         {
-            if (_BossStage)
+            foreach (Enemy enemy in _enemies)  // !! 4 !!! modification des boucle foreach
             {
-                foreach (Boss boss in _bosses)
-                {
-                    //boss.Move(); 
-                    //boss.Draw();
-                }
+                enemy.DetectorBridge();
             }
-            else
-            {
-                foreach (Invader invader in _invaders)
-                {
-                    invader.Move();
-                    invader.Draw();
-                }
 
-                foreach (Boss boss in _bosses)
-                {
-                    //boss.Move(); 
-                    boss.Draw();
-                }
+            Enemy.ChangMove();
+
+            foreach (Enemy enemy in _enemies)
+            {
+                enemy.Move();
+                enemy.Draw();
+
+                enemy.TryToFire();
             }
         }
 
-        public List<Invader> GetMembers()
+        public void RemoveMember(Enemy a_enemy)
         {
-            return _invaders;
+            a_enemy.Clear();
+            _enemies.Remove(a_enemy);
         }
 
-        public List<Boss> GetMembersBoss() // surement supprimer cette méthode quand les deux liste seront mises ensembles
+        public List<Enemy> GetMembers()
         {
-            return _bosses;
+            return _enemies;
         }
 
         public bool FleetIsDefeated()
         {
-            if (_invaders.Count() == 0)
+            if (_enemies.Count == 0)
             {
+                _yFleet = 0;
                 return true;
             }
 
             return false;
         }
 
-        public bool BossIsDefeated() // surement supprimer cette méthode quand les deux liste seront mises ensembles
+        public static void GoDown()
         {
-            if (_bosses.Count() == 0)
-            {
-                return true;
-            }
-            return false;
+            _yFleet++;
         }
     }
 }

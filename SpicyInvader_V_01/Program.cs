@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace SpicyInvader_V_01
 {
@@ -26,7 +27,7 @@ namespace SpicyInvader_V_01
                 game.Update(tics);
 
                 //Temporisation FPS
-                System.Threading.Thread.Sleep(10);
+                Thread.Sleep(10);
 
                 tics++;
 

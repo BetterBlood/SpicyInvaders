@@ -16,6 +16,9 @@ namespace SpicyInvader_V_01
         private Ship _ship;
         private Menu _menu;
 
+        private List<Entity> _allEntities;
+        private List<List<Missile>> _allMissiles;
+
         public Game()
         {
             Console.WindowWidth = 71;
@@ -27,6 +30,23 @@ namespace SpicyInvader_V_01
             _score = 0; // TODO : ne pas oublié de récupéré le score dans le fichier adéquats si nécessaire
 
             _menu = new Menu();
+
+            InitEntities();
+        }
+
+        private void InitEntities()
+        {
+            _allEntities = new List<Entity>();
+            _allMissiles = new List<List<Missile>>();
+
+            _allEntities.Add(_ship);
+            _allMissiles.Add(_ship.GetMissiles());
+
+            foreach (Entity entity in _fleet.GetMembers())
+            {
+                _allEntities.Add(entity);
+                _allMissiles.Add(entity.GetMissiles());
+            }
         }
 
         public void Begin()
@@ -78,27 +98,54 @@ namespace SpicyInvader_V_01
 
             if (a_tics % 10 == 0)
             {
-                _fleet.Update();
-
-                if (_ship.IsDead(_fleet))
-                {
-                    _menu.ShowMenu(Menu.GAME_OVER);
-                }
+                _fleet.Update(); // principalement le mouvement des invaders ou bien du boss
             }
 
             //Gestion des missiles
             if (a_tics % 5 == 0)
             {
-                _ship.UpdateMissile(_fleet);
+                foreach (List<Missile> missileList in _allMissiles)
+                {
+                    foreach(Missile missile in missileList)
+                    {
+                        missile.UpdateMissile(_allEntities, _fleet, this);
+                    }
+                }
+
+                if (_ship.IsDead(_fleet))
+                {
+                    _menu.ShowMenu(Menu.GAME_OVER);
+                }
+
                 _menu.DisplayScore();
                 _menu.DisplayHUV(_ship);
 
                 if (_fleet.FleetIsDefeated())
                 {
                     fleetLvl++;
-                    _fleet.InitInvaders(fleetLvl);
+
+                    if (fleetLvl%5 == 0) // boss stage // TODO : voir avec la class Level
+                    {
+                        _fleet = new Fleet(fleetLvl, true);
+                        InitEntities();
+                    }
+                    else
+                    {
+                        _fleet = new Fleet(fleetLvl, false);
+                        InitEntities();
+                    }
                 }
             }
+        }
+
+        public void AllyIsHit(int a_power)
+        {
+            _ship.TakeDamage(a_power);
+        }
+
+        public void IncreasePoint(int a_pointNumber)
+        {
+            _score += a_pointNumber;
         }
     }
 }

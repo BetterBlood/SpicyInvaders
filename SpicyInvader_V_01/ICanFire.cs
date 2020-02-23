@@ -13,6 +13,8 @@ namespace SpicyInvader_V_01
 
         bool IsAMissileNotFired();
 
+        List<Missile> GetMissiles();
+
         int GetMissileYPos();
 
         int GetMissilesCapacity();
@@ -21,7 +23,6 @@ namespace SpicyInvader_V_01
 
         void Fire();
 
-        void UpdateMissile(Fleet a_fleet);
 
     }
 }

@@ -9,19 +9,13 @@ namespace SpicyInvader_V_01
     public class Boss : Enemy, IMovebale, IDrawable, ICanFire
     {
         private int _lvl;
-        private int _lifePoints;
 
-        private Position _position;
-        private Shape _shape;
-
-        public Boss(int a_lvl, string a_shape) : base (a_shape, new Position(7,8), 3) 
+        public Boss(int a_lvl, string a_shape) : base (a_shape, new Position(Console.WindowWidth / 2, Console.WindowHeight / 8), 3, true) 
         {
             _lvl = a_lvl;
-            _lifePoints = a_lvl * 10;
-
-            _position = new Position(Console.WindowWidth/2, Console.WindowHeight / 8);
-            _shape = new Shape(a_shape);
+            _lifePoints = a_lvl * 5;
+            _pointNumber = a_lvl * 2;
         }
-        
+
     }
 }
