@@ -12,8 +12,8 @@ namespace SpicyInvader_V_01
         private EnumMissileType _missileType;
         private Position _position;
 
-        private int _speed;
-        private string _shape; // TODO : modifier en Shape
+        private Shape _shape;
+        private int _power;
 
         private bool _missileFired;
         private EnumDirection _missileDirection; // true signifie que le missile monte, false qu'il descend
@@ -39,23 +39,44 @@ namespace SpicyInvader_V_01
             }
         }
 
+        public int Power
+        {
+            get { return _power; }
+            set { _power = value; }
+        }
+
         private void InitNormalMissiles()
         {
-            _speed = 1;
-            _shape = "*";
+            _shape = new Shape("*");
             _missileFired = false;
+            _power = 1;
         }
 
         private void InitLazerMissiles()
         {
-            _speed = -1;
-            _shape = "||";
+            _shape = new Shape("||");
             _missileFired = false;
+            _power = 3;
         }
 
-        public bool Move(Fleet a_fleet) // return true si le mouvement a eut lieu sans rencontrer qqch
+        public void UpdateMissile(List<Entity> a_entities, Fleet a_fleet, Game a_game)
         {
-            // TODO : modifier en List de vaisseau ou bien d'iunvader ou de boss a attaquer (genre une liste d'entity)
+            if (IsFired())
+            {
+                if (Move(a_entities, a_fleet, a_game)) // on dessin le missile seulement s'il n'a pas explosé
+                {
+                    Draw();
+                }
+            }
+            else
+            {
+                // ne fait rien car le missile n'est pas lancé
+            }
+        }
+
+        public bool Move(List<Entity> a_entities, Fleet a_fleet, Game a_game) // return true si le mouvement a eut lieu sans rencontrer qqch
+        {
+            // TODO : modifier en List de vaisseau ou bien d'invader ou de boss a attaquer (genre une liste d'entity)
 
             Clear();
             switch (_missileDirection)
@@ -67,7 +88,7 @@ namespace SpicyInvader_V_01
                     _position.Y++;
                     break;
                 case EnumDirection.LEFT:
-                    //normalement pas possible mais on verra
+                    // normallement pas possible mais on verra
                     break;
                 case EnumDirection.RIGHT:
                     // normallement impossible mais on verra
@@ -75,16 +96,16 @@ namespace SpicyInvader_V_01
                 default:
                     break;
             }
-            
 
-            if (IsInvaderHit(a_fleet))
+
+            if (IsEntityHit(a_entities, a_fleet, a_game))
             {
-                // TODO : afficher une explosion ??
+                // TODO : afficher une explosion 
                 Rearmed();
                 return false;
             }
 
-            if (_position.Y == 0 || _position.Y == 0)
+            if (_position.Y <= 0 || _position.Y >= 27)// TODO: mettre 27 en constant quelque part, ptetre dans ship
             {
                 Rearmed();
                 return false;
@@ -93,24 +114,53 @@ namespace SpicyInvader_V_01
             return true;
         }
 
-        private bool IsInvaderHit(Fleet a_fleet)
+        private bool IsEntityHit(List<Entity> a_entities, Fleet a_fleet, Game a_game)
         {
-            List<Invader> invaders = a_fleet.GetMembers();
+            List<Enemy> enemies = new List<Enemy>();
+            bool enemyIsHit = false;
+            bool allyIsHit = false;
+            bool enemyIsDead = false;
 
-            foreach (Invader invader in invaders)
+            foreach (Entity entity in a_entities)
             {
-                foreach(Position position in invader.GetPositions())
+                if (entity.GetHitBox().IsTouch(_position))
                 {
-                    if (position.Equals(_position))
+                    if (entity.ToString().Equals("Enemy"))
                     {
-                        Game._score += invader.GetPoint();
-                        // TODO : appel d'une méthode d'explosion des invader ?? ( au lieu de clear, mais pas compatible avec invaders.Remove(invader);)
-                        invader.Clear();
-                        invaders.Remove(invader);
-                        new SoundPlayer("..//..//Sounds//EnnemyDeath.wav").Play();
-                        return true;
+                        enemyIsHit = true;
+
+                        enemies.Add((Enemy)entity);
+                        
+                        entity.TakeDamage(_power);
+
+                        if (entity.IsDead())
+                        {
+                            enemyIsDead = true;
+                            a_game.IncreasePoint(((Enemy)entity).GetPoint());
+                            a_fleet.RemoveMember((Enemy)entity);
+                        }
+                    }
+                    else // ici c'est donc le vaisseau allié qui est touché
+                    {
+                        allyIsHit = true;
+                        a_game.AllyIsHit(_power);
                     }
                 }
+            }
+
+            if (enemyIsDead)
+            {
+                foreach(Enemy enemy in enemies)
+                {
+                    a_entities.Remove(enemy);
+                }
+                new SoundPlayer("..//..//Sounds//EnnemyDeath.wav").Play();
+                // TODO : appel d'une méthode d'explosion des invader ?? ( au lieu de clear, mais pas compatible avec invaders.Remove(invader);)
+            }
+
+            if (enemyIsHit || allyIsHit)
+            {
+                return true;
             }
 
             return false;
@@ -118,19 +168,17 @@ namespace SpicyInvader_V_01
 
         private void Clear()
         {
-            if (_position.X >= 0 && _position.Y >= 0)
+            if (_position.X >= 0 && _position.Y >= 0 && _position.Y <= 27) // TODO : mettre 27 en constant quelque part, ptetre dans ship
             {
-                Console.SetCursorPosition(_position.X, _position.Y);
-                Console.Write(" "); // voir en fonction de la taille du missile
+                _shape.Clear(_position);
             }
         }
 
         public void Draw()
         {
-            if (_position.Y != 0)
+            if (_position.Y != 0 && _position.Y <= 27) // TODO : mettre 27 en constant quelque part, ptetre dans ship
             {
-                Console.SetCursorPosition(_position.X, _position.Y);
-                Console.Write(_shape);
+                _shape.Draw(_position);
             }
         }
 

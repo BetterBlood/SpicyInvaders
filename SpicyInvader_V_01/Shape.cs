@@ -11,9 +11,9 @@ namespace SpicyInvader_V_01
         //on considère ici qu'une silhouhaite est réctangulaire
         private List<List<string>> _shapes;
         private List<int> _sizes; // la taille de la liste est sa hauteur // chaque nombre de la liste est la taille de la ligne
-        //private HitBox _hitbox; // TODO : faire une class hitbox ou bien faire un tableau de boolean
+        //private HitBox _hitbox; // TODO : faire une class hitbox contenant un tableau de boolean
 
-        private int _hightSize;
+        private int _hightWidth;
 
         //public Shape()
         //{
@@ -35,16 +35,16 @@ namespace SpicyInvader_V_01
 
         private void InitShape(string a_shapes)
         {
-            string[] test = a_shapes.Split('4'); // ATTENTION : on ne peut donc pas utiliser le chiffre 4 pour la construction de silhouette 
+            string[] shapeBoard = a_shapes.Split(Menu.STRING_SHAPE_SEPARATOR); // ATTENTION : voir la classe Menu si l'on souhaite utiliser un séparateur différent
 
-            for (int i = 0; i < test.Length; i++)
+            for (int i = 0; i < shapeBoard.Length; i++)
             {
                 _shapes.Add(new List<string>());
             }
 
-            for (int i = 0; i < test.Length; i++)
+            for (int i = 0; i < shapeBoard.Length; i++)
             {
-                foreach (char charInString in test[i])
+                foreach (char charInString in shapeBoard[i])
                 {
                     _shapes[i].Add(charInString.ToString());
                 }
@@ -59,17 +59,25 @@ namespace SpicyInvader_V_01
             {
                 _sizes.Add(_shapes[i].Count);
 
-                if (_hightSize < _shapes[i].Count)
+                if (_hightWidth < _shapes[i].Count)
                 {
-                    _hightSize = _shapes[i].Count;
+                    _hightWidth = _shapes[i].Count;
                 }
             }
 
         }
 
-        public int GetHorizontalLenght()
+        public int GetHorizontalLenght(int a_row)
         {
-            return _shapes[0].Count();
+            if (a_row > _shapes.Count - 1 || a_row < 0)
+            {
+                return 0;
+            }
+            else
+            {
+                return _shapes[0].Count();
+            }
+            
         }
 
         public int GetVerticalLenght()
@@ -79,7 +87,7 @@ namespace SpicyInvader_V_01
 
         public int GetHorizontalHightSize()
         {
-            return _hightSize;
+            return _hightWidth;
         }
 
         public List<List<string>> GetShape()

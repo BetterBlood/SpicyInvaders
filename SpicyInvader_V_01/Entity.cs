@@ -10,11 +10,13 @@ namespace SpicyInvader_V_01
     public abstract class Entity : ICanFire, IDrawable, IMovebale
     {
         private Shape _shape;
-        private Position _position;
+        private HitBox _hitBox;
 
-        private List<Missile> _missiles;
+        protected Position _position;
 
-        private int _lifePoints; // TODO : ajouter les point de vie ici et surtout dans la méthode qui dit si le truc touché est mort
+        protected List<Missile> _missiles;
+
+        protected int _lifePoints; // TODO : ajouter les point de vie dans la méthode qui dit si le truc touché est mort
 
         public Entity() : this(EnumDirection.DOWN) { }
 
@@ -23,9 +25,18 @@ namespace SpicyInvader_V_01
         public Entity(string a_shape, Position a_position, int a_nbrMissile, EnumDirection a_missileDirection)
         {
             _shape = new Shape(a_shape);
+            _hitBox = new HitBox(a_position, a_shape);
+
             _position = a_position;
-            
+
+            _lifePoints = 1;
+
             InitBasesMissiles(a_nbrMissile, a_missileDirection);
+        }
+
+        public List<Missile> GetMissiles()
+        {
+            return _missiles;
         }
 
         public void InitBasesMissiles(int a_missileNumber, EnumDirection a_missileDirection)
@@ -51,7 +62,7 @@ namespace SpicyInvader_V_01
             return false;
         }
 
-        public int GetMissileYPos()
+        public int GetMissileYPos() // TODO : il y a un truc bizarre dans cette méthode voir a quoi elle sert vraiment et la nommer en conséquence !
         {
             foreach (Missile missile in _missiles)
             {
@@ -89,7 +100,7 @@ namespace SpicyInvader_V_01
             {
                 if (!missile.IsFired())
                 {
-                    missile.Fire(new Position(_position.X + 2, _position.Y - 1));
+                    missile.Fire(new Position(_position.X + 2, _position.Y - 1)); // position de départ de missile peut être voir pour modifier selon le vaisseau
                     new SoundPlayer("..//..//Sounds//LazerFire.wav").Play();
                     return;
                 }
@@ -100,32 +111,31 @@ namespace SpicyInvader_V_01
             }
         }
 
-        public void UpdateMissile(Fleet a_fleet)
+        public void Fire(Position a_firePosition)
         {
             foreach (Missile missile in _missiles)
             {
-                if (missile.IsFired())
+                if (!missile.IsFired())
                 {
-                    if (missile.Move(a_fleet)) // on dessin le missile seulement s'il n'a pas explosé
-                    {
-                        missile.Draw();
-                    }
+                    missile.Fire(a_firePosition);
+                    // TODO : ptetre faire un son différent pour les ennemis
+                    return;
                 }
                 else
                 {
-                    // ne fait rien car le missile n'est pas lancé
+                    // nothing to do
                 }
             }
         }
 
-        public void Draw()
+        public virtual void Draw()
         {
-            _shape.Draw(new Position(_position.X, _position.Y));
+            _shape.Draw(_position);
         }
 
         public void Clear()
         {
-            _shape.Clear(new Position(_position.X, _position.Y));
+            _shape.Clear(_position);
         }
 
         public void PrivateMove(EnumDirection a_direction)
@@ -162,6 +172,46 @@ namespace SpicyInvader_V_01
                     //normalement pas possible de se déplacer dans d'autres directions, à voir....diagonales ?
                     break;
             }
+        }
+
+        public int GetX()
+        {
+            return _position.X;
+        }
+
+        public int GetY()
+        {
+            return _position.Y;
+        }
+
+        public int GetHorizontalHightSize()
+        {
+            return _shape.GetHorizontalHightSize();
+        }
+
+        public HitBox GetHitBox()
+        {
+            return _hitBox;
+        }
+
+        public override string ToString()
+        {
+            return "Entity";
+        }
+
+        public void TakeDamage(int a_damage)
+        {
+            _lifePoints -= a_damage;
+        }
+
+        public bool IsDead()
+        {
+            return _lifePoints > 0 ? false : true;
+        }
+
+        public int GetLife()
+        {
+            return _lifePoints;
         }
     }
 }

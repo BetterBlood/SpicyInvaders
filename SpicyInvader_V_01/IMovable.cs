@@ -8,8 +8,6 @@ namespace SpicyInvader_V_01
 {
     public interface IMovebale
     {
-
         void PrivateMove(EnumDirection a_direction);
-
     }
 }

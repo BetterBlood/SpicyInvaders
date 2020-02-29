@@ -8,8 +8,20 @@ namespace SpicyInvader_V_01
 {
     public class Position
     {
-        public int X { get; set; }
-        public int Y { get; set; }
+        private int x;
+        private int y;
+
+        public int X
+        {
+            get { return x; }
+            set { x = value; }
+        }
+        
+        public int Y
+        {
+            get { return y; }
+            set { y = value; }
+        }
 
         /// <summary>
         /// Constructeur
@@ -18,8 +30,17 @@ namespace SpicyInvader_V_01
         /// <param name="a_y">coordonnées verticale</param>
         public Position(int a_x, int a_y)
         {
-            X = a_x;
-            Y = a_y;
+            x = a_x;
+            y = a_y;
+        }
+        /// <summary>
+        /// constructeur de copie
+        /// </summary>
+        /// <param name="a_position">position que l'on veut clonner</param>
+        public Position(Position a_position)
+        {
+            x = a_position.X;
+            y = a_position.Y;
         }
 
         /// <summary>
@@ -29,7 +50,7 @@ namespace SpicyInvader_V_01
         /// <returns>true si la coordonnée x et la coordonnée y sont égales, false sinon</returns>
         public bool Equals(Position a_position)
         {
-            if (a_position.X == X && a_position.Y == Y)
+            if (a_position.X == x && a_position.Y == y)
             {
                 return true;
             }
