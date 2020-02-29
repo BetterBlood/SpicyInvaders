@@ -128,7 +128,7 @@ namespace SpicyInvader_V_01
             }
         }
 
-        public void Draw()
+        public virtual void Draw()
         {
             _shape.Draw(_position);
         }
@@ -207,6 +207,11 @@ namespace SpicyInvader_V_01
         public bool IsDead()
         {
             return _lifePoints > 0 ? false : true;
+        }
+
+        public int GetLife()
+        {
+            return _lifePoints;
         }
     }
 }

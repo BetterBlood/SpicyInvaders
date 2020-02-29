@@ -11,6 +11,9 @@ namespace SpicyInvader_V_01
     {
         public Ship() : base ("_/-\\_4 \\*/ ", new Position(50, 26), 2) { }
 
-        public Ship(string a_shape) : base(a_shape, new Position(50, 26), 2) { }
+        public Ship(string a_shape) : base (a_shape, new Position(50, 26), 2) { }
+
+        public Ship(int a_lifePoint) : base("_/-\\_4 \\*/ ", new Position(50, 26), 2, a_lifePoint) { }
+
     }
 }

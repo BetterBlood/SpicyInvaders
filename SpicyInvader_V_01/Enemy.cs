@@ -24,7 +24,7 @@ namespace SpicyInvader_V_01
             _rightDirection = a_rightDirection;
             _startYPosition = a_position.Y;
 
-            _isInFrontLane = true; // TODO : initialiser a false ! mais d'abord faire une méthode qui mets automatiquement le premier space ivader en frontlane !
+            _isInFrontLane = false; // TODO : initialiser a false ! mais d'abord faire une méthode qui mets automatiquement le premier space ivader en frontlane !
             _random = new Random();
         }
 
@@ -99,9 +99,25 @@ namespace SpicyInvader_V_01
             }
         }
 
+        public void SetFireStatue(bool a_isAbleToFire)
+        {
+            _isInFrontLane = a_isAbleToFire;
+        }
+
         protected virtual Position GetFirePosition()
         {
             return new Position(_position.X + 2, _position.Y + 1); // TODO : redéfinir ça dans boss mot clé : new !
+        }
+        
+        public override void Draw() // TODO : ptetre enlever ça c'est pour le débug
+        {
+            if (_isInFrontLane)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+            }
+            
+            base.Draw();
+            Console.ForegroundColor = ConsoleColor.Gray;
         }
     }
 }

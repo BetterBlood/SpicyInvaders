@@ -9,6 +9,7 @@ namespace SpicyInvader_V_01
     public class Fleet
     {
         private int _numberOfInvader;
+        private int _fleetLevel;
 
         private List<Enemy> _enemies;
 
@@ -18,26 +19,28 @@ namespace SpicyInvader_V_01
 
         public Fleet() : this(3) { }
 
-        public Fleet(int a_fleetLevel) : this (a_fleetLevel, false) { }
+        public Fleet(int a_fleetLevel) : this (a_fleetLevel, a_fleetLevel%5 == 0) { }
 
         public Fleet(int a_fleetLevel, bool a_bossStage)
         {
+            _fleetLevel = a_fleetLevel;
             _enemies = new List<Enemy>();
 
             _bossStage = a_bossStage; 
-            //_bossStage = true; // TODO : c'est un test pour calibrer les missile du boss
-            InitEnemies(a_fleetLevel);
+            //_bossStage = true; // TODO : c'est un test pour calibrer les missile du boss, le boss se tire sur lui même....
+            InitEnemies();
+            SetFireRight();
         }
 
-        private void InitEnemies(int a_fleetLevel)
+        private void InitEnemies()
         {
             if (_bossStage)
             {
-                InitBosses(a_fleetLevel / 5); // TODO : utiliser un chiffre prédéfinit quelquepart car il represente la distance entre deux stage de BOSS
+                InitBosses(_fleetLevel / 5); // TODO : utiliser un chiffre prédéfinit quelquepart car il represente la distance entre deux stage de BOSS
             }
             else
             {
-                InitInvaders(a_fleetLevel);
+                InitInvaders(_fleetLevel);
             }
         }
 
@@ -88,6 +91,42 @@ namespace SpicyInvader_V_01
         {
             a_enemy.Clear();
             _enemies.Remove(a_enemy);
+
+            SetFireRight(); // new Position(a_enemy.GetX(), a_enemy.GetY())
+        }
+
+        public void SetFireRight(Position a_position)
+        {
+            int x = a_position.X;
+            int y = a_position.Y;
+
+            Enemy enemy_tmp = null;
+
+            foreach (Enemy enemy in _enemies)
+            {
+                if (enemy.GetX() == x)
+                {
+                    if (enemy.GetY() >= y)
+                    {
+                        enemy_tmp = enemy;
+                        y = enemy_tmp.GetY();
+                    }
+                }
+            }
+
+            if (enemy_tmp != null)
+            {
+                enemy_tmp.SetFireStatue(true);
+            }
+        }
+
+        private void SetFireRight()
+        {
+            // TODO : éventuellement trouver un moyen pour que l'on ne fasse que la preière ligne mais pas grave (optimisation)
+            foreach(Enemy enemy in _enemies)
+            {
+                SetFireRight(new Position(enemy.GetX(), enemy.GetY()));
+            }
         }
 
         public List<Enemy> GetMembers()
@@ -110,5 +149,11 @@ namespace SpicyInvader_V_01
         {
             _yFleet++;
         }
+
+        public string GetLvl()
+        {
+            return _fleetLevel.ToString();
+        }
+        
     }
 }

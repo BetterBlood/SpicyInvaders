@@ -118,6 +118,7 @@ namespace SpicyInvader_V_01
         {
             List<Enemy> enemies = new List<Enemy>();
             bool enemyIsHit = false;
+            bool allyIsHit = false;
             bool enemyIsDead = false;
 
             foreach (Entity entity in a_entities)
@@ -141,6 +142,7 @@ namespace SpicyInvader_V_01
                     }
                     else // ici c'est donc le vaisseau allié qui est touché
                     {
+                        allyIsHit = true;
                         a_game.AllyIsHit(_power);
                     }
                 }
@@ -156,7 +158,7 @@ namespace SpicyInvader_V_01
                 // TODO : appel d'une méthode d'explosion des invader ?? ( au lieu de clear, mais pas compatible avec invaders.Remove(invader);)
             }
 
-            if (enemyIsHit)
+            if (enemyIsHit || allyIsHit)
             {
                 return true;
             }

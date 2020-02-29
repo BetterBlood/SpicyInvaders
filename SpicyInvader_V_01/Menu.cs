@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,15 @@ namespace SpicyInvader_V_01
         private const string LOAD = "charger";
         private const string SETTINGS = "parametres";
         private const string LEAVE = "quitter";
+        private const string BACK = "retour";
+
+        private const string SLOT_1 = "Slot 1";
+        private const string SLOT_2 = "Slot 2";
+        private const string SLOT_3 = "Slot 3";
+        
+        private readonly string PATH_SLOT_1;
+        private readonly string PATH_SLOT_2;
+        private readonly string PATH_SLOT_3;
 
         public const string MAIN_MENU = "menu principale";
         public const string PAUSE = "pause";
@@ -21,27 +31,34 @@ namespace SpicyInvader_V_01
 
         public const int MISSILE_DISPLAY_POSITION_X = 30;
         public const int MISSILE_DISPLAY_POSITION_Y = 29;
-
+        // TODO : faire aussi les coordonnée des autre HUD en const
 
         public const char STRING_SHAPE_SEPARATOR = '4';  // ATTENTION : on ne peut donc pas utiliser le chiffre 4 pour la construction de silhouette 
 
-        public void ShowMenu(string a_menuType)
+        public Menu()
+        {
+            PATH_SLOT_1 = Path.GetFullPath("slot_1.txt");
+            PATH_SLOT_2 = Path.GetFullPath("slot_2.txt");
+            PATH_SLOT_3 = Path.GetFullPath("slot_3.txt");
+        }
+
+        public void ShowMenu(string a_menuType, Game a_game)
         {
             if (a_menuType.Equals(PAUSE))
             {
-                ShowPauseMenu();
+                ShowPauseMenu(a_game);
             }
             else if (a_menuType.Equals(MAIN_MENU))
             {
-                ShowMainMenu();
+                ShowMainMenu(a_game);
             }
             else if (a_menuType.Equals(GAME_OVER))
             {
-                ShowGameOverMenu();
+                ShowGameOverMenu(a_game);
             }
         }
 
-        private void ShowMainMenu()
+        private void ShowMainMenu(Game a_game)
         {
             Console.Clear();
 
@@ -103,7 +120,8 @@ namespace SpicyInvader_V_01
                             break;
 
                         case 2: // charger
-                            // TODO : méthode permettant d'atteindre les slot de sauvegarde de la partie en mode charger une partie (il doit être possible de revenir en arrière vers ce menu)
+                            ShowSlotMenu(false, a_game);
+                            // TODO : méthode permettant d'atteindre les slot de sauvegarde de la partie en mode charger une partie (il doit être possible de revenir en arrière vers ce menu) normalement c'est bon
                             break;
 
                         case 3: // parametres
@@ -127,7 +145,135 @@ namespace SpicyInvader_V_01
             }
         }
 
-        private void ShowPauseMenu()
+        private void ShowSlotMenu(bool abbleToSave, Game a_game)
+        {
+            // le boolean c'est pour dire si on est en mode écriture, en gros si c'est true alors on peut écraser les saves et sauver à la place
+            string save1 = File.ReadAllText(PATH_SLOT_1);
+            string save2 = File.ReadAllText(PATH_SLOT_2);
+            string save3 = File.ReadAllText(PATH_SLOT_3);
+
+            string[] tab = {SLOT_1 + " " + save1.Split('!')[0].Split('?')[1], SLOT_2 + " " + save2.Split('!')[0].Split('?')[1], SLOT_3 + " " + save3.Split('!')[0].Split('?')[1], BACK};
+
+            Console.Clear();
+
+            int place = 0;
+            bool back = false;
+
+            ConsoleKeyInfo key;
+
+            while (!back)
+            {
+                int x = 0;
+
+                // affichage du menu
+                foreach (string affichage in tab)
+                {
+                    if (x == place) // surlignement en jaune du text concerné
+                    {
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.SetCursorPosition(Console.WindowWidth / 2 - tab[x].Length / 2, Console.WindowHeight / 3 + x * 2);
+                        Console.WriteLine(tab[x]);
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Gray;
+                        Console.SetCursorPosition(Console.WindowWidth / 2 - tab[x].Length / 2, Console.WindowHeight / 3 + x * 2);
+                        Console.WriteLine(tab[x]);
+                    }
+
+                    x++;
+                }
+
+                key = Console.ReadKey();
+
+                switch(key.Key)
+                {
+                    case ConsoleKey.DownArrow:
+                        if (place < tab.Length - 1)
+                        {
+                            place++;
+                        }
+                        break;
+
+                    case ConsoleKey.UpArrow:
+                        if (place > 0)
+                        {
+                            place--;
+                        }
+                        break;
+
+                    case ConsoleKey.Enter:
+                    case ConsoleKey.Spacebar:
+                        switch (place)
+                        {
+                            case 0: // slot 1
+                                if (abbleToSave)
+                                {
+                                    File.WriteAllText(PATH_SLOT_1, Convert.ToString(a_game.GetSaveStat()));
+                                }
+                                else if (!save1.Equals(""))
+                                {
+                                    string save = save1;
+                                    string[] saveSplit = save.Split('!');
+                                    // 0 = date
+                                    string[] score = saveSplit[1].Split('?');
+                                    string[] fleetLevel = saveSplit[2].Split('?');
+                                    string[] shipStats = saveSplit[3].Split('?');
+                                    string[] shipLife = shipStats[1].Split('.');
+
+                                    a_game.LoadGame(Convert.ToInt32(score[1]), Convert.ToInt32(fleetLevel[1]), Convert.ToInt32(shipLife[1]));
+                                }
+                                break;
+
+                            case 1: // slot 2
+                                if (abbleToSave)
+                                {
+                                    File.WriteAllText(PATH_SLOT_2, Convert.ToString(a_game.GetSaveStat()));
+                                }
+                                else if (!save2.Equals(""))
+                                {
+                                    string save = save2;
+                                    string[] saveSplit = save.Split('!');
+                                    // 0 = date
+                                    string[] score = saveSplit[1].Split('?');
+                                    string[] fleetLevel = saveSplit[2].Split('?');
+                                    string[] shipStats = saveSplit[3].Split('?');
+                                    string[] shipLife = shipStats[1].Split('.');
+
+                                    a_game.LoadGame(Convert.ToInt32(score[1]), Convert.ToInt32(fleetLevel[1]), Convert.ToInt32(shipLife[1]));
+                                }
+                                break;
+
+                            case 2: // slot 3
+                                if (abbleToSave)
+                                {
+                                    File.WriteAllText(PATH_SLOT_3, Convert.ToString(a_game.GetSaveStat()));
+                                }
+                                else if (!save3.Equals(""))
+                                {
+                                    string save = save3;
+                                    string[] saveSplit = save.Split('!');
+                                    // 0 = date
+                                    string[] score = saveSplit[1].Split('?');
+                                    string[] fleetLevel = saveSplit[2].Split('?');
+                                    string[] shipStats = saveSplit[3].Split('?');
+                                    string[] shipLife = shipStats[1].Split('.');
+
+                                    a_game.LoadGame(Convert.ToInt32(score[1]), Convert.ToInt32(fleetLevel[1]), Convert.ToInt32(shipLife[1]));
+                                }
+                                break;
+
+                            case 3: // on retourne au menu précédent
+                                back = true;
+                                Console.Clear();
+                                break;
+                        }
+                        break;
+                }
+            }
+        }
+
+        private void ShowPauseMenu(Game a_game)
         {
             bool reprendre = false;
 
@@ -136,11 +282,11 @@ namespace SpicyInvader_V_01
             Console.Clear();
 
             int place = 0;
+            
+            ConsoleKeyInfo key;
 
             while (!reprendre)
             {
-                ConsoleKeyInfo key;
-
                 int x = 0;
 
                 // affichage du menu
@@ -179,15 +325,14 @@ namespace SpicyInvader_V_01
                         case 0: // continuer
                             reprendre = true; // permet de continuer la partie
                             Console.Clear();
-                            // TODO : méthode qui efface le menu !!!
                             break;
 
                         case 1: // sauvegarder
-                            // TODO : méthode permettant d'atteindre les slot de sauvegarde de la partie en mode sauvegarde (il doit être possible de revenir en arrière vers ce menu)
+                            ShowSlotMenu(true, a_game);
                             break;
 
                         case 2: // charger
-                            // TODO : méthode permettant d'atteindre les slot de sauvegarde de la partie en mode charger une partie (il doit être possible de revenir en arrière vers ce menu)
+                            ShowSlotMenu(false, a_game);
                             break;
 
                         case 3: // parametres
@@ -208,7 +353,7 @@ namespace SpicyInvader_V_01
 
         }
     
-        private void ShowGameOverMenu()
+        private void ShowGameOverMenu(Game a_game)
         {
             Console.Clear();
             string[] tab = {NEW_GAME, LOAD, SETTINGS, MAIN_MENU, LEAVE };
@@ -259,10 +404,11 @@ namespace SpicyInvader_V_01
                     {
                         case 0: // nouvelle partie
                             newGame = true;
-                            // TODO : appeler une méthode qui réinitialise les stat de la partie (surment sans sauver la partie en cour s'il y en a une)
+                            a_game.ResetGame();
                             Console.Clear();
                             break;
                         case 1: // charger
+                            ShowSlotMenu(false, a_game);
                             // TODO : méthode permettant d'atteindre les slot de sauvegarde de la partie en mode charger une partie (il doit être possible de revenir en arrière vers ce menu)
                             Console.Clear();
                             load = true;
@@ -282,26 +428,26 @@ namespace SpicyInvader_V_01
                     }
                 }
 
-                if (newGame)
+                if (newGame || load)
                 {
-                    // Game.newGame = true;
-                    break; // TODO : pour l'instant on break simplement mais après il faudra ptetre rediriger pour que ça lance une partie on verra
-                }
-                else if (load)
-                {
-                    break; // TODO : charger les fichiers de sauvegarde et prendre le plus récent pour loader cette partie
+                    break; // TODO : pour l'instant on break simplement le while(pour sortir du menu) mais après il faudra ptetre rediriger ailleurs
                 }
             }
         }
 
         public void DisplayScore()
         {
-            Console.SetCursorPosition(30, 25);
+            Console.SetCursorPosition(30, 33); // TODO : mettre en constante les valeur du display
             Console.Write("score : {0}", Game._score);
         }
 
-        public void DisplayHUV(Ship a_ship)
+        public void DisplayHUD(Ship a_ship)
         {
+            // début // scores :
+            DisplayScore();
+            // fin // scores
+
+            // début // missiles :
             int missileTotal = a_ship.GetMissilesCapacity();
             int CurrentNbrMissile = a_ship.HowManyMissilesLeft();
             string realoadind = "             ";
@@ -320,6 +466,16 @@ namespace SpicyInvader_V_01
             Console.ForegroundColor = ConsoleColor.Gray;
 
             Console.Write(realoadind);
+            // fin // missiles
+
+            // début // vie :
+
+            Console.SetCursorPosition(30, 31); // TODO : mettre en constante les valeur du display
+            Console.WriteLine("vies : " + a_ship.GetLife());
+
+
+            // fin // vie
+
         }
     }
 }

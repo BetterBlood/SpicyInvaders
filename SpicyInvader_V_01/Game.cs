@@ -8,7 +8,7 @@ namespace SpicyInvader_V_01
 {
     public class Game
     {
-        private int fleetLvl = 1;
+        private int _fleetLvl;
 
         static public int _score; // static public car on a besoin de pouvoir le modifier et de l'atteindre dans le main ainsi que dans d'autres classes
 
@@ -28,6 +28,7 @@ namespace SpicyInvader_V_01
             _ship = new Ship();
 
             _score = 0; // TODO : ne pas oublié de récupéré le score dans le fichier adéquats si nécessaire
+            _fleetLvl = 1;
 
             _menu = new Menu();
 
@@ -51,7 +52,7 @@ namespace SpicyInvader_V_01
 
         public void Begin()
         {
-            _menu.ShowMenu(Menu.MAIN_MENU);
+            _menu.ShowMenu(Menu.MAIN_MENU, this);
         }
 
         public void Update(int a_tics)
@@ -87,7 +88,7 @@ namespace SpicyInvader_V_01
 
                     //MENU PAUSE
                     case ConsoleKey.I:
-                        _menu.ShowMenu(Menu.PAUSE);
+                        _menu.ShowMenu(Menu.PAUSE, this);
                         break;
 
                 }
@@ -114,24 +115,26 @@ namespace SpicyInvader_V_01
 
                 if (_ship.IsDead(_fleet))
                 {
-                    _menu.ShowMenu(Menu.GAME_OVER);
+                    _menu.ShowMenu(Menu.GAME_OVER, this);
                 }
-
-                _menu.DisplayScore();
-                _menu.DisplayHUV(_ship);
+                
+                _menu.DisplayHUD(_ship);
 
                 if (_fleet.FleetIsDefeated())
                 {
-                    fleetLvl++;
+                    _fleetLvl++;
 
-                    if (fleetLvl%5 == 0) // boss stage // TODO : voir avec la class Level
+                    // TODO : afficher les bonus si c'est un bossStage
+                    // TODO : afficher le menu pour sauver 
+
+                    if (_fleetLvl%5 == 0) // boss stage // TODO : voir avec la class Level
                     {
-                        _fleet = new Fleet(fleetLvl, true);
+                        _fleet = new Fleet(_fleetLvl, true);
                         InitEntities();
                     }
                     else
                     {
-                        _fleet = new Fleet(fleetLvl, false);
+                        _fleet = new Fleet(_fleetLvl, false);
                         InitEntities();
                     }
                 }
@@ -146,6 +149,59 @@ namespace SpicyInvader_V_01
         public void IncreasePoint(int a_pointNumber)
         {
             _score += a_pointNumber;
+        }
+
+        public void ResetGame()
+        {
+            _fleet = new Fleet();
+            _ship = new Ship();
+
+            _score = 0; // TODO : ne pas oublié de récupéré le score dans le fichier adéquats si nécessaire
+
+            _menu = new Menu();
+
+            InitEntities();
+        }
+
+        public string GetSaveStat() // return une string qui donne toutes les infos nécessaire pour la sauvegarde
+        {
+            // on va faire pour l'instant que l'on peut save le niveau mais pas l'état exact des ennemis
+            // donc on a besoin pour ça d'avoir :
+
+            //      la date de la sauvegarde ( ce serait bien si on pourrait l'afficher, voir avec adri pour le designe, afficher aussi le lvl, le nombre de vie et le score)
+            //      le lvl de la fleet
+            //      l'état du ship
+            //      le score
+            //      je crois que c'est tout
+
+            //  ptetre en fait on va faire qu'on peut save seulement entre les lvl
+
+            string save = "";
+            string separator = "!";
+
+            save += "Date?" + DateTime.Now;
+            save += separator;
+            save += "score?" + _score;
+            save += separator;
+            save += "fleet_lvl?" + _fleet.GetLvl();
+            save += separator;
+            save += "ship_State?" + _ship.GetSaveStat();
+
+
+
+            return save;
+        }
+
+        public void LoadGame(int a_score, int a_fleetLevel, int a_shipLife)
+        {
+            _fleetLvl = a_fleetLevel;
+            _score = a_score;
+
+            _fleet = new Fleet(_fleetLvl);
+            _ship = new Ship(a_shipLife);
+            _menu = new Menu();
+
+            InitEntities();
         }
     }
 }

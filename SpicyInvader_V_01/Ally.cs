@@ -8,9 +8,11 @@ namespace SpicyInvader_V_01
 {
     abstract public class Ally : Entity
     {
-        public Ally(string a_shape, Position a_position, int a_nbrMissile) : base (a_shape, a_position, a_nbrMissile, EnumDirection.UP) 
+        public Ally(string a_shape, Position a_position, int a_nbrMissile) : this (a_shape, a_position, a_nbrMissile, 3) { }
+
+        public Ally(string a_shape, Position a_position, int a_nbrMissile, int a_lifePoint) : base(a_shape, a_position, a_nbrMissile, EnumDirection.UP)
         {
-            _lifePoints = 3;
+            _lifePoints = a_lifePoint;
         }
 
         public bool IsDead(Fleet a_fleet) // TODO implémenter ça dans Ally je pense !
@@ -29,6 +31,11 @@ namespace SpicyInvader_V_01
         public override string ToString()
         {
             return "Ally";
+        }
+
+        public string GetSaveStat()
+        {
+            return "life." + _lifePoints;
         }
     }
 }
