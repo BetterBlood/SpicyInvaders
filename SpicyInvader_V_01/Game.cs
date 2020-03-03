@@ -19,6 +19,8 @@ namespace SpicyInvader_V_01
         private List<Entity> _allEntities;
         private List<List<Missile>> _allMissiles;
 
+        private List<Level> _levels;
+
         public Game()
         {
             Console.WindowWidth = 71;
@@ -27,8 +29,11 @@ namespace SpicyInvader_V_01
             _fleet = new Fleet();
             _ship = new Ship();
 
-            _score = 0; // TODO : ne pas oublié de récupéré le score dans le fichier adéquats si nécessaire
+            _score = 0;
             _fleetLvl = 1;
+
+            _levels = new List<Level>();
+            _levels.Add(new Level(_fleetLvl));
 
             _menu = new Menu();
 

@@ -9,7 +9,7 @@ namespace SpicyInvader_V_01
     public class Level
     {
         private int _lvlNumber;
-        private Fleet fleet;
+        private Fleet _fleet;
 
         private bool _bossStage;
 
@@ -19,13 +19,18 @@ namespace SpicyInvader_V_01
 
             _bossStage = false;
 
-            if (_lvlNumber % 9 == 0)
+            if (_lvlNumber % 5 == 0)
             {
                 _bossStage = true;
             }
 
-            fleet = new Fleet(a_lvl, _bossStage);
+            _fleet = new Fleet(a_lvl, _bossStage);
 
+        }
+
+        public Fleet GetFleet()
+        {
+            return _fleet;
         }
     }
 }

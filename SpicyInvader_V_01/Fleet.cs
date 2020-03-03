@@ -27,7 +27,7 @@ namespace SpicyInvader_V_01
             _enemies = new List<Enemy>();
 
             _bossStage = a_bossStage; 
-            //_bossStage = true; // TODO : c'est un test pour calibrer les missile du boss, le boss se tire sur lui même....
+            //_bossStage = true; // TODO : c'est un test pour calibrer les missile du boss
             InitEnemies();
             SetFireRight();
         }
