@@ -28,6 +28,7 @@ namespace SpicyInvader_V_01
         public const string MAIN_MENU = "menu principale";
         public const string PAUSE = "pause";
         public const string GAME_OVER = "game over";
+        public const string STAGE_WIN = "stage win";
 
         public const int MISSILE_DISPLAY_POSITION_X = 30;
         public const int MISSILE_DISPLAY_POSITION_Y = 29;
@@ -55,6 +56,10 @@ namespace SpicyInvader_V_01
             else if (a_menuType.Equals(GAME_OVER))
             {
                 ShowGameOverMenu(a_game);
+            }
+            else if (a_menuType.Equals(STAGE_WIN))
+            {
+                ShowWinMenu(a_game);
             }
         }
 
@@ -209,7 +214,7 @@ namespace SpicyInvader_V_01
                             case 0: // slot 1
                                 if (abbleToSave)
                                 {
-                                    File.WriteAllText(PATH_SLOT_1, Convert.ToString(a_game.GetSaveStat()));
+                                    File.WriteAllText(PATH_SLOT_1, a_game.GetSaveStat());
                                 }
                                 else if (!save1.Equals(""))
                                 {
@@ -228,7 +233,7 @@ namespace SpicyInvader_V_01
                             case 1: // slot 2
                                 if (abbleToSave)
                                 {
-                                    File.WriteAllText(PATH_SLOT_2, Convert.ToString(a_game.GetSaveStat()));
+                                    File.WriteAllText(PATH_SLOT_2, a_game.GetSaveStat());
                                 }
                                 else if (!save2.Equals(""))
                                 {
@@ -247,7 +252,7 @@ namespace SpicyInvader_V_01
                             case 2: // slot 3
                                 if (abbleToSave)
                                 {
-                                    File.WriteAllText(PATH_SLOT_3, Convert.ToString(a_game.GetSaveStat()));
+                                    File.WriteAllText(PATH_SLOT_3, a_game.GetSaveStat());
                                 }
                                 else if (!save3.Equals(""))
                                 {
@@ -271,6 +276,81 @@ namespace SpicyInvader_V_01
                         break;
                 }
             }
+        }
+
+        private void ShowWinMenu(Game a_game)
+        {
+            bool reprendre = false;
+
+            string[] tab = { CONTINUE, SAVE, SETTINGS, MAIN_MENU, LEAVE};
+
+            Console.Clear();
+
+            int place = 0;
+
+            ConsoleKeyInfo key;
+
+            while (!reprendre)
+            {
+                int x = 0;
+
+                // affichage du menu
+                foreach (string affichage in tab) // TODO : faire une méthode pour ça !!! et regarder dans les autre méthodes car c'est pareil !!!!
+                {
+                    if (x == place) // surlignement en jaune du text concerné
+                    {
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.SetCursorPosition(Console.WindowWidth / 2 - tab[x].Length / 2, Console.WindowHeight / 3 + x * 2);
+                        Console.WriteLine(tab[x]);
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Gray;
+                        Console.SetCursorPosition(Console.WindowWidth / 2 - tab[x].Length / 2, Console.WindowHeight / 3 + x * 2);
+                        Console.WriteLine(tab[x]);
+                    }
+
+                    x++;
+                }
+
+                key = Console.ReadKey();
+
+                if (key.Key == ConsoleKey.DownArrow && place < tab.Length - 1)
+                {
+                    place++;
+                }
+                else if (key.Key == ConsoleKey.UpArrow && place > 0)
+                {
+                    place--;
+                }
+                else if (key.Key == ConsoleKey.Enter || key.Key == ConsoleKey.Spacebar)
+                {
+                    switch (place)
+                    {
+                        case 0: // continue
+                            reprendre = true;
+                            break;
+                        case 1: // save
+                            ShowSlotMenu(true, a_game);
+                            Console.Clear();
+                            break;
+
+                        case 2: // parametres
+                            // TODO : méthode permettant d'atteindre les réglages
+                            break;
+
+                        case 3: // menu principale
+                            // TODO : méthode permettant d'atteindre le menu principale
+                            // voir si ça perd la sauvegarde mais du coup depuis le menu principale si on fait continue on continue la partie courante
+                            break;
+
+                        case 4: // quitter
+                            Environment.Exit(0);
+                            break;
+                    }
+                }
+            }
+            Console.Clear();
         }
 
         private void ShowPauseMenu(Game a_game)
@@ -435,17 +515,25 @@ namespace SpicyInvader_V_01
             }
         }
 
+        public void DisplayLevel(int a_level)
+        {
+            Console.SetCursorPosition(0, 0);
+            Console.Write("Level : " + a_level);
+        }
+
         public void DisplayScore()
         {
             Console.SetCursorPosition(30, 33); // TODO : mettre en constante les valeur du display
             Console.Write("score : {0}", Game._score);
         }
 
-        public void DisplayHUD(Ship a_ship)
+        public void DisplayHUD(Ship a_ship, int a_level)
         {
             // début // scores :
             DisplayScore();
             // fin // scores
+
+            DisplayLevel(a_level);
 
             // début // missiles :
             int missileTotal = a_ship.GetMissilesCapacity();

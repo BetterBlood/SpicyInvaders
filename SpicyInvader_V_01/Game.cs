@@ -8,8 +8,6 @@ namespace SpicyInvader_V_01
 {
     public class Game
     {
-        private int _fleetLvl;
-
         static public int _score; // static public car on a besoin de pouvoir le modifier et de l'atteindre dans le main ainsi que dans d'autres classes
 
         private Fleet _fleet;
@@ -19,7 +17,7 @@ namespace SpicyInvader_V_01
         private List<Entity> _allEntities;
         private List<List<Missile>> _allMissiles;
 
-        private List<Level> _levels;
+        private Level _level;
 
         public Game()
         {
@@ -30,10 +28,8 @@ namespace SpicyInvader_V_01
             _ship = new Ship();
 
             _score = 0;
-            _fleetLvl = 1;
 
-            _levels = new List<Level>();
-            _levels.Add(new Level(_fleetLvl));
+            _level = new Level(1);
 
             _menu = new Menu();
 
@@ -122,26 +118,34 @@ namespace SpicyInvader_V_01
                 {
                     _menu.ShowMenu(Menu.GAME_OVER, this);
                 }
-                
-                _menu.DisplayHUD(_ship);
+                else
+                {
+                    _menu.DisplayHUD(_ship, _level.GetLevel());
+                }
 
                 if (_fleet.FleetIsDefeated())
                 {
-                    _fleetLvl++;
+                    _level.LevelUP();
+                    _fleet = _level.GetFleet();
+                    
+                    InitEntities();
+
+                    _menu.ShowMenu(Menu.STAGE_WIN, this);
 
                     // TODO : afficher les bonus si c'est un bossStage
                     // TODO : afficher le menu pour sauver 
-
+                    /*
                     if (_fleetLvl%5 == 0) // boss stage // TODO : voir avec la class Level
                     {
                         _fleet = new Fleet(_fleetLvl, true);
+                        
                         InitEntities();
                     }
                     else
                     {
                         _fleet = new Fleet(_fleetLvl, false);
                         InitEntities();
-                    }
+                    }*/
                 }
             }
         }
@@ -188,7 +192,7 @@ namespace SpicyInvader_V_01
             save += separator;
             save += "score?" + _score;
             save += separator;
-            save += "fleet_lvl?" + _fleet.GetLvl();
+            save += "fleet_lvl?" + _level.GetLevel();
             save += separator;
             save += "ship_State?" + _ship.GetSaveStat();
 
@@ -199,10 +203,10 @@ namespace SpicyInvader_V_01
 
         public void LoadGame(int a_score, int a_fleetLevel, int a_shipLife)
         {
-            _fleetLvl = a_fleetLevel;
+            _level = new Level(a_fleetLevel);
             _score = a_score;
 
-            _fleet = new Fleet(_fleetLvl);
+            _fleet = _level.GetFleet();
             _ship = new Ship(a_shipLife);
             _menu = new Menu();
 
