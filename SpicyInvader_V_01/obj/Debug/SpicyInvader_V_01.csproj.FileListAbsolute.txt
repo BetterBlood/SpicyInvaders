@@ -1,0 +1,14 @@
+F:\Projet\space invader\SpicyInvaders\SpicyInvader_V_01\obj\Debug\SpicyInvader_V_01.csproj.CoreCompileInputs.cache
+F:\Projet\space invader\SpicyInvaders\SpicyInvader_V_01\obj\Debug\SpicyInvader_V_01.csprojResolveAssemblyReference.cache
+F:\Projet\space invader\SpicyInvaders\SpicyInvader_V_01\bin\Debug\SpicyInvader_V_01.exe.config
+F:\Projet\space invader\SpicyInvaders\SpicyInvader_V_01\bin\Debug\SpicyInvader_V_01.exe
+F:\Projet\space invader\SpicyInvaders\SpicyInvader_V_01\bin\Debug\SpicyInvader_V_01.pdb
+F:\Projet\space invader\SpicyInvaders\SpicyInvader_V_01\obj\Debug\SpicyInvader_V_01.exe
+F:\Projet\space invader\SpicyInvaders\SpicyInvader_V_01\obj\Debug\SpicyInvader_V_01.pdb
+F:\Projet\Space invader\SpacyInvaderPasGit2\SpicyInvader_V_01\bin\Debug\SpicyInvader_V_01.exe.config
+F:\Projet\Space invader\SpacyInvaderPasGit2\SpicyInvader_V_01\bin\Debug\SpicyInvader_V_01.exe
+F:\Projet\Space invader\SpacyInvaderPasGit2\SpicyInvader_V_01\bin\Debug\SpicyInvader_V_01.pdb
+F:\Projet\Space invader\SpacyInvaderPasGit2\SpicyInvader_V_01\obj\Debug\SpicyInvader_V_01.csprojAssemblyReference.cache
+F:\Projet\Space invader\SpacyInvaderPasGit2\SpicyInvader_V_01\obj\Debug\SpicyInvader_V_01.csproj.CoreCompileInputs.cache
+F:\Projet\Space invader\SpacyInvaderPasGit2\SpicyInvader_V_01\obj\Debug\SpicyInvader_V_01.exe
+F:\Projet\Space invader\SpacyInvaderPasGit2\SpicyInvader_V_01\obj\Debug\SpicyInvader_V_01.pdb
