@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+ * ETML
+ * Auteur : Jeremiah, Adrian, Laetitia et Toine
+ * Date : Mars 2020
+ * Desciption : la classe Game
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +14,9 @@ namespace SpicyInvader_V_01
 {
     public class Game
     {
+        /// <summary>
+        /// Attributs
+        /// </summary>
         static public int _score; // static public car on a besoin de pouvoir le modifier et de l'atteindre dans le main ainsi que dans d'autres classes
 
         private Fleet _fleet;
@@ -19,6 +28,9 @@ namespace SpicyInvader_V_01
 
         private Level _level;
 
+        /// <summary>
+        /// Constructeur par défaut
+        /// </summary>
         public Game()
         {
             Console.WindowWidth = 71;
@@ -36,6 +48,9 @@ namespace SpicyInvader_V_01
             InitEntities();
         }
 
+        /// <summary>
+        /// Ajout des entités dans les listes
+        /// </summary>
         private void InitEntities()
         {
             _allEntities = new List<Entity>();
@@ -51,11 +66,18 @@ namespace SpicyInvader_V_01
             }
         }
 
+        /// <summary>
+        /// Lance le menu principal
+        /// </summary>
         public void Begin()
         {
             _menu.ShowMenu(Menu.MAIN_MENU, this);
         }
 
+        /// <summary>
+        /// Actualise du jeu en cours de partie
+        /// </summary>
+        /// <param name="a_tics"></param>
         public void Update(int a_tics)
         {
             if (Console.KeyAvailable)
@@ -150,16 +172,27 @@ namespace SpicyInvader_V_01
             }
         }
 
+        /// <summary>
+        /// Appel une méthode enlevant des points de vie à une unité
+        /// </summary>
+        /// <param name="a_power"></param>
         public void AllyIsHit(int a_power)
         {
             _ship.TakeDamage(a_power);
         }
 
+        /// <summary>
+        /// Mise à jour du score
+        /// </summary>
+        /// <param name="a_pointNumber"></param>
         public void IncreasePoint(int a_pointNumber)
         {
             _score += a_pointNumber;
         }
 
+        /// <summary>
+        /// Reignisialisation d'une partie
+        /// </summary>
         public void ResetGame()
         {
             _fleet = new Fleet();
@@ -172,6 +205,10 @@ namespace SpicyInvader_V_01
             InitEntities();
         }
 
+        /// <summary>
+        /// String comptenant les informations de la sauvegarde
+        /// </summary>
+        /// <returns></returns>
         public string GetSaveStat() // return une string qui donne toutes les infos nécessaire pour la sauvegarde
         {
             // on va faire pour l'instant que l'on peut save le niveau mais pas l'état exact des ennemis
@@ -201,6 +238,12 @@ namespace SpicyInvader_V_01
             return save;
         }
 
+        /// <summary>
+        /// Chargement d'une partie
+        /// </summary>
+        /// <param name="a_score"></param>
+        /// <param name="a_fleetLevel"></param>
+        /// <param name="a_shipLife"></param>
         public void LoadGame(int a_score, int a_fleetLevel, int a_shipLife)
         {
             _level = new Level(a_fleetLevel);

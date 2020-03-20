@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+ * ETML
+ * Auteur : Jeremiah, Adrian, Laetitia et Toine
+ * Date : Mars 2020
+ * Desciption : la classe Position
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +14,9 @@ namespace SpicyInvader_V_01
 {
     public class Position
     {
+        /// <summary>
+        /// Attributs
+        /// </summary>
         private int x;
         private int y;
 
@@ -24,7 +33,22 @@ namespace SpicyInvader_V_01
         }
 
         /// <summary>
-        /// Constructeur
+        /// Propriétés
+        /// </summary>
+        public int X
+        {
+            get { return x; }
+            set { x = value; }
+        }
+        
+        public int Y
+        {
+            get { return y; }
+            set { y = value; }
+        }
+
+        /// <summary>
+        /// Constructeur renseigné
         /// </summary>
         /// <param name="a_x">coordonnées horizontale</param>
         /// <param name="a_y">coordonnées verticale</param>
@@ -34,7 +58,7 @@ namespace SpicyInvader_V_01
             y = a_y;
         }
         /// <summary>
-        /// constructeur de copie
+        /// constructeur renseigné
         /// </summary>
         /// <param name="a_position">position que l'on veut clonner</param>
         public Position(Position a_position)

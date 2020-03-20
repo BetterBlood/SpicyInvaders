@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+ * ETML
+ * Auteur : Jeremiah, Adrian, Laetitia et Toine
+ * Date : Mars 2020
+ * Desciption : la classe Shape
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,8 +12,15 @@ using System.Threading.Tasks;
 
 namespace SpicyInvader_V_01
 {
+    /// <summary>
+    /// Class Shape
+    /// </summary>
     public class Shape
     {
+        /// <summary>
+        /// Propriétés
+        /// </summary>
+        
         //on considère ici qu'une silhouhaite est réctangulaire
         private List<List<string>> _shapes;
         private List<int> _sizes; // la taille de la liste est sa hauteur // chaque nombre de la liste est la taille de la ligne
@@ -20,12 +33,20 @@ namespace SpicyInvader_V_01
         //    _shape = new List<List<string>>();
         //}
 
+        /// <summary>
+        /// Constructeur renseigné
+        /// </summary>
+        /// <param name="a_shapes"></param>
         public Shape(List<List<string>> a_shapes)
         {
             _shapes = a_shapes;
             InitSize();
         }
 
+        /// <summary>
+        /// Constructeur renseigné
+        /// </summary>
+        /// <param name="a_shapes"></param>
         public Shape(string a_shapes)
         {
             _shapes = new List<List<string>>();
@@ -33,6 +54,10 @@ namespace SpicyInvader_V_01
             InitSize();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a_shapes"></param>
         private void InitShape(string a_shapes)
         {
             string[] shapeBoard = a_shapes.Split(Menu.STRING_SHAPE_SEPARATOR); // ATTENTION : voir la classe Menu si l'on souhaite utiliser un séparateur différent
@@ -51,6 +76,9 @@ namespace SpicyInvader_V_01
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void InitSize()
         {
             _sizes = new List<int>();
@@ -67,6 +95,11 @@ namespace SpicyInvader_V_01
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a_row"></param>
+        /// <returns></returns>
         public int GetHorizontalLenght(int a_row)
         {
             if (a_row > _shapes.Count - 1 || a_row < 0)
@@ -80,16 +113,28 @@ namespace SpicyInvader_V_01
             
         }
 
+        /// <summary>
+        /// Retourne le nombre d'élément dans la liste _shapes
+        /// </summary>
+        /// <returns></returns>
         public int GetVerticalLenght()
         {
             return _shapes.Count();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public int GetHorizontalHightSize()
         {
             return _hightWidth;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public List<List<string>> GetShape()
         {
             List<List<string>> tmpShapes = new List<List<string>>();
@@ -110,6 +155,10 @@ namespace SpicyInvader_V_01
             return tmpShapes;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public List<int> GetSizes()
         {
             List<int> tmpSizes = new List<int>();
@@ -123,6 +172,10 @@ namespace SpicyInvader_V_01
             return tmpSizes;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="position"></param>
         public void Draw(Position position)
         {
             int i = 0;
@@ -138,6 +191,10 @@ namespace SpicyInvader_V_01
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="position"></param>
         public void Clear(Position position)
         {
             int i = 0;
