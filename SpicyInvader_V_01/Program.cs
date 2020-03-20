@@ -1,7 +1,9 @@
-﻿//Auteur : Steiner
-//Date   : 03.09.2019
-//Lieu   : ETML
-//Description : Squelette pour SpaceInvaders en console
+﻿/*
+ * ETML
+ * Auteur : Jeremiah, Adrian, Laetitia et Toine
+ * Date : Mars 2020
+ * Desciption : la classe program
+ */
 
 using System;
 using System.Collections.Generic;
@@ -12,11 +14,18 @@ using System.Threading;
 
 namespace SpicyInvader_V_01
 {
+    /// <summary>
+    /// Classe Program
+    /// </summary>
     public class Program
     {
+        /// <summary>
+        /// Méthode mais
+        /// </summary>
+        /// <param name="args"></param>
         static void Main(string[] args)
         {
-            Game game = new Game(); // salut
+            Game game = new Game();
             
             int tics = 0;
 

@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+ * ETML
+ * Auteur : Jeremiah, Adrian, Laetitia et Toine
+ * Date : Mars 2020
+ * Desciption : la clase HitBox
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,12 +12,23 @@ using System.Threading.Tasks;
 
 namespace SpicyInvader_V_01
 {
+    /// <summary>
+    /// Class HitBox
+    /// </summary>
     public class HitBox
     {
+        /// <summary>
+        /// Attributs
+        /// </summary>
         private Position _position;
 
         private List<List<bool>> _hitBox;
 
+        /// <summary>
+        /// Constructeur renseigné
+        /// </summary>
+        /// <param name="a_position"></param>
+        /// <param name="a_shapes"></param>
         public HitBox(Position a_position, string a_shapes)
         {
             _position = a_position;
@@ -19,6 +36,10 @@ namespace SpicyInvader_V_01
             InitHitBox(a_shapes);
         }
 
+        /// <summary>
+        /// Je crois que j'ai pas envie de comprendre ce que cette méthode fait
+        /// </summary>
+        /// <param name="a_shapes"></param>
         private void InitHitBox(string a_shapes)
         {
             string[] shapeBoard = a_shapes.Split(Menu.STRING_SHAPE_SEPARATOR); // ATTENTION : voir la classe Menu si l'on souhaite utiliser un séparateur différent
@@ -71,6 +92,11 @@ namespace SpicyInvader_V_01
             }
         }
 
+        /// <summary>
+        /// Détéecte les collisions entre les entités
+        /// </summary>
+        /// <param name="a_position"></param>
+        /// <returns></returns>
         public bool IsTouch(Position a_position)
         {
             if (a_position.X < _position.X || a_position.Y < _position.Y) // renvoie faux si la position passé en param est trop a gauche ou en haut de l'entité

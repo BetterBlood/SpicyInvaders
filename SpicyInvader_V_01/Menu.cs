@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+ * ETML
+ * Auteur : Jeremiah, Adrian, Laetitia et Toine
+ * Date : Mars 2020
+ * Desciption : la classe Menu
+ */
+using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +15,9 @@ namespace SpicyInvader_V_01
 {
     public class Menu // classe utilitaire à propos des menus
     {
+        /// <summary>
+        /// Attributs
+        /// </summary>
         private const string NEW_GAME = "nouvelle partie";
         private const string CONTINUE = "continuer";
         private const string SAVE = "sauvegarder";
@@ -36,6 +45,9 @@ namespace SpicyInvader_V_01
 
         public const char STRING_SHAPE_SEPARATOR = '4';  // ATTENTION : on ne peut donc pas utiliser le chiffre 4 pour la construction de silhouette 
 
+        /// <summary>
+        /// Constructeur par défaut
+        /// </summary>
         public Menu()
         {
             PATH_SLOT_1 = Path.GetFullPath("slot_1.txt");
@@ -43,9 +55,14 @@ namespace SpicyInvader_V_01
             PATH_SLOT_3 = Path.GetFullPath("slot_3.txt");
         }
 
+        /// <summary>
+        /// Affichage du menu voulu
+        /// </summary>
+        /// <param name="a_menuType"></param>
+        /// <param name="a_game"></param>
         public void ShowMenu(string a_menuType, Game a_game)
         {
-            if (a_menuType.Equals(PAUSE))
+            if (a_menuType.Equals(PAUSE)) // TODO : C'EST MOCHE, switch à mettre
             {
                 ShowPauseMenu(a_game);
             }
@@ -59,10 +76,14 @@ namespace SpicyInvader_V_01
             }
             else if (a_menuType.Equals(STAGE_WIN))
             {
-                ShowWinMenu(a_game);
+                ShowWinMenu(a_game);    
             }
         }
 
+        /// <summary>
+        /// Affichage du menu principal
+        /// </summary>
+        /// <param name="a_game"></param>
         private void ShowMainMenu(Game a_game)
         {
             Console.Clear();
@@ -150,6 +171,11 @@ namespace SpicyInvader_V_01
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="abbleToSave"></param>
+        /// <param name="a_game"></param>
         private void ShowSlotMenu(bool abbleToSave, Game a_game)
         {
             // le boolean c'est pour dire si on est en mode écriture, en gros si c'est true alors on peut écraser les saves et sauver à la place
@@ -278,6 +304,10 @@ namespace SpicyInvader_V_01
             }
         }
 
+        /// <summary>
+        /// Affiche le menu de victoire
+        /// </summary>
+        /// <param name="a_game"></param>
         private void ShowWinMenu(Game a_game)
         {
             bool reprendre = false;
@@ -353,6 +383,10 @@ namespace SpicyInvader_V_01
             Console.Clear();
         }
 
+        /// <summary>
+        /// Affiche le menu de pause
+        /// </summary>
+        /// <param name="a_game"></param>
         private void ShowPauseMenu(Game a_game)
         {
             bool reprendre = false;
@@ -432,7 +466,10 @@ namespace SpicyInvader_V_01
 
 
         }
-    
+        /// <summary>
+        /// Affiche le menu de défaite
+        /// </summary>
+        /// <param name="a_game"></param>
         private void ShowGameOverMenu(Game a_game)
         {
             Console.Clear();
@@ -515,18 +552,30 @@ namespace SpicyInvader_V_01
             }
         }
 
+        /// <summary>
+        /// Affiche le level actuel
+        /// </summary>
+        /// <param name="a_level"></param>
         public void DisplayLevel(int a_level)
         {
             Console.SetCursorPosition(0, 0);
             Console.Write("Level : " + a_level);
         }
 
+        /// <summary>
+        /// Affiche le score actuel
+        /// </summary>
         public void DisplayScore()
         {
             Console.SetCursorPosition(30, 33); // TODO : mettre en constante les valeur du display
             Console.Write("score : {0}", Game._score);
         }
 
+        /// <summary>
+        /// Affiche tout les texts quand le jeu est lancé
+        /// </summary>
+        /// <param name="a_ship"></param>
+        /// <param name="a_level"></param>
         public void DisplayHUD(Ship a_ship, int a_level)
         {
             // début // scores :

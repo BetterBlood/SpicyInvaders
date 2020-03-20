@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+ * ETML
+ * Auteur : Jeremiah, Adrian, Laetitia et Toine
+ * Date : Mars 2020
+ * Desciption : la classe Ship
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Media;
@@ -7,12 +13,26 @@ using System.Threading.Tasks;
 
 namespace SpicyInvader_V_01
 {
+    /// <summary>
+    /// Class Ship
+    /// </summary>
     public class Ship : Ally
     {
+        /// <summary>
+        /// Constructeur par défaut
+        /// </summary>
         public Ship() : base ("_/-\\_4 \\*/ ", new Position(50, 26), 2) { }
 
+        /// <summary>
+        /// Constructeur renseigné
+        /// </summary>
+        /// <param name="a_shape"></param>
         public Ship(string a_shape) : base (a_shape, new Position(50, 26), 2) { }
 
+        /// <summary>
+        /// Constructeur renseigné
+        /// </summary>
+        /// <param name="a_lifePoint"></param>
         public Ship(int a_lifePoint) : base("_/-\\_4 \\*/ ", new Position(50, 26), 2, a_lifePoint) { }
 
     }
