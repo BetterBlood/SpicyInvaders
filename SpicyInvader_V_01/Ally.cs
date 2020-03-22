@@ -65,12 +65,21 @@ namespace SpicyInvader_V_01
         }
 
         /// <summary>
-        /// retourne une chaine de caractère
+        /// retourne une chaine de caractère contanant les info sur l'état de l'unité
         /// </summary>
+        /// <param name="a_separator">séparateur à utiliser si plusieurs infos sont retournées</param>
         /// <returns></returns>
-        public string GetSaveStat()
+        public string GetSaveStat(string a_separator)
         {
-            return "life." + _lifePoints;
+            string innerSeparator = ".";
+
+            //exemple : 
+            // string retour = "";
+            // retour += "life" + innerSeparator + _lifePoints;
+            // retour += a_separator;
+            // retour += "missileNumber" + innerSeparator + _missiles.Size;
+
+            return "life" + innerSeparator + _lifePoints;
         }
     }
 }
