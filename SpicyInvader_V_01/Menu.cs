@@ -18,12 +18,24 @@ namespace SpicyInvader_V_01
         /// <summary>
         /// Attributs
         /// </summary>
-        private const string NEW_GAME = "nouvelle partie";
-        private const string CONTINUE = "continuer";
-        private const string SAVE = "sauvegarder";
-        private const string LOAD = "charger";
-        private const string SETTINGS = "parametres";
-        private const string LEAVE = "quitter";
+        private const string NEW_GAME = "╔═════════════════╗." +
+                                        "║ nouvelle partie ║." +
+                                        "╚═════════════════╝";
+        private const string CONTINUE = "╔═════════════════╗." +
+                                        "║    continuer    ║." +
+                                        "╚═════════════════╝";
+        private const string SAVE = "╔═════════════════╗." +
+                                    "║   sauvegarder   ║." +
+                                    "╚═════════════════╝";
+        private const string LOAD = "╔═════════════════╗." +
+                                    "║     charger     ║." +
+                                    "╚═════════════════╝";
+        private const string SETTINGS = "╔═════════════════╗." +
+                                        "║    parametres   ║." +
+                                        "╚═════════════════╝";
+        private const string LEAVE = "╔═════════════════╗." +
+                                     "║     quitter     ║." +
+                                     "╚═════════════════╝";
         private const string BACK = "retour";
 
         private const string SLOT_1 = "Slot 1";
@@ -34,7 +46,9 @@ namespace SpicyInvader_V_01
         private readonly string PATH_SLOT_2;
         private readonly string PATH_SLOT_3;
 
-        public const string MAIN_MENU = "menu principale";
+        public const string MAIN_MENU = "╔═════════════════╗." +
+                                        "║ menu principale ║." +
+                                        "╚═════════════════╝";
         public const string PAUSE = "pause";
         public const string GAME_OVER = "game over";
         public const string STAGE_WIN = "stage win";
@@ -46,13 +60,25 @@ namespace SpicyInvader_V_01
         public const char STRING_SHAPE_SEPARATOR = '4';  // ATTENTION : on ne peut donc pas utiliser le chiffre 4 pour la construction de silhouette 
 
         /// <summary>
-        /// Constructeur par défaut
+        /// Constructeur par défaut qui initialise les full path des fichiers de sauvegarde
         /// </summary>
         public Menu()
         {
             PATH_SLOT_1 = Path.GetFullPath("slot_1.txt");
             PATH_SLOT_2 = Path.GetFullPath("slot_2.txt");
             PATH_SLOT_3 = Path.GetFullPath("slot_3.txt");
+        }
+
+        public string MultThisSymbol(string a_symbol, int a_nbrOfMult)
+        {
+            string result = "";
+
+            for (int i = 0; i < a_nbrOfMult; i++)
+            {
+                result += a_symbol;
+            }
+
+            return result;
         }
 
         /// <summary>
@@ -106,15 +132,32 @@ namespace SpicyInvader_V_01
                 {
                     if (x == place) // surlignement en jaune du text concerné
                     {
+                        string[] tab2 = tab[x].Split('.');
                         Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.SetCursorPosition(Console.WindowWidth / 2 - tab[x].Length / 2, Console.WindowHeight / 3 + x*2);
-                        Console.WriteLine(tab[x]);
+
+                        int heightAjustment = -1;
+
+                        foreach (string ligne in tab2)
+                        {
+                            Console.SetCursorPosition(Console.WindowWidth / 2 - tab2[0].Length / 2, Console.WindowHeight / 3 + x*3 + heightAjustment);
+                            Console.WriteLine(ligne);
+                            heightAjustment++;
+                        }
+                        
                     }
                     else
                     {
+                        string[] tab2 = tab[x].Split('.');
                         Console.ForegroundColor = ConsoleColor.Gray;
-                        Console.SetCursorPosition(Console.WindowWidth / 2 - tab[x].Length / 2, Console.WindowHeight / 3 + x*2);
-                        Console.WriteLine(tab[x]);
+
+                        int heightAjustment = -1;
+
+                        foreach (string ligne in tab2)
+                        {
+                            Console.SetCursorPosition(Console.WindowWidth / 2 - tab2[0].Length / 2, Console.WindowHeight / 3 + x * 3 + heightAjustment);
+                            Console.WriteLine(ligne);
+                            heightAjustment++;
+                        }
                     }
 
                     x++;
@@ -191,6 +234,8 @@ namespace SpicyInvader_V_01
             bool back = false;
 
             ConsoleKeyInfo key;
+            int saveSelected = -1;
+            string isSelected = "";
 
             while (!back)
             {
@@ -199,17 +244,43 @@ namespace SpicyInvader_V_01
                 // affichage du menu
                 foreach (string affichage in tab)
                 {
-                    if (x == place) // surlignement en jaune du text concerné
+                    string[] tab2 = { "╔═" + MultThisSymbol("═", tab[x].Length) + "═╗", "║ " + tab[x] + " ║", "╚═" + MultThisSymbol("═", tab[x].Length) + "═╝" };
+
+                    if (x == saveSelected)
                     {
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.SetCursorPosition(Console.WindowWidth / 2 - tab[x].Length / 2, Console.WindowHeight / 3 + x * 2);
-                        Console.WriteLine(tab[x]);
+                        isSelected = "o";
+                    }
+                    else
+                    {
+                        isSelected = " ";
+                    }
+
+                    if (x == place) // surlignement en jaune du text concerné en rouge si la save est selectionné
+                    {
+                        Console.ForegroundColor = x == saveSelected ? ConsoleColor.Red : ConsoleColor.Yellow;
+
+                        int heightAjustment = -1;
+
+                        foreach (string ligne in tab2)
+                        {
+                            Console.SetCursorPosition(Console.WindowWidth / 2 - tab2[0].Length / 2, Console.WindowHeight / 3 + x * 3 + heightAjustment);
+                            Console.WriteLine(ligne + isSelected);
+                            heightAjustment++;
+                        }
+
                     }
                     else
                     {
                         Console.ForegroundColor = ConsoleColor.Gray;
-                        Console.SetCursorPosition(Console.WindowWidth / 2 - tab[x].Length / 2, Console.WindowHeight / 3 + x * 2);
-                        Console.WriteLine(tab[x]);
+
+                        int heightAjustment = -1;
+
+                        foreach (string ligne in tab2)
+                        {
+                            Console.SetCursorPosition(Console.WindowWidth / 2 - tab2[0].Length / 2, Console.WindowHeight / 3 + x * 3 + heightAjustment);
+                            Console.WriteLine(ligne + isSelected);
+                            heightAjustment++;
+                        }
                     }
 
                     x++;
@@ -238,7 +309,11 @@ namespace SpicyInvader_V_01
                         switch (place)
                         {
                             case 0: // slot 1
-                                if (abbleToSave)
+                                if (saveSelected !=0)
+                                {
+                                    saveSelected = 0;
+                                }
+                                else if (abbleToSave)
                                 {
                                     File.WriteAllText(PATH_SLOT_1, a_game.GetSaveStat());
                                 }
@@ -253,11 +328,16 @@ namespace SpicyInvader_V_01
                                     string[] shipLife = shipStats[1].Split('.');
 
                                     a_game.LoadGame(Convert.ToInt32(score[1]), Convert.ToInt32(fleetLevel[1]), Convert.ToInt32(shipLife[1]));
+                                    back = true;
                                 }
                                 break;
 
                             case 1: // slot 2
-                                if (abbleToSave)
+                                if (saveSelected != 1)
+                                {
+                                    saveSelected = 1;
+                                }
+                                else if (abbleToSave)
                                 {
                                     File.WriteAllText(PATH_SLOT_2, a_game.GetSaveStat());
                                 }
@@ -272,11 +352,16 @@ namespace SpicyInvader_V_01
                                     string[] shipLife = shipStats[1].Split('.');
 
                                     a_game.LoadGame(Convert.ToInt32(score[1]), Convert.ToInt32(fleetLevel[1]), Convert.ToInt32(shipLife[1]));
+                                    back = true;
                                 }
                                 break;
 
                             case 2: // slot 3
-                                if (abbleToSave)
+                                if (saveSelected != 2)
+                                {
+                                    saveSelected = 2;
+                                }
+                                else if (abbleToSave)
                                 {
                                     File.WriteAllText(PATH_SLOT_3, a_game.GetSaveStat());
                                 }
@@ -291,15 +376,19 @@ namespace SpicyInvader_V_01
                                     string[] shipLife = shipStats[1].Split('.');
 
                                     a_game.LoadGame(Convert.ToInt32(score[1]), Convert.ToInt32(fleetLevel[1]), Convert.ToInt32(shipLife[1]));
+                                    back = true;
                                 }
                                 break;
 
                             case 3: // on retourne au menu précédent
                                 back = true;
-                                Console.Clear();
                                 break;
                         }
                         break;
+                }
+                if (back)
+                {
+                    Console.Clear();
                 }
             }
         }
@@ -329,15 +418,32 @@ namespace SpicyInvader_V_01
                 {
                     if (x == place) // surlignement en jaune du text concerné
                     {
+                        string[] tab2 = tab[x].Split('.');
                         Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.SetCursorPosition(Console.WindowWidth / 2 - tab[x].Length / 2, Console.WindowHeight / 3 + x * 2);
-                        Console.WriteLine(tab[x]);
+
+                        int heightAjustment = -1;
+
+                        foreach (string ligne in tab2)
+                        {
+                            Console.SetCursorPosition(Console.WindowWidth / 2 - tab2[0].Length / 2, Console.WindowHeight / 3 + x * 3 + heightAjustment);
+                            Console.WriteLine(ligne);
+                            heightAjustment++;
+                        }
+
                     }
                     else
                     {
+                        string[] tab2 = tab[x].Split('.');
                         Console.ForegroundColor = ConsoleColor.Gray;
-                        Console.SetCursorPosition(Console.WindowWidth / 2 - tab[x].Length / 2, Console.WindowHeight / 3 + x * 2);
-                        Console.WriteLine(tab[x]);
+
+                        int heightAjustment = -1;
+
+                        foreach (string ligne in tab2)
+                        {
+                            Console.SetCursorPosition(Console.WindowWidth / 2 - tab2[0].Length / 2, Console.WindowHeight / 3 + x * 3 + heightAjustment);
+                            Console.WriteLine(ligne);
+                            heightAjustment++;
+                        }
                     }
 
                     x++;
@@ -408,15 +514,31 @@ namespace SpicyInvader_V_01
                 {
                     if (x == place) // surlignement en jaune du text concerné
                     {
+                        string[] tab2 = tab[x].Split('.');
                         Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.SetCursorPosition(Console.WindowWidth / 2 - tab[x].Length / 2, Console.WindowHeight / 3 + x*2);
-                        Console.WriteLine(tab[x]);
+
+                        int heightAjustment = -1;
+
+                        foreach (string ligne in tab2)
+                        {
+                            Console.SetCursorPosition(Console.WindowWidth / 2 - tab2[0].Length / 2, Console.WindowHeight / 3 + x * 3 + heightAjustment);
+                            Console.WriteLine(ligne);
+                            heightAjustment++;
+                        }
                     }
                     else
                     {
+                        string[] tab2 = tab[x].Split('.');
                         Console.ForegroundColor = ConsoleColor.Gray;
-                        Console.SetCursorPosition(Console.WindowWidth / 2 - tab[x].Length / 2, Console.WindowHeight / 3 + x*2);
-                        Console.WriteLine(tab[x]);
+
+                        int heightAjustment = -1;
+
+                        foreach (string ligne in tab2)
+                        {
+                            Console.SetCursorPosition(Console.WindowWidth / 2 - tab2[0].Length / 2, Console.WindowHeight / 3 + x * 3 + heightAjustment);
+                            Console.WriteLine(ligne);
+                            heightAjustment++;
+                        }
                     }
 
                     x++;
@@ -491,15 +613,31 @@ namespace SpicyInvader_V_01
                 {
                     if (x == place) // surlignement en jaune du text concerné
                     {
+                        string[] tab2 = tab[x].Split('.');
                         Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.SetCursorPosition(Console.WindowWidth / 2 - tab[x].Length / 2, Console.WindowHeight / 3 + x * 2);
-                        Console.WriteLine(tab[x]);
+
+                        int heightAjustment = -1;
+
+                        foreach (string ligne in tab2)
+                        {
+                            Console.SetCursorPosition(Console.WindowWidth / 2 - tab2[0].Length / 2, Console.WindowHeight / 3 + x * 3 + heightAjustment);
+                            Console.WriteLine(ligne);
+                            heightAjustment++;
+                        }
                     }
                     else
                     {
+                        string[] tab2 = tab[x].Split('.');
                         Console.ForegroundColor = ConsoleColor.Gray;
-                        Console.SetCursorPosition(Console.WindowWidth / 2 - tab[x].Length / 2, Console.WindowHeight / 3 + x * 2);
-                        Console.WriteLine(tab[x]);
+
+                        int heightAjustment = -1;
+
+                        foreach (string ligne in tab2)
+                        {
+                            Console.SetCursorPosition(Console.WindowWidth / 2 - tab2[0].Length / 2, Console.WindowHeight / 3 + x * 3 + heightAjustment);
+                            Console.WriteLine(ligne);
+                            heightAjustment++;
+                        }
                     }
 
                     x++;

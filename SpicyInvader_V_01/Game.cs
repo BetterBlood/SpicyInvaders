@@ -33,15 +33,15 @@ namespace SpicyInvader_V_01
         /// </summary>
         public Game()
         {
-            Console.WindowWidth = 71;
+            Console.WindowWidth = Console.LargestWindowWidth - 50;
             Console.WindowHeight = Console.LargestWindowHeight - 10;
 
-            _fleet = new Fleet();
             _ship = new Ship();
 
             _score = 0;
 
-            _level = new Level(1);
+            _level = new Level();
+            _fleet = _level.GetFleet();
 
             _menu = new Menu();
 
@@ -71,6 +71,10 @@ namespace SpicyInvader_V_01
         /// </summary>
         public void Begin()
         {
+            Intro intro = new Intro();
+
+            //intro.FallingIntro();
+
             _menu.ShowMenu(Menu.MAIN_MENU, this);
         }
 
@@ -195,9 +199,9 @@ namespace SpicyInvader_V_01
         /// </summary>
         public void ResetGame()
         {
-            _fleet = new Fleet();
             _ship = new Ship();
-
+            _level = new Level();
+            _fleet = _level.GetFleet();
             _score = 0; // TODO : ne pas oublié de récupéré le score dans le fichier adéquats si nécessaire
 
             _menu = new Menu();
@@ -209,7 +213,7 @@ namespace SpicyInvader_V_01
         /// String comptenant les informations de la sauvegarde
         /// </summary>
         /// <returns></returns>
-        public string GetSaveStat() // return une string qui donne toutes les infos nécessaire pour la sauvegarde
+        public string GetSaveStat()
         {
             // on va faire pour l'instant que l'on peut save le niveau mais pas l'état exact des ennemis
             // donc on a besoin pour ça d'avoir :
@@ -231,7 +235,7 @@ namespace SpicyInvader_V_01
             save += separator;
             save += "fleet_lvl?" + _level.GetLevel();
             save += separator;
-            save += "ship_State?" + _ship.GetSaveStat();
+            save += "ship_State?" + _ship.GetSaveStat(separator);
 
 
 
