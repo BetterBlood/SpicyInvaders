@@ -73,7 +73,7 @@ namespace SpicyInvader_V_01
         {
             Intro intro = new Intro();
 
-            intro.FallingIntro();
+            //intro.FallingIntro();
 
             _menu.ShowMenu(Menu.MAIN_MENU, this);
         }
