@@ -235,6 +235,7 @@ namespace SpicyInvader_V_01
 
             ConsoleKeyInfo key;
             int saveSelected = -1;
+            string isSelected = "";
 
             while (!back)
             {
@@ -245,6 +246,15 @@ namespace SpicyInvader_V_01
                 {
                     string[] tab2 = { "╔═" + MultThisSymbol("═", tab[x].Length) + "═╗", "║ " + tab[x] + " ║", "╚═" + MultThisSymbol("═", tab[x].Length) + "═╝" };
 
+                    if (x == saveSelected)
+                    {
+                        isSelected = "o";
+                    }
+                    else
+                    {
+                        isSelected = " ";
+                    }
+
                     if (x == place) // surlignement en jaune du text concerné en rouge si la save est selectionné
                     {
                         Console.ForegroundColor = x == saveSelected ? ConsoleColor.Red : ConsoleColor.Yellow;
@@ -254,21 +264,21 @@ namespace SpicyInvader_V_01
                         foreach (string ligne in tab2)
                         {
                             Console.SetCursorPosition(Console.WindowWidth / 2 - tab2[0].Length / 2, Console.WindowHeight / 3 + x * 3 + heightAjustment);
-                            Console.WriteLine(ligne);
+                            Console.WriteLine(ligne + isSelected);
                             heightAjustment++;
                         }
 
                     }
                     else
                     {
-                        Console.ForegroundColor = x == saveSelected ? ConsoleColor.Red : ConsoleColor.Gray;
+                        Console.ForegroundColor = ConsoleColor.Gray;
 
                         int heightAjustment = -1;
 
                         foreach (string ligne in tab2)
                         {
                             Console.SetCursorPosition(Console.WindowWidth / 2 - tab2[0].Length / 2, Console.WindowHeight / 3 + x * 3 + heightAjustment);
-                            Console.WriteLine(ligne);
+                            Console.WriteLine(ligne + isSelected);
                             heightAjustment++;
                         }
                     }
