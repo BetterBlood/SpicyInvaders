@@ -33,7 +33,7 @@ namespace SpicyInvader_V_01
         /// </summary>
         public Game()
         {
-            Console.WindowWidth = 71;
+            Console.WindowWidth = Console.LargestWindowWidth - 50;
             Console.WindowHeight = Console.LargestWindowHeight - 10;
 
             _fleet = new Fleet();
@@ -71,6 +71,10 @@ namespace SpicyInvader_V_01
         /// </summary>
         public void Begin()
         {
+            Intro intro = new Intro();
+
+            intro.FallingIntro();
+
             _menu.ShowMenu(Menu.MAIN_MENU, this);
         }
 
