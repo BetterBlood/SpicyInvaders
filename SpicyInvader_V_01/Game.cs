@@ -18,6 +18,7 @@ namespace SpicyInvader_V_01
         /// Attributs
         /// </summary>
         static public int _score; // static public car on a besoin de pouvoir le modifier et de l'atteindre dans le main ainsi que dans d'autres classes
+        private bool _isLost;
 
         private Fleet _fleet;
         private Ship _ship;
@@ -39,6 +40,7 @@ namespace SpicyInvader_V_01
             _ship = new Ship();
 
             _score = 0;
+            _isLost = false;
 
             _level = new Level();
             _fleet = _level.GetFleet();
@@ -69,13 +71,26 @@ namespace SpicyInvader_V_01
         /// <summary>
         /// Lance le menu principal
         /// </summary>
-        public void Begin()
+        public void Begin(bool a_begin = true)
         {
-            Intro intro = new Intro();
+            if (a_begin)
+            {
+                Intro intro = new Intro();
 
-            intro.FallingIntro();
+                intro.FallingIntro();
 
-            _menu.ShowMenu(Menu.MAIN_MENU, this);
+                _menu.ShowMenu(Menu.MAIN_MENU, this);
+            }
+            else
+            {
+                GameOver game_over = new GameOver();
+
+                game_over.FallingOutro();
+
+                _menu.ShowMenu(Menu.MAIN_MENU, this);
+            }
+
+            _isLost = false;
         }
 
         /// <summary>
@@ -142,7 +157,9 @@ namespace SpicyInvader_V_01
 
                 if (_ship.IsDead(_fleet))
                 {
-                    _menu.ShowMenu(Menu.GAME_OVER, this);
+                    //_menu.ShowMenu(Menu.GAME_OVER, this);
+                    _isLost = true;
+                    
                 }
                 else
                 {
@@ -151,27 +168,19 @@ namespace SpicyInvader_V_01
 
                 if (_fleet.FleetIsDefeated())
                 {
+                    if (_fleet.IsBossStage())
+                    {
+                        _menu.ShowMenu(Menu.BONUS_STAGE, this);
+                    }
+
                     _level.LevelUP();
                     _fleet = _level.GetFleet();
-                    
+
                     InitEntities();
 
                     _menu.ShowMenu(Menu.STAGE_WIN, this);
-
                     // TODO : afficher les bonus si c'est un bossStage
                     // TODO : afficher le menu pour sauver 
-                    /*
-                    if (_fleetLvl%5 == 0) // boss stage // TODO : voir avec la class Level
-                    {
-                        _fleet = new Fleet(_fleetLvl, true);
-                        
-                        InitEntities();
-                    }
-                    else
-                    {
-                        _fleet = new Fleet(_fleetLvl, false);
-                        InitEntities();
-                    }*/
                 }
             }
         }
@@ -202,9 +211,10 @@ namespace SpicyInvader_V_01
             _ship = new Ship();
             _level = new Level();
             _fleet = _level.GetFleet();
-            _score = 0; // TODO : ne pas oublié de récupéré le score dans le fichier adéquats si nécessaire
+            _score = 0; // TODO : ne pas oublié de récupéré le score dans le fichier adéquats si nécessaire normalement c'est bon mais à vérifier
 
             _menu = new Menu();
+            _isLost = false;
 
             InitEntities();
         }
@@ -237,8 +247,6 @@ namespace SpicyInvader_V_01
             save += separator;
             save += "ship_State?" + _ship.GetSaveStat(separator);
 
-
-
             return save;
         }
 
@@ -258,6 +266,26 @@ namespace SpicyInvader_V_01
             _menu = new Menu();
 
             InitEntities();
+        }
+
+        public bool IsLost()
+        {
+            return _isLost;
+        }
+
+        public void BonusShipWeaponSlot()
+        {
+            _ship.UpgradWeaponSlot();
+        }
+
+        public void BonusShipMaxHeath()
+        {
+            _ship.UpgradLife();
+        }
+
+        public void BonusShipHeal()
+        {
+            _ship.Heal();
         }
     }
 }

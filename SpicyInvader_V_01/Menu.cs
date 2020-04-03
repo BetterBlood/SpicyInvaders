@@ -46,12 +46,24 @@ namespace SpicyInvader_V_01
         private readonly string PATH_SLOT_2;
         private readonly string PATH_SLOT_3;
 
+        private const string upgrade1 = "╔═════════════════════════╗." +
+                                        "║  Increase Weapon Slot   ║." +
+                                        "╚═════════════════════════╝";
+        private const string upgrade2 = "╔═════════════════════════╗." +
+                                        "║   Get one more life     ║." +
+                                        "╚═════════════════════════╝";
+        private const string upgrade3 = "╔═════════════════════════╗." +
+                                        "║ Regen one point of life ║." +
+                                        "╚═════════════════════════╝";
+
+
         public const string MAIN_MENU = "╔═════════════════╗." +
                                         "║ menu principale ║." +
                                         "╚═════════════════╝";
         public const string PAUSE = "pause";
         public const string GAME_OVER = "game over";
         public const string STAGE_WIN = "stage win";
+        public const string BONUS_STAGE = "bonus stage";
 
         public const int MISSILE_DISPLAY_POSITION_X = 30;
         public const int MISSILE_DISPLAY_POSITION_Y = 29;
@@ -103,6 +115,10 @@ namespace SpicyInvader_V_01
             else if (a_menuType.Equals(STAGE_WIN))
             {
                 ShowWinMenu(a_game);    
+            }
+            else if (a_menuType.Equals(BONUS_STAGE))
+            {
+                ShowBonusMenu(a_game);
             }
         }
 
@@ -384,6 +400,91 @@ namespace SpicyInvader_V_01
             }
         }
 
+        private void ShowBonusMenu(Game a_game)
+        {
+            bool reprendre = false;
+
+            string[] tab = {upgrade1, upgrade2, upgrade3}; // TODO : voir pour mettre des upgrades aléatoire ptetre
+
+            Console.Clear();
+
+            int place = 0;
+
+            ConsoleKeyInfo key;
+
+            while (!reprendre)
+            {
+                int x = 0;
+
+                // affichage du menu
+                foreach (string affichage in tab) // TODO : faire une méthode pour ça !!! et regarder dans les autre méthodes car c'est pareil !!!!
+                {
+                    if (x == place) // surlignement en jaune du text concerné
+                    {
+                        string[] tab2 = tab[x].Split('.');
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+
+                        int heightAjustment = -1;
+
+                        foreach (string ligne in tab2)
+                        {
+                            Console.SetCursorPosition(Console.WindowWidth / 2 - tab2[0].Length / 2, Console.WindowHeight / 3 + x * 3 + heightAjustment);
+                            Console.WriteLine(ligne);
+                            heightAjustment++;
+                        }
+                    }
+                    else
+                    {
+                        string[] tab2 = tab[x].Split('.');
+                        Console.ForegroundColor = ConsoleColor.Gray;
+
+                        int heightAjustment = -1;
+
+                        foreach (string ligne in tab2)
+                        {
+                            Console.SetCursorPosition(Console.WindowWidth / 2 - tab2[0].Length / 2, Console.WindowHeight / 3 + x * 3 + heightAjustment);
+                            Console.WriteLine(ligne);
+                            heightAjustment++;
+                        }
+                    }
+
+                    x++;
+                }
+
+                key = Console.ReadKey();
+
+                if (key.Key == ConsoleKey.DownArrow && place < tab.Length - 1)
+                {
+                    place++;
+                }
+                else if (key.Key == ConsoleKey.UpArrow && place > 0)
+                {
+                    place--;
+                }
+                else if (key.Key == ConsoleKey.Enter || key.Key == ConsoleKey.Spacebar)
+                {
+                    switch (place)
+                    {
+                        case 0:
+                            a_game.BonusShipWeaponSlot();
+                            reprendre = true;
+                            break;
+                        case 1:
+                            a_game.BonusShipMaxHeath();
+                            reprendre = true;
+                            break;
+
+                        case 2:
+                            a_game.BonusShipHeal();
+                            reprendre = true;
+                            break;
+                    }
+                }
+            }
+
+            Console.Clear();
+        }
+
         /// <summary>
         /// Affiche le menu de victoire
         /// </summary>
@@ -420,7 +521,6 @@ namespace SpicyInvader_V_01
                             Console.WriteLine(ligne);
                             heightAjustment++;
                         }
-
                     }
                     else
                     {
@@ -488,7 +588,7 @@ namespace SpicyInvader_V_01
         {
             bool reprendre = false;
 
-            string[] tab = { CONTINUE, SAVE, LOAD, SETTINGS, MAIN_MENU, LEAVE };
+            string[] tab = { CONTINUE, LOAD, SETTINGS, MAIN_MENU, LEAVE };
 
             Console.Clear();
 
@@ -554,30 +654,24 @@ namespace SpicyInvader_V_01
                             Console.Clear();
                             break;
 
-                        case 1: // sauvegarder
-                            ShowSlotMenu(true, a_game);
-                            break;
-
-                        case 2: // charger
+                        case 1: // charger
                             ShowSlotMenu(false, a_game);
                             break;
 
-                        case 3: // parametres
+                        case 2: // parametres
                             // TODO : méthode permettant d'atteindre les réglages
                             break;
 
-                        case 4: // menu principale
+                        case 3: // menu principale
                             // TODO : méthode qui permet de rejoindre le menu principal
                             break;
 
-                        case 5: // quitter
+                        case 4: // quitter
                             Environment.Exit(0);
                             break;
                     }
                 }
             }
-
-
         }
         /// <summary>
         /// Affiche le menu de défaite
@@ -737,7 +831,7 @@ namespace SpicyInvader_V_01
             // début // vie :
 
             Console.SetCursorPosition(30, 31); // TODO : mettre en constante les valeur du display
-            Console.WriteLine("vies : " + a_ship.GetLife());
+            Console.WriteLine("vies : " + a_ship.GetLife() + "/" + a_ship.GetMaxLife());
 
 
             // fin // vie
