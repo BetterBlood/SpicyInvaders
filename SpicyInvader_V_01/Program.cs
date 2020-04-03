@@ -28,24 +28,38 @@ namespace SpicyInvader_V_01
             Game game = new Game();
             
             int tics = 0;
+            bool wanna_play;
+            bool first_lauch = true;
 
-            game.Begin(); // appel le premier menu 
-
-            while (true)
+            while (true) // boucle du jeu
             {
-                game.Update(tics);
+                wanna_play = true;
 
-                //Temporisation FPS
-                Thread.Sleep(10);
+                game.Begin(first_lauch); // appel le premier menu 
+                first_lauch = false;
 
-                tics++;
-
-                if (tics == Int32.MaxValue)
+                while (wanna_play)
                 {
-                    tics = 0;
+                    game.Update(tics);
+
+                    //Temporisation FPS
+                    Thread.Sleep(10);
+
+                    tics++;
+
+                    if (tics == Int32.MaxValue)
+                    {
+                        tics = 0;
+                    }
+
+                    if (game.IsLost())
+                    {
+                        wanna_play = false;
+                        game.ResetGame();
+                        // TODO : ptetre afficher le scoreBoard
+                    }
                 }
             }
-
         }
     }
 }

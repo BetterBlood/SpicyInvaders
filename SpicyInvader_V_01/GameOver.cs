@@ -3,36 +3,37 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace SpicyInvader_V_01
 {
-    class Intro
+    class GameOver
     {
         const int SCROLLINGSPEED = 50;
         const int _INT_TITLE_INTRO = 6;
 
         bool scroll = true;
         string[] text = new string[_INT_TITLE_INTRO];
-
-        public Intro()
+        public GameOver()
         {
             Console.CursorVisible = false;
-            
-            text[0] = "    _____ ____  ____________  __     _____   ___    _____    ____  __________  _____ ";
-            text[1] = "   / ___// __ \\/  _/ ____/\\ \\/ /    /  _/ | / / |  / /   |  / __ \\/ ____/ __ \\/ ___/";
-            text[2] = "   \\__ \\/ /_/ // // /      \\  /     / //  |/ /| | / / /| | / / / / __/ / /_/ /\\__ \\";
-            text[3] = "  ___/ / ____// // /___    / /    _/ // /|  / | |/ / ___ |/ /_/ / /___/ _, _/___/ / ";
-            text[4] = " /____/_/   /___/\\____/   /_/    /___/_/ |_/  |___/_/  |_/_____/_____/_/ |_|/____/";
-            text[5] = "===================================================================================";
+
+            //http://patorjk.com/software/taag/#p=display&f=Slant&t=GAME%20OVER
+            text[0] = "   _________    __  _________   ____ _    ____________ ";
+            text[1] = "  / ____/   |  /  |/  / ____/  / __ \\ |  / / ____/ __ \\";
+            text[2] = " / / __/ /| | / /|_/ / __/    / / / / | / / __/ / /_/ /";
+            text[3] = "/ /_/ / ___ |/ /  / / /___   / /_/ /| |/ / /___/ _, _/ ";
+            text[4] = "\\____/_/  |_/_/  /_/_____/   \\____/ |___/_____/_/ |_|  ";
+            text[5] = "=======================================================";
         }
 
-        public void FallingIntro()
+        public void FallingOutro()
         {
             Console.ForegroundColor = ConsoleColor.Green;
             int tick = 0;
             int x = 0;
 
-            while(!Console.KeyAvailable)
+            while (true)
             {
                 Console.Clear();
 
@@ -65,11 +66,19 @@ namespace SpicyInvader_V_01
 
                 if (x > Console.WindowHeight / 2)
                 {
+                    while (Console.KeyAvailable) //vide le buffer
+                    {
+                        Console.ReadKey();
+                    }
+
                     Console.ForegroundColor = ConsoleColor.Gray;
                     PressAKeyToStart(ref tick);
+                    break;
                 }
             }
+
             Console.ReadKey();
+            
         }
 
         public void PressAKeyToStart(ref int a_tick)

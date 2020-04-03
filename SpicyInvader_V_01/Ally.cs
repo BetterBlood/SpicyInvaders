@@ -17,6 +17,8 @@ namespace SpicyInvader_V_01
     /// </summary>
     abstract public class Ally : Entity
     {
+        private int _maxLifePoint;
+
         /// <summary>
         /// Constructeur renseigné
         /// </summary>
@@ -35,6 +37,7 @@ namespace SpicyInvader_V_01
         public Ally(string a_shape, Position a_position, int a_nbrMissile, int a_lifePoint) : base(a_shape, a_position, a_nbrMissile, EnumDirection.UP)
         {
             _lifePoints = a_lifePoint;
+            _maxLifePoint = _lifePoints;
         }
 
         /// <summary>
@@ -80,6 +83,24 @@ namespace SpicyInvader_V_01
             // retour += "missileNumber" + innerSeparator + _missiles.Size;
 
             return "life" + innerSeparator + _lifePoints;
+        }
+
+        public void UpgradLife()
+        {
+            _maxLifePoint++;
+        }
+
+        public void Heal()
+        {
+            if(_lifePoints < _maxLifePoint)
+            {
+                _lifePoints++;
+            }
+        }
+
+        public int GetMaxLife()
+        {
+            return _maxLifePoint;
         }
     }
 }

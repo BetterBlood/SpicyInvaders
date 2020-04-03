@@ -30,6 +30,9 @@ namespace SpicyInvader_V_01
 
         protected int _lifePoints; // TODO : ajouter les point de vie dans la méthode qui dit si le truc touché est mort
 
+        private int _weaponSlot;
+        private EnumDirection _missileDirection;
+
         /// <summary>
         /// Constructeur par défaut
         /// </summary>
@@ -56,8 +59,10 @@ namespace SpicyInvader_V_01
             _position = a_position;
 
             _lifePoints = 1;
+            _weaponSlot = a_nbrMissile;
+            _missileDirection = a_missileDirection;
 
-            InitBasesMissiles(a_nbrMissile, a_missileDirection);
+            InitBasesMissiles(_weaponSlot, _missileDirection);
         }
 
         /// <summary>
@@ -74,11 +79,11 @@ namespace SpicyInvader_V_01
         /// </summary>
         /// <param name="a_missileNumber"></param>
         /// <param name="a_missileDirection"></param>
-        public void InitBasesMissiles(int a_missileNumber, EnumDirection a_missileDirection)
+        public void InitBasesMissiles(int a_weaponSlot, EnumDirection a_missileDirection)
         {
             _missiles = new List<Missile>();
 
-            for (int i = 0; i < a_missileNumber; i++)
+            for (int i = 0; i < a_weaponSlot; i++)
             {
                 _missiles.Add(new Missile(a_missileDirection));
             }
@@ -307,6 +312,16 @@ namespace SpicyInvader_V_01
         public int GetLife()
         {
             return _lifePoints;
+        }
+
+
+        public void UpgradWeaponSlot()
+        {
+            if (_weaponSlot < 4)
+            {
+                _weaponSlot++;
+                InitBasesMissiles(_weaponSlot, _missileDirection);
+            }
         }
     }
 }

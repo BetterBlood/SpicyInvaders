@@ -52,6 +52,7 @@
     <Compile Include="EnumMissileType.cs" />
     <Compile Include="Fleet.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="GameOver.cs" />
     <Compile Include="HitBox.cs" />
     <Compile Include="ICanFire.cs" />
     <Compile Include="IMovable.cs" />
