@@ -6,6 +6,7 @@
  */
 using System;
 using System.Collections.Generic;
+using System.Media;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -75,6 +76,7 @@ namespace SpicyInvader_V_01
         {
             if (a_begin)
             {
+                new SoundPlayer("..//..//Sounds//IntroSpicyInvaders.wav").Play();
                 Intro intro = new Intro();
 
                 intro.FallingIntro();

@@ -10,6 +10,7 @@ using System.Linq;
 using System.Media;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace SpicyInvader_V_01
 {
@@ -204,8 +205,11 @@ namespace SpicyInvader_V_01
                 {
                     a_entities.Remove(enemy);
                 }
-                new SoundPlayer("..//..//Sounds//EnnemyDeath.wav").Play();
+                //new SoundPlayer("..//..//Sounds//EnnemyDeath.wav").Play();
                 // TODO : appel d'une méthode d'explosion des invader ?? ( au lieu de clear, mais pas compatible avec invaders.Remove(invader);)
+                Thread _threadListener = new Thread(new ThreadStart(PlaySound));
+                _threadListener.Name = "ennemyDeath";
+                _threadListener.Start();
             }
 
             if (enemyIsHit || allyIsHit)
@@ -214,6 +218,11 @@ namespace SpicyInvader_V_01
             }
 
             return false;
+        }
+
+        public void PlaySound()
+        {
+            new SoundPlayer("..//..//Sounds//EnnemyDeath.wav").Play();
         }
 
         /// <summary>
