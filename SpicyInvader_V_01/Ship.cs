@@ -21,7 +21,7 @@ namespace SpicyInvader_V_01
         /// <summary>
         /// Constructeur par défaut
         /// </summary>
-        public Ship() : this ("      ■      4     ■■■     4    ■■■■■    4 ///■■■■■\\\\\\ 4////■■■■■\\\\\\\\", new Position(50, 34), 2) { }
+        public Ship() : this (Menu.ALLY_SHIP_SKIN_2, new Position(50, 34), 2) { }
 
         /// <summary>
         /// Constructeur renseigné
@@ -33,7 +33,7 @@ namespace SpicyInvader_V_01
         /// Constructeur renseigné
         /// </summary>
         /// <param name="a_lifePoint"></param>
-        public Ship(int a_lifePoint) : base ("_/-\\_4 \\*/ ", new Position(50, 34), 2, a_lifePoint) { }
+        public Ship(int a_lifePoint) : base (Menu.ALLY_SHIP_SKIN_2, new Position(50, 34), 2, a_lifePoint) { }
 
 
         public Ship(string a_shape, Position a_position, int a_lifePoint) : base(a_shape, a_position, a_lifePoint) { }

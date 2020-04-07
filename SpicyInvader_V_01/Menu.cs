@@ -69,7 +69,19 @@ namespace SpicyInvader_V_01
         public const int MISSILE_DISPLAY_POSITION_Y = 40;
         // TODO : faire aussi les coordonnée des autre HUD en const
 
-        public const char STRING_SHAPE_SEPARATOR = '4';  // ATTENTION : on ne peut donc pas utiliser le chiffre 4 pour la construction de silhouette 
+        public const char STRING_SHAPE_SEPARATOR = '4';  // ATTENTION : on ne peut donc pas utiliser le chiffre 4 pour la construction de silhouette
+
+        public const string ALLY_SHIP_SKIN_1 = "      ■      4     ■■■     4    ■■■■■    4 ///■■■■■\\\\\\ 4////■■■■■\\\\\\\\"; // ALLY
+        public const string ALLY_SHIP_SKIN_2 = "     |     4    /■\\    4  //■■■\\\\  4█--■■■■■--█4 \\\\ ■■■ // "; // ALLY
+
+        public const string ENNEMY_SKIN_1 = "    /■\\    4¥  /■■■\\  ¥4| /■■■■■\\ |4|/■■■■■■■\\|4/--O---O--\\"; // BOSS
+        public const string ENNEMY_SKIN_2 = "    /**\\   4----0  0----4    /**\\  4   /    \\  "; // BOSS
+        public const string ENNEMY_SKIN_3 = "     ■     ■     4|  ■■ ■■■■■ ■■  |4|    ■■■■■■■    |4\\----■ ■■■ ■----/4      ■■■■■      "; // BOSS
+
+        public const string ENNEMY_SKIN_4 = "\\_||_/4-0||0-4__/\\__"; // Invader
+        public const string ENNEMY_SKIN_5 = "/00\\4|--|"; // Invader
+        public const string ENNEMY_SKIN_6 = " ITI 4|/¨\\|"; // Invader
+
 
         /// <summary>
         /// Constructeur par défaut qui initialise les full path des fichiers de sauvegarde

@@ -12,11 +12,16 @@ using System.Threading.Tasks;
 
 namespace SpicyInvader_V_01
 {
+
     /// <summary>
     /// Class Invader
     /// </summary>
     public class Invader : Enemy
     {
+
+        public const int HORIZONTAL_SIZE = 5;
+        public const int VERTICAL_SIZE = 2;
+
         /// <summary>
         /// Constructeur par défaut
         /// </summary>
@@ -33,7 +38,7 @@ namespace SpicyInvader_V_01
         /// </summary>
         /// <param name="a_position"></param>
         /// <param name="a_rightDisplay"></param>
-        public Invader(Position a_position, bool a_rightDisplay) : this ("=()=", a_position, a_rightDisplay) { }
+        public Invader(Position a_position, bool a_rightDisplay) : this (Menu.ENNEMY_SKIN_6, a_position, a_rightDisplay) { }
 
         /// <summary>
         /// Constructeur renseigné
