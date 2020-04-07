@@ -78,7 +78,8 @@ namespace SpicyInvader_V_01
         private void InitBosses(int a_lvl)
         {
             // TODO : voir si j'ai pas oublié un truc ici, spoiler : surement oui, comparer avec InnitInvaders juste en dessous !!
-            _enemies.Add(new Boss(a_lvl, "  \\__/4 -<==>-4  \\__/"));
+            //_enemies.Add(new Boss(a_lvl, "  \\__/4 -<==>-4  \\__/"));
+            _enemies.Add(new Boss(a_lvl, "    /**\\   4----0  0----4    /**\\  4   /    \\  "));
         }
 
         /// <summary>

@@ -10,6 +10,7 @@ using System.Linq;
 using System.Media;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace SpicyInvader_V_01
 {
@@ -150,6 +151,11 @@ namespace SpicyInvader_V_01
             return nbrMissilesLeft;
         }
 
+        public void PlaySound()
+        {
+            new SoundPlayer("..//..//Sounds//LazerFire.wav").Play();
+        }
+
         /// <summary>
         /// Tire un missile si les conditions sont remplies
         /// </summary>
@@ -159,8 +165,20 @@ namespace SpicyInvader_V_01
             {
                 if (!missile.IsFired())
                 {
-                    missile.Fire(new Position(_position.X + 2, _position.Y - 1)); // position de départ de missile peut être voir pour modifier selon le vaisseau
-                    new SoundPlayer("..//..//Sounds//LazerFire.wav").Play();
+                    if (this is Ally)
+                    {
+                        missile.Fire(new Position(_position.X + _shape.GetHorizontalHightSize() / 2, _position.Y));
+                    }
+                    else
+                    {
+                        missile.Fire(new Position(_position.X + 2, _position.Y - 1)); // position de départ de missile peut être voir pour modifier selon le vaisseau
+                    }
+                    
+                    //new SoundPlayer("..//..//Sounds//LazerFire.wav").Play(); // TODO : ptetre faire un son différent pour les ennemis
+                    //PlaySound("..//..//Sounds//LazerFire.wav");
+                    Thread _threadListener = new Thread(new ThreadStart(PlaySound));
+                    _threadListener.Name = "fireSound";
+                    _threadListener.Start();
                     return;
                 }
                 else

@@ -6,9 +6,15 @@
  */
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Media;
+using System.Threading;
 using System.Text;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Markup;
+
+
 
 namespace SpicyInvader_V_01
 {
@@ -68,6 +74,11 @@ namespace SpicyInvader_V_01
             }
         }
 
+        private void PlayAudioFile(object a_relativePath) 
+        {
+            new SoundPlayer(a_relativePath.ToString()).Play();
+        }
+
         /// <summary>
         /// Lance le menu principal
         /// </summary>
@@ -75,6 +86,11 @@ namespace SpicyInvader_V_01
         {
             if (a_begin)
             {
+                Thread playingMusicThread = new Thread(new ParameterizedThreadStart(PlayAudioFile));
+                playingMusicThread.Start("..//..//Sounds//IntroSpicyInvaders.wav");
+                //PlayAudioFile("..//..//Sounds//IntroSpicyInvaders.wav"); // TODO trouver un moyen de faire un delegate ptetre ?
+
+
                 Intro intro = new Intro();
 
                 intro.FallingIntro();

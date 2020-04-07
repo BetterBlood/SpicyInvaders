@@ -10,6 +10,7 @@ using System.Linq;
 using System.Media;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace SpicyInvader_V_01
 {
@@ -148,7 +149,7 @@ namespace SpicyInvader_V_01
                 return false;
             }
 
-            if (_position.Y <= 0 || _position.Y >= 27)// TODO: mettre 27 en constant quelque part, ptetre dans ship
+            if (_position.Y <= 0 || _position.Y >= Enemy._MAX_FIRE_RANGE)
             {
                 Rearmed();
                 return false;
@@ -204,8 +205,11 @@ namespace SpicyInvader_V_01
                 {
                     a_entities.Remove(enemy);
                 }
-                new SoundPlayer("..//..//Sounds//EnnemyDeath.wav").Play();
+                //new SoundPlayer("..//..//Sounds//EnnemyDeath.wav").Play();
                 // TODO : appel d'une méthode d'explosion des invader ?? ( au lieu de clear, mais pas compatible avec invaders.Remove(invader);)
+                Thread _threadListener = new Thread(new ThreadStart(PlaySound));
+                _threadListener.Name = "ennemyDeath";
+                _threadListener.Start();
             }
 
             if (enemyIsHit || allyIsHit)
@@ -216,12 +220,17 @@ namespace SpicyInvader_V_01
             return false;
         }
 
+        public void PlaySound()
+        {
+            new SoundPlayer("..//..//Sounds//EnnemyDeath.wav").Play();
+        }
+
         /// <summary>
         /// Supprime un missile
         /// </summary>
         private void Clear()
         {
-            if (_position.X >= 0 && _position.Y >= 0 && _position.Y <= 27) // TODO : mettre 27 en constant quelque part, ptetre dans ship
+            if (_position.X >= 0 && _position.Y >= 0 && _position.Y <= Enemy._MAX_FIRE_RANGE)
             {
                 _shape.Clear(_position);
             }
@@ -232,7 +241,7 @@ namespace SpicyInvader_V_01
         /// </summary>
         public void Draw()
         {
-            if (_position.Y != 0 && _position.Y <= 27) // TODO : mettre 27 en constant quelque part, ptetre dans ship
+            if (_position.Y != 0 && _position.Y <= Enemy._MAX_FIRE_RANGE)
             {
                 _shape.Draw(_position);
             }
