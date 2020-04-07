@@ -287,6 +287,11 @@ namespace SpicyInvader_V_01
             return _shape.GetHorizontalHightSize();
         }
 
+        public int GetHeight()
+        {
+            return _shape.GetVerticalLenght();
+        }
+
         /// <summary>
         /// Retourne un objet de classe HitBox
         /// </summary>

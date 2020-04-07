@@ -79,7 +79,7 @@ namespace SpicyInvader_V_01
         {
             // TODO : voir si j'ai pas oublié un truc ici, spoiler : surement oui, comparer avec InnitInvaders juste en dessous !!
             //_enemies.Add(new Boss(a_lvl, "  \\__/4 -<==>-4  \\__/"));
-            _enemies.Add(new Boss(a_lvl, "    /**\\   4----0  0----4    /**\\  4   /    \\  "));
+            _enemies.Add(new Boss(a_lvl, Menu.ENNEMY_SKIN_1));
         }
 
         /// <summary>
@@ -90,18 +90,18 @@ namespace SpicyInvader_V_01
         {
             _numberOfInvader = 3 + a_fleet_lvl * 2;
 
-            int invaderSize = 4; // ptetre mettre en static dans Invader la taille par défaut genre un Invader.Width() ?
+            int invaderSize = Invader.HORIZONTAL_SIZE; // ptetre mettre en static dans Invader la taille par défaut genre un Invader.Width() ?
             int y = 0;
 
             for (int i = 0, j = 0; i < _numberOfInvader; i++, j++)
             {
-                if (i % 5 == 0)
+                if (i % 15 == 0) // nombre d'ennemis par ligne
                 {
                     j = 0;
-                    y++;
+                    y += Invader.VERTICAL_SIZE + 1;
                 }
 
-                _enemies.Add(new Invader(new Position(j * (invaderSize + 1), y), true));
+                _enemies.Add(new Invader(new Position(j * (invaderSize + 2), y), true));
             }
         }
 

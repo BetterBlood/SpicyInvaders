@@ -157,9 +157,9 @@ namespace SpicyInvader_V_01
         /// Retourne la position de tire
         /// </summary>
         /// <returns></returns>
-        protected virtual Position GetFirePosition()
+        protected Position GetFirePosition() // TODO : ptetre enlever le virtual car avec le GetHor...() on obtien la bonne position
         {
-            return new Position(_position.X + 2, _position.Y + 1); // TODO : redéfinir ça dans boss mot clé : new !
+            return new Position(_position.X + GetHorizontalHightSize()/2, _position.Y + GetHeight()); 
         }
         
         /// <summary>
