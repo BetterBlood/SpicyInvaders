@@ -165,7 +165,15 @@ namespace SpicyInvader_V_01
             {
                 if (!missile.IsFired())
                 {
-                    missile.Fire(new Position(_position.X + 2, _position.Y - 1)); // position de départ de missile peut être voir pour modifier selon le vaisseau
+                    if (this is Ally)
+                    {
+                        missile.Fire(new Position(_position.X + _shape.GetHorizontalHightSize() / 2, _position.Y));
+                    }
+                    else
+                    {
+                        missile.Fire(new Position(_position.X + 2, _position.Y - 1)); // position de départ de missile peut être voir pour modifier selon le vaisseau
+                    }
+                    
                     //new SoundPlayer("..//..//Sounds//LazerFire.wav").Play(); // TODO : ptetre faire un son différent pour les ennemis
                     //PlaySound("..//..//Sounds//LazerFire.wav");
                     Thread _threadListener = new Thread(new ThreadStart(PlaySound));

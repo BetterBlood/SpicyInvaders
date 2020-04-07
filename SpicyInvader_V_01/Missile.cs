@@ -149,7 +149,7 @@ namespace SpicyInvader_V_01
                 return false;
             }
 
-            if (_position.Y <= 0 || _position.Y >= 27)// TODO: mettre 27 en constant quelque part, ptetre dans ship
+            if (_position.Y <= 0 || _position.Y >= Enemy._MAX_FIRE_RANGE)
             {
                 Rearmed();
                 return false;
@@ -230,7 +230,7 @@ namespace SpicyInvader_V_01
         /// </summary>
         private void Clear()
         {
-            if (_position.X >= 0 && _position.Y >= 0 && _position.Y <= 27) // TODO : mettre 27 en constant quelque part, ptetre dans ship
+            if (_position.X >= 0 && _position.Y >= 0 && _position.Y <= Enemy._MAX_FIRE_RANGE)
             {
                 _shape.Clear(_position);
             }
@@ -241,7 +241,7 @@ namespace SpicyInvader_V_01
         /// </summary>
         public void Draw()
         {
-            if (_position.Y != 0 && _position.Y <= 27) // TODO : mettre 27 en constant quelque part, ptetre dans ship
+            if (_position.Y != 0 && _position.Y <= Enemy._MAX_FIRE_RANGE)
             {
                 _shape.Draw(_position);
             }

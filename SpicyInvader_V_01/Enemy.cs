@@ -23,6 +23,7 @@ namespace SpicyInvader_V_01
         protected int _pointNumber; // protected car réassigné suivant les points de l'ennemi : Ex :Invader = 1 pts, Boss = lvl*3 pts
         private static bool _rightDirection;
         private int _startYPosition;
+        public const int _MAX_FIRE_RANGE = 39;
 
         private bool _isInFrontLane;
 

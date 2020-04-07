@@ -21,19 +21,23 @@ namespace SpicyInvader_V_01
         /// <summary>
         /// Constructeur par défaut
         /// </summary>
-        public Ship() : base ("_/-\\_4 \\*/ ", new Position(50, 26), 2) { }
+        public Ship() : this ("      ■      4     ■■■     4    ■■■■■    4 ///■■■■■\\\\\\ 4////■■■■■\\\\\\\\", new Position(50, 34), 2) { }
 
         /// <summary>
         /// Constructeur renseigné
         /// </summary>
         /// <param name="a_shape"></param>
-        public Ship(string a_shape) : base (a_shape, new Position(50, 26), 2) { }
+        public Ship(string a_shape) : this (a_shape, new Position(50, 34), 2) { }
 
         /// <summary>
         /// Constructeur renseigné
         /// </summary>
         /// <param name="a_lifePoint"></param>
-        public Ship(int a_lifePoint) : base("_/-\\_4 \\*/ ", new Position(50, 26), 2, a_lifePoint) { }
+        public Ship(int a_lifePoint) : base ("_/-\\_4 \\*/ ", new Position(50, 34), 2, a_lifePoint) { }
+
+
+        public Ship(string a_shape, Position a_position, int a_lifePoint) : base(a_shape, a_position, a_lifePoint) { }
+
 
     }
 }

@@ -66,7 +66,7 @@ namespace SpicyInvader_V_01
         public const string BONUS_STAGE = "bonus stage";
 
         public const int MISSILE_DISPLAY_POSITION_X = 30;
-        public const int MISSILE_DISPLAY_POSITION_Y = 29;
+        public const int MISSILE_DISPLAY_POSITION_Y = 40;
         // TODO : faire aussi les coordonnée des autre HUD en const
 
         public const char STRING_SHAPE_SEPARATOR = '4';  // ATTENTION : on ne peut donc pas utiliser le chiffre 4 pour la construction de silhouette 
@@ -779,7 +779,7 @@ namespace SpicyInvader_V_01
         /// Affiche le level actuel
         /// </summary>
         /// <param name="a_level"></param>
-        public void DisplayLevel(int a_level)
+        public void DisplayEnemyLevel(int a_level)
         {
             Console.SetCursorPosition(0, 0);
             Console.Write("Level : " + a_level);
@@ -790,7 +790,7 @@ namespace SpicyInvader_V_01
         /// </summary>
         public void DisplayScore()
         {
-            Console.SetCursorPosition(30, 33); // TODO : mettre en constante les valeur du display
+            Console.SetCursorPosition(30, 44); // TODO : mettre en constante les valeur du display
             Console.Write("score : {0}", Game._score);
         }
 
@@ -805,7 +805,7 @@ namespace SpicyInvader_V_01
             DisplayScore();
             // fin // scores
 
-            DisplayLevel(a_level);
+            DisplayEnemyLevel(a_level);
 
             // début // missiles :
             int missileTotal = a_ship.GetMissilesCapacity();
@@ -830,7 +830,7 @@ namespace SpicyInvader_V_01
 
             // début // vie :
 
-            Console.SetCursorPosition(30, 31); // TODO : mettre en constante les valeur du display
+            Console.SetCursorPosition(30, 42); // TODO : mettre en constante les valeur du display
             Console.WriteLine("vies : " + a_ship.GetLife() + "/" + a_ship.GetMaxLife());
 
 
