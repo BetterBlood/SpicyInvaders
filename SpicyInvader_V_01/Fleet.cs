@@ -88,20 +88,46 @@ namespace SpicyInvader_V_01
         /// <param name="a_fleet_lvl"></param>
         public void InitInvaders(int a_fleet_lvl)
         {
-            _numberOfInvader = 3 + a_fleet_lvl * 2;
+            _numberOfInvader = 3 + (a_fleet_lvl * 2)%20; // le modulo 20 c'est pour ne pas avoir plus de 22 invaders
 
             int invaderSize = Invader.HORIZONTAL_SIZE; // ptetre mettre en static dans Invader la taille par défaut genre un Invader.Width() ?
             int y = 0;
+            string skin = Menu.ENNEMY_SKIN_6;
 
             for (int i = 0, j = 0; i < _numberOfInvader; i++, j++)
             {
-                if (i % 15 == 0) // nombre d'ennemis par ligne
+                if (i % 10 == 0) // 10 = nombre d'ennemis par ligne
                 {
                     j = 0;
                     y += Invader.VERTICAL_SIZE + 1;
                 }
+                if (a_fleet_lvl > 10)
+                {
+                    skin = Menu.ENNEMY_SKIN_5;
+                }
+                if (a_fleet_lvl > 20)
+                {
+                    skin = Menu.ENNEMY_SKIN_6; // normalement le 4 mais il est pas fonctionnel !
+                }
 
-                _enemies.Add(new Invader(new Position(j * (invaderSize + 2), y), true));
+                _enemies.Add(new Invader(skin, new Position(j * (invaderSize + 2), y), true));
+            }
+
+            /// géstion du lvl des invaders :
+            if (a_fleet_lvl > 10)
+            {
+                foreach (Enemy enemy in _enemies)
+                {
+                    enemy.Upgrad();
+                }
+            }
+
+            if (a_fleet_lvl > 20)
+            {
+                foreach (Enemy enemy in _enemies)
+                {
+                    enemy.Upgrad();
+                }
             }
         }
 
@@ -223,6 +249,18 @@ namespace SpicyInvader_V_01
         public bool IsBossStage()
         {
             return _bossStage;
+        }
+
+        public int GetEnemiesLife()
+        {
+            int lifeTot = 0;
+
+            foreach(Enemy enemy in _enemies)
+            {
+                lifeTot += enemy.GetLife();
+            }
+
+            return lifeTot;
         }
     }
 }

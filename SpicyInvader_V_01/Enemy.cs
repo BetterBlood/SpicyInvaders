@@ -21,6 +21,7 @@ namespace SpicyInvader_V_01
         /// Attributs
         /// </summary>
         protected int _pointNumber; // protected car réassigné suivant les points de l'ennemi : Ex :Invader = 1 pts, Boss = lvl*3 pts
+        private int _upgradeLvl;
         private static bool _rightDirection;
         private int _startYPosition;
         public const int _MAX_FIRE_RANGE = 39;
@@ -40,6 +41,7 @@ namespace SpicyInvader_V_01
         /// <param name="a_rightDirection"></param>
         public Enemy(string a_shape, Position a_position, int a_nbrMissile, bool a_rightDirection) : base(a_shape, a_position, a_nbrMissile, EnumDirection.DOWN) 
         {
+            _upgradeLvl = 0;
             _pointNumber = 1;
             _rightDirection = a_rightDirection;
             _startYPosition = a_position.Y;
@@ -175,5 +177,29 @@ namespace SpicyInvader_V_01
             base.Draw();
             Console.ForegroundColor = ConsoleColor.Gray;
         }
+
+        public void Upgrad()
+        {
+            switch(_upgradeLvl)
+            {
+                case 0: // première upgrade (correspond normalement au lvl 10) les ennemies ont maintenant 2 vies
+                    _upgradeLvl++;
+                    _lifePoints++;
+                    break;
+
+                case 1: // seconde upgrade (correspond au lvl 20) les ennemies ont maintenant 2 missiles simultanément
+                    _upgradeLvl++;
+                    UpgradWeaponSlot();
+                    break;
+                case 2: // première upgrade (correspond normalement au lvl 30) les ennemies ont maintenant 3 vies
+                    _upgradeLvl++;
+                    _lifePoints++;
+                    break;
+                default:
+                    // nothing to do ?
+                    break;
+            }
+        }
+
     }
 }
