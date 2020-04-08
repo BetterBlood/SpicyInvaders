@@ -74,7 +74,8 @@ namespace SpicyInvader_V_01
         /// <returns></returns>
         public string GetSaveStat(string a_separator)
         {
-            string innerSeparator = ".";
+            string innerSeparator1 = "/";
+            string innerSeparator2 = ".";
 
             //exemple : 
             // string retour = "";
@@ -82,7 +83,7 @@ namespace SpicyInvader_V_01
             // retour += a_separator;
             // retour += "missileNumber" + innerSeparator + _missiles.Size;
 
-            return "life" + innerSeparator + _lifePoints;
+            return "life" + innerSeparator2 + _lifePoints + innerSeparator1 + "nombre de missile" + innerSeparator2 + _missiles.Count; // TODO faudrai aussi ajouter la puissance des missiles etc etc...
         }
 
         public void UpgradLife()

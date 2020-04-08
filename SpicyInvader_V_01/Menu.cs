@@ -88,6 +88,7 @@ namespace SpicyInvader_V_01
         /// </summary>
         public Menu()
         {
+            // TODO : ptetre mettre un try catch au cas ou les fichier existe pas, (il y a des méthode pour vérifier si un fichier existe et pour les créer au cas ou)
             PATH_SLOT_1 = Path.GetFullPath("slot_1.txt");
             PATH_SLOT_2 = Path.GetFullPath("slot_2.txt");
             PATH_SLOT_3 = Path.GetFullPath("slot_3.txt");
@@ -250,11 +251,31 @@ namespace SpicyInvader_V_01
         private void ShowSlotMenu(bool abbleToSave, Game a_game)
         {
             // le boolean c'est pour dire si on est en mode écriture, en gros si c'est true alors on peut écraser les saves et sauver à la place
+
+            // TODO : ptetre voir pour un try catch au cas où les fichier existe pas
             string save1 = File.ReadAllText(PATH_SLOT_1);
             string save2 = File.ReadAllText(PATH_SLOT_2);
             string save3 = File.ReadAllText(PATH_SLOT_3);
 
-            string[] tab = {SLOT_1 + " " + save1.Split('!')[0].Split('?')[1], SLOT_2 + " " + save2.Split('!')[0].Split('?')[1], SLOT_3 + " " + save3.Split('!')[0].Split('?')[1], BACK};
+            string[] tab = {
+                // save 1:
+                SLOT_1 + " | Save date: " + save1.Split('!')[0].Split('?')[1] + 
+                    " | Enemy lvl: " + save1.Split('!')[2].Split('?')[1] + 
+                    " | Life: " + save1.Split('!')[3].Split('?')[1].Split('/')[0].Split('.')[1] + 
+                    " | Nombre de missiles: " + save1.Split('!')[3].Split('?')[1].Split('/')[1].Split('.')[1],
+                // save 2:
+                SLOT_2 + " | Save date: " + save2.Split('!')[0].Split('?')[1] + 
+                    " | Enemy lvl: " + save2.Split('!')[2].Split('?')[1] + 
+                    " | Life: " + save2.Split('!')[3].Split('?')[1].Split('/')[0].Split('.')[1] + 
+                    " | Nombre de missiles: " + save2.Split('!')[3].Split('?')[1].Split('/')[1].Split('.')[1],
+                // save 3:
+                SLOT_3 + " | Save date: " + save3.Split('!')[0].Split('?')[1] + 
+                    " | Enemy lvl: " + save3.Split('!')[2].Split('?')[1] + 
+                    " | Life: " + save3.Split('!')[3].Split('?')[1].Split('/')[0].Split('.')[1] + 
+                    " | Nombre de missiles: " + save3.Split('!')[3].Split('?')[1].Split('/')[1].Split('.')[1],
+
+                BACK
+            };
 
             Console.Clear();
 
@@ -307,7 +328,9 @@ namespace SpicyInvader_V_01
 
                 key = Console.ReadKey();
 
-                switch(key.Key)
+                string save = "";
+
+                switch (key.Key)
                 {
                     case ConsoleKey.DownArrow:
                         if (place < tab.Length - 1)
@@ -338,16 +361,7 @@ namespace SpicyInvader_V_01
                                 }
                                 else if (!save1.Equals(""))
                                 {
-                                    string save = save1;
-                                    string[] saveSplit = save.Split('!');
-                                    // 0 = date
-                                    string[] score = saveSplit[1].Split('?');
-                                    string[] fleetLevel = saveSplit[2].Split('?');
-                                    string[] shipStats = saveSplit[3].Split('?');
-                                    string[] shipLife = shipStats[1].Split('.');
-
-                                    a_game.LoadGame(Convert.ToInt32(score[1]), Convert.ToInt32(fleetLevel[1]), Convert.ToInt32(shipLife[1]));
-                                    back = true;
+                                    save = save1;
                                 }
                                 break;
 
@@ -362,16 +376,7 @@ namespace SpicyInvader_V_01
                                 }
                                 else if (!save2.Equals(""))
                                 {
-                                    string save = save2;
-                                    string[] saveSplit = save.Split('!');
-                                    // 0 = date
-                                    string[] score = saveSplit[1].Split('?');
-                                    string[] fleetLevel = saveSplit[2].Split('?');
-                                    string[] shipStats = saveSplit[3].Split('?');
-                                    string[] shipLife = shipStats[1].Split('.');
-
-                                    a_game.LoadGame(Convert.ToInt32(score[1]), Convert.ToInt32(fleetLevel[1]), Convert.ToInt32(shipLife[1]));
-                                    back = true;
+                                    save = save2;
                                 }
                                 break;
 
@@ -386,16 +391,7 @@ namespace SpicyInvader_V_01
                                 }
                                 else if (!save3.Equals(""))
                                 {
-                                    string save = save3;
-                                    string[] saveSplit = save.Split('!');
-                                    // 0 = date
-                                    string[] score = saveSplit[1].Split('?');
-                                    string[] fleetLevel = saveSplit[2].Split('?');
-                                    string[] shipStats = saveSplit[3].Split('?');
-                                    string[] shipLife = shipStats[1].Split('.');
-
-                                    a_game.LoadGame(Convert.ToInt32(score[1]), Convert.ToInt32(fleetLevel[1]), Convert.ToInt32(shipLife[1]));
-                                    back = true;
+                                    save = save3;
                                 }
                                 break;
 
@@ -405,6 +401,24 @@ namespace SpicyInvader_V_01
                         }
                         break;
                 }
+
+                if (!save.Equals(""))
+                {
+                    string[] saveSplit = save.Split('!');
+                    // 0 = date
+                    string score = saveSplit[1].Split('?')[1];
+                    string fleetLevel = saveSplit[2].Split('?')[1];
+                    string[] shipStats = saveSplit[3].Split('?');
+                    string shipLife = shipStats[1].Split('.')[1];
+
+                    //string shipMissileNumber = shipStats[2].Split('.')[1];
+
+                    //a_game.LoadGame(Convert.ToInt32(score), Convert.ToInt32(fleetLevel), Convert.ToInt32(shipLife));
+                    a_game.LoadGame(saveSplit);
+
+                    back = true;
+                }
+
                 if (back)
                 {
                     Console.Clear();
@@ -791,10 +805,12 @@ namespace SpicyInvader_V_01
         /// Affiche le level actuel
         /// </summary>
         /// <param name="a_level"></param>
-        public void DisplayEnemyLevel(int a_level)
+        public void DisplayEnemyLevel(int a_level, int a_enemyLife)
         {
             Console.SetCursorPosition(0, 0);
-            Console.Write("Level : " + a_level);
+            Console.Write(new string(' ', Console.WindowWidth));
+            Console.SetCursorPosition(0, 0);
+            Console.Write("Level : " + a_level + " / Enemy life : " + a_enemyLife);
         }
 
         /// <summary>
@@ -811,13 +827,13 @@ namespace SpicyInvader_V_01
         /// </summary>
         /// <param name="a_ship"></param>
         /// <param name="a_level"></param>
-        public void DisplayHUD(Ship a_ship, int a_level)
+        public void DisplayHUD(Ship a_ship, int a_level, int a_enemyLife)
         {
             // début // scores :
             DisplayScore();
             // fin // scores
 
-            DisplayEnemyLevel(a_level);
+            DisplayEnemyLevel(a_level, a_enemyLife);
 
             // début // missiles :
             int missileTotal = a_ship.GetMissilesCapacity();

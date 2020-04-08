@@ -35,6 +35,7 @@ namespace SpicyInvader_V_01
         /// <param name="a_lifePoint"></param>
         public Ship(int a_lifePoint) : base (Menu.ALLY_SHIP_SKIN_2, new Position(50, 34), 2, a_lifePoint) { }
 
+        public Ship(int a_lifePoint, int a_nbrOfMissile) : base(Menu.ALLY_SHIP_SKIN_2, new Position(50, 34), a_nbrOfMissile, a_lifePoint) { }
 
         public Ship(string a_shape, Position a_position, int a_lifePoint) : base(a_shape, a_position, a_lifePoint) { }
 

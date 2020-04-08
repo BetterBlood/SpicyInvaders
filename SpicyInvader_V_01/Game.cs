@@ -179,7 +179,7 @@ namespace SpicyInvader_V_01
                 }
                 else
                 {
-                    _menu.DisplayHUD(_ship, _level.GetLevel());
+                    _menu.DisplayHUD(_ship, _level.GetLevel(), _fleet.GetEnemiesLife());
                 }
 
                 if (_fleet.FleetIsDefeated())
@@ -269,17 +269,19 @@ namespace SpicyInvader_V_01
         /// <summary>
         /// Chargement d'une partie
         /// </summary>
-        /// <param name="a_score"></param>
-        /// <param name="a_fleetLevel"></param>
-        /// <param name="a_shipLife"></param>
-        public void LoadGame(int a_score, int a_fleetLevel, int a_shipLife)
+        /// <param name="a_saveStat">string contenant les info récupérée du fichier de sauvegarde</param>
+        public void LoadGame(string[] a_saveStat)
         {
-            _level = new Level(a_fleetLevel);
-            _score = a_score;
+            _score = Convert.ToInt32(a_saveStat[1].Split('?')[1]);
+            _level = new Level(Convert.ToInt32(a_saveStat[2].Split('?')[1]));
+            _fleet = _level.GetFleet(); 
 
-            _fleet = _level.GetFleet();
-            _ship = new Ship(a_shipLife);
-            _menu = new Menu();
+            string[] shipStats = a_saveStat[3].Split('?');
+            
+            //TODO : faire deux saves de vie, tot et actuelle
+            _ship = new Ship(Convert.ToInt32(shipStats[1].Split('/')[0].Split('.')[1]), Convert.ToInt32(shipStats[1].Split('/')[1].Split('.')[1])); // life et nombre de missile
+
+            _menu = new Menu(); // ptetre pas util
 
             InitEntities();
         }
