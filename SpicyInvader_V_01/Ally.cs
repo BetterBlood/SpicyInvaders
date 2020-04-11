@@ -83,7 +83,10 @@ namespace SpicyInvader_V_01
             // retour += a_separator;
             // retour += "missileNumber" + innerSeparator + _missiles.Size;
 
-            return "life" + innerSeparator2 + _lifePoints + innerSeparator1 + "nombre de missile" + innerSeparator2 + _missiles.Count; // TODO faudrai aussi ajouter la puissance des missiles etc etc...
+            // TODO faudrai aussi ajouter la puissance des missiles etc etc...
+            return  "life" + innerSeparator2 + _lifePoints + innerSeparator1 + 
+                    "missile_number" + innerSeparator2 + _missiles.Count + innerSeparator1 + 
+                    "max_life" + innerSeparator2 + _maxLifePoint; 
         }
 
         public void UpgradLife()

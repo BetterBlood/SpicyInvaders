@@ -96,13 +96,13 @@ namespace SpicyInvader_V_01
         }
 
         /// <summary>
-        /// 
+        /// permet d'obtenir la taille horizontal de la ligne demandé
         /// </summary>
         /// <param name="a_row"></param>
         /// <returns></returns>
         public int GetHorizontalLenght(int a_row)
         {
-            if (a_row > _shapes.Count - 1 || a_row < 0)
+            if (a_row > _shapes.Count - 1 || a_row < 0) // renvois 0 si a_row n'est pas correct
             {
                 return 0;
             }
@@ -132,7 +132,7 @@ namespace SpicyInvader_V_01
         }
 
         /// <summary>
-        /// 
+        /// donne une copie de la shape
         /// </summary>
         /// <returns></returns>
         public List<List<string>> GetShape()
@@ -156,7 +156,7 @@ namespace SpicyInvader_V_01
         }
 
         /// <summary>
-        /// 
+        /// permet d'obtenir une liste contenant la taille de chaque ligne
         /// </summary>
         /// <returns></returns>
         public List<int> GetSizes()

@@ -29,7 +29,7 @@ namespace SpicyInvader_V_01
         private int _power;
 
         private bool _missileFired;
-        private EnumDirection _missileDirection; // true signifie que le missile monte, false qu'il descend
+        private EnumDirection _missileDirection;
 
         /// <summary>
         /// Propriétés
@@ -222,7 +222,10 @@ namespace SpicyInvader_V_01
 
         public void PlaySound()
         {
-            new SoundPlayer("..//..//Sounds//EnnemyDeath.wav").Play();
+            if (Menu.SoundIsON())
+            {
+                new SoundPlayer("..//..//Sounds//EnnemyDeath.wav").Play();
+            }
         }
 
         /// <summary>

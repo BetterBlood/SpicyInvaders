@@ -36,6 +36,13 @@ namespace SpicyInvader_V_01
         private const string LEAVE = "╔═════════════════╗." +
                                      "║     quitter     ║." +
                                      "╚═════════════════╝";
+        private const string SOUND_ON = "╔═════════════════╗." +
+                                        "║     Sound ON    ║." +
+                                        "╚═════════════════╝";
+        private const string SOUND_OFF = "╔═════════════════╗." +
+                                         "║     Sound OFF   ║." +
+                                         "╚═════════════════╝";
+
         private const string BACK = "retour";
 
         private const string SLOT_1 = "Slot 1";
@@ -45,6 +52,8 @@ namespace SpicyInvader_V_01
         private readonly string PATH_SLOT_1;
         private readonly string PATH_SLOT_2;
         private readonly string PATH_SLOT_3;
+        private static readonly string PATH_REGLAGE = Path.GetFullPath("reglage.txt");
+        private readonly string PATH_HIGH_SCORE;
 
         private const string upgrade1 = "╔═════════════════════════╗." +
                                         "║  Increase Weapon Slot   ║." +
@@ -78,9 +87,9 @@ namespace SpicyInvader_V_01
         public const string ENNEMY_SKIN_2 = "    /**\\   4----0  0----4    /**\\  4   /    \\  "; // BOSS
         public const string ENNEMY_SKIN_3 = "     ■     ■     4|  ■■ ■■■■■ ■■  |4|    ■■■■■■■    |4\\----■ ■■■ ■----/4      ■■■■■      "; // BOSS
 
-        public const string ENNEMY_SKIN_4 = "\\_||_/4-0||0-4__/\\__"; // Invader
-        public const string ENNEMY_SKIN_5 = "/00\\4|--|"; // Invader
-        public const string ENNEMY_SKIN_6 = " ITI 4|/¨\\|"; // Invader
+        public const string ENNEMY_SKIN_4 = "\\_||_/4-0||0-4__/\\__"; // Invader : X = 6, Y = 3
+        public const string ENNEMY_SKIN_5 = "/00\\4|--|"; // Invader : X = 4, Y = 2
+        public const string ENNEMY_SKIN_6 = " ITI 4|/¨\\|"; // Invader : X = 5, Y = 2
 
 
         /// <summary>
@@ -92,6 +101,7 @@ namespace SpicyInvader_V_01
             PATH_SLOT_1 = Path.GetFullPath("slot_1.txt");
             PATH_SLOT_2 = Path.GetFullPath("slot_2.txt");
             PATH_SLOT_3 = Path.GetFullPath("slot_3.txt");
+            PATH_HIGH_SCORE = Path.GetFullPath("high_score.txt");
         }
 
         public string MultThisSymbol(string a_symbol, int a_nbrOfMult)
@@ -224,6 +234,8 @@ namespace SpicyInvader_V_01
 
                         case 3: // parametres
                             // TODO : méthode permettant d'atteindre les réglages
+                            Console.Clear();
+                            ShowParamMenu(a_game);
                             break;
 
                         case 4: // quitter
@@ -241,6 +253,118 @@ namespace SpicyInvader_V_01
                     break; // TODO : charger les fichiers de sauvegarde et prendre le plus récent pour loader cette partie
                 }
             }
+        }
+
+        private void ShowParamMenu(Game a_game)
+        {
+            bool retour = false;
+            bool sound_on = SoundIsON();
+            string[] tab = new string[2];
+
+            if (sound_on) 
+            {
+                tab[0] = SOUND_ON;
+            }
+            else
+            {
+                tab[0] = SOUND_OFF;
+            }
+            tab[1] = BACK;
+
+            int place = 0;
+
+            while (true)
+            {
+                ConsoleKeyInfo key;
+
+                int x = 0;
+
+                // affichage du menu
+                foreach (string affichage in tab)
+                {
+                    if (x == place) // surlignement en jaune du text concerné
+                    {
+                        string[] tab2 = tab[x].Split('.');
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+
+                        int heightAjustment = -1;
+
+                        foreach (string ligne in tab2)
+                        {
+                            Console.SetCursorPosition(Console.WindowWidth / 2 - tab2[0].Length / 2, Console.WindowHeight / 3 + x * 3 + heightAjustment);
+                            Console.WriteLine(ligne);
+                            heightAjustment++;
+                        }
+
+                    }
+                    else
+                    {
+                        string[] tab2 = tab[x].Split('.');
+                        Console.ForegroundColor = ConsoleColor.Gray;
+
+                        int heightAjustment = -1;
+
+                        foreach (string ligne in tab2)
+                        {
+                            Console.SetCursorPosition(Console.WindowWidth / 2 - tab2[0].Length / 2, Console.WindowHeight / 3 + x * 3 + heightAjustment);
+                            Console.WriteLine(ligne);
+                            heightAjustment++;
+                        }
+                    }
+
+                    x++;
+                }
+
+                key = Console.ReadKey();
+
+                if (key.Key == ConsoleKey.DownArrow && place < tab.Length - 1)
+                {
+                    place++;
+                }
+                else if (key.Key == ConsoleKey.UpArrow && place > 0)
+                {
+                    place--;
+                }
+                else if (key.Key == ConsoleKey.Enter || key.Key == ConsoleKey.Spacebar)
+                {
+                    switch (place)
+                    {
+                        case 0: // Modifier le son
+                            if (sound_on)
+                            {
+                                sound_on = false;
+                                tab[0] = SOUND_OFF;
+                                File.WriteAllText(PATH_REGLAGE, "Sound?OFF!"); // TODO : utiliser une méthode pour écrire correctement les réglages (car là pour l'instant on overide tout le fichier pour mettre juste le reglage concernant le son)
+                            }
+                            else
+                            {
+                                sound_on = true;
+                                tab[0] = SOUND_ON;
+                                File.WriteAllText(PATH_REGLAGE, "Sound?ON!"); // TODO : utiliser une méthode pour écrire correctement les réglages (car là pour l'instant on overide tout le fichier pour mettre juste le reglage concernant le son)
+                            }
+
+                            Console.Clear();
+                            break;
+                        case 1: // retour
+                            
+                            Console.Clear();
+                            retour = true;
+                            break;
+                    }
+                }
+
+                if (retour)
+                {
+                    break;
+                }
+            }
+        }
+
+        public static bool SoundIsON()
+        {
+            string reglage = File.ReadAllText(PATH_REGLAGE);
+
+            return reglage.Split('!')[0].Split('?')[1].Equals("ON");
         }
 
         /// <summary>
@@ -261,17 +385,17 @@ namespace SpicyInvader_V_01
                 // save 1:
                 SLOT_1 + " | Save date: " + save1.Split('!')[0].Split('?')[1] + 
                     " | Enemy lvl: " + save1.Split('!')[2].Split('?')[1] + 
-                    " | Life: " + save1.Split('!')[3].Split('?')[1].Split('/')[0].Split('.')[1] + 
+                    " | Life: " + save1.Split('!')[3].Split('?')[1].Split('/')[0].Split('.')[1] + "/"+ save1.Split('!')[3].Split('?')[1].Split('/')[2].Split('.')[1] + 
                     " | Nombre de missiles: " + save1.Split('!')[3].Split('?')[1].Split('/')[1].Split('.')[1],
                 // save 2:
                 SLOT_2 + " | Save date: " + save2.Split('!')[0].Split('?')[1] + 
                     " | Enemy lvl: " + save2.Split('!')[2].Split('?')[1] + 
-                    " | Life: " + save2.Split('!')[3].Split('?')[1].Split('/')[0].Split('.')[1] + 
+                    " | Life: " + save2.Split('!')[3].Split('?')[1].Split('/')[0].Split('.')[1] + "/"+ save2.Split('!')[3].Split('?')[1].Split('/')[2].Split('.')[1] + 
                     " | Nombre de missiles: " + save2.Split('!')[3].Split('?')[1].Split('/')[1].Split('.')[1],
                 // save 3:
                 SLOT_3 + " | Save date: " + save3.Split('!')[0].Split('?')[1] + 
                     " | Enemy lvl: " + save3.Split('!')[2].Split('?')[1] + 
-                    " | Life: " + save3.Split('!')[3].Split('?')[1].Split('/')[0].Split('.')[1] + 
+                    " | Life: " + save3.Split('!')[3].Split('?')[1].Split('/')[0].Split('.')[1] + "/"+ save3.Split('!')[3].Split('?')[1].Split('/')[2].Split('.')[1] + 
                     " | Nombre de missiles: " + save3.Split('!')[3].Split('?')[1].Split('/')[1].Split('.')[1],
 
                 BACK
@@ -589,7 +713,8 @@ namespace SpicyInvader_V_01
                             break;
 
                         case 2: // parametres
-                            // TODO : méthode permettant d'atteindre les réglages
+                            Console.Clear();
+                            ShowParamMenu(a_game);
                             break;
 
                         case 3: // menu principale
@@ -685,7 +810,8 @@ namespace SpicyInvader_V_01
                             break;
 
                         case 2: // parametres
-                            // TODO : méthode permettant d'atteindre les réglages
+                            Console.Clear();
+                            ShowParamMenu(a_game);
                             break;
 
                         case 3: // menu principale
@@ -781,7 +907,8 @@ namespace SpicyInvader_V_01
                             break;
 
                         case 2: // parametres
-                            // TODO : méthode permettant d'atteindre les réglages
+                            Console.Clear();
+                            ShowParamMenu(a_game);
                             break;
 
                         case 3: // menu principale
@@ -802,9 +929,10 @@ namespace SpicyInvader_V_01
         }
 
         /// <summary>
-        /// Affiche le level actuel
+        /// Affiche le level actuel et le total de vie de la vague ennemie
         /// </summary>
         /// <param name="a_level"></param>
+        /// <param name="a_enemyLife"></param>
         public void DisplayEnemyLevel(int a_level, int a_enemyLife)
         {
             Console.SetCursorPosition(0, 0);
@@ -863,7 +991,6 @@ namespace SpicyInvader_V_01
 
 
             // fin // vie
-
         }
     }
 }

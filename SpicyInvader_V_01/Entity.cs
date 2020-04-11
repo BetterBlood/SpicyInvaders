@@ -153,7 +153,11 @@ namespace SpicyInvader_V_01
 
         public void PlaySound()
         {
-            new SoundPlayer("..//..//Sounds//LazerFire.wav").Play();
+            if (Menu.SoundIsON())
+            {
+                new SoundPlayer("..//..//Sounds//LazerFire.wav").Play();
+            }
+            
         }
 
         /// <summary>
@@ -170,7 +174,7 @@ namespace SpicyInvader_V_01
                         missile.Fire(new Position(_position.X + _shape.GetHorizontalHightSize() / 2, _position.Y));
                     }
                     else
-                    {
+                    { // TODO : vérifier les positions de lancement : ptetre voir pour les trouver par rapport aux tailles de shape
                         missile.Fire(new Position(_position.X + 2, _position.Y - 1)); // position de départ de missile peut être voir pour modifier selon le vaisseau
                     }
                     
