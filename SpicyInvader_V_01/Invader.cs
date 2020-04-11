@@ -19,8 +19,8 @@ namespace SpicyInvader_V_01
     public class Invader : Enemy
     {
 
-        public const int HORIZONTAL_SIZE = 5;
-        public const int VERTICAL_SIZE = 2;
+        public static int HORIZONTAL_SIZE = 5;
+        public static int VERTICAL_SIZE = 2;
 
         /// <summary>
         /// Constructeur par défaut

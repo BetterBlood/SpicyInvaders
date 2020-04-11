@@ -1,1 +1,1 @@
-Date?08.04.2020 14:55:12!score?21!fleet_lvl?4!ship_State?life.3/nombre de missile.2
+Date?08.04.2020 14:55:12!score?21!fleet_lvl?4!ship_State?life.3/missile_number.2/max_life.3

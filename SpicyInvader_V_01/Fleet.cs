@@ -104,10 +104,12 @@ namespace SpicyInvader_V_01
                 if (a_fleet_lvl > 10)
                 {
                     skin = Menu.ENNEMY_SKIN_5;
+                    invaderSize = 4;
                 }
                 if (a_fleet_lvl > 20)
                 {
                     skin = Menu.ENNEMY_SKIN_6; // normalement le 4 mais il est pas fonctionnel !
+                    invaderSize = 5;
                 }
 
                 _enemies.Add(new Invader(skin, new Position(j * (invaderSize + 2), y), true));

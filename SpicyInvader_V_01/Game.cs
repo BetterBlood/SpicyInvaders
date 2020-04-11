@@ -76,7 +76,10 @@ namespace SpicyInvader_V_01
 
         private void PlayAudioFile(object a_relativePath) 
         {
-            new SoundPlayer(a_relativePath.ToString()).Play();
+            if (Menu.SoundIsON())
+            {
+                new SoundPlayer(a_relativePath.ToString()).Play();
+            }
         }
 
         /// <summary>
@@ -89,7 +92,6 @@ namespace SpicyInvader_V_01
                 Thread playingMusicThread = new Thread(new ParameterizedThreadStart(PlayAudioFile));
                 playingMusicThread.Start("..//..//Sounds//IntroSpicyInvaders.wav");
                 //PlayAudioFile("..//..//Sounds//IntroSpicyInvaders.wav"); // TODO trouver un moyen de faire un delegate ptetre ?
-
 
                 Intro intro = new Intro();
 
@@ -195,8 +197,6 @@ namespace SpicyInvader_V_01
                     InitEntities();
 
                     _menu.ShowMenu(Menu.STAGE_WIN, this);
-                    // TODO : afficher les bonus si c'est un bossStage
-                    // TODO : afficher le menu pour sauver 
                 }
             }
         }
@@ -279,8 +279,8 @@ namespace SpicyInvader_V_01
             string[] shipStats = a_saveStat[3].Split('?');
             
             //TODO : faire deux saves de vie, tot et actuelle
-            _ship = new Ship(Convert.ToInt32(shipStats[1].Split('/')[0].Split('.')[1]), Convert.ToInt32(shipStats[1].Split('/')[1].Split('.')[1])); // life et nombre de missile
-
+            _ship = new Ship(Convert.ToInt32(shipStats[1].Split('/')[2].Split('.')[1]), Convert.ToInt32(shipStats[1].Split('/')[1].Split('.')[1])); // life et nombre de missile
+            _ship.TakeDamage(Convert.ToInt32(shipStats[1].Split('/')[2].Split('.')[1]) - Convert.ToInt32(shipStats[1].Split('/')[0].Split('.')[1])); // ajustement de la vie
             _menu = new Menu(); // ptetre pas util
 
             InitEntities();
