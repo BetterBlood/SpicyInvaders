@@ -29,7 +29,7 @@ namespace SpicyInvader_V_01
 
         protected List<Missile> _missiles;
 
-        protected int _lifePoints; // TODO : ajouter les point de vie dans la méthode qui dit si le truc touché est mort
+        protected int _lifePoints;
 
         private int _weaponSlot;
         private EnumDirection _missileDirection;
@@ -151,11 +151,15 @@ namespace SpicyInvader_V_01
             return nbrMissilesLeft;
         }
 
-        public void PlaySound()
+        public void PlayAttackSound()
         {
-            if (Menu.SoundIsON())
+            if (Menu.SoundIsON() && this is Ally)
             {
                 new SoundPlayer("..//..//Sounds//LazerFire.wav").Play();
+            }
+            else if (Menu.SoundIsON() && this is Enemy)
+            {
+                // TODO : ptetre faire un son différent pour les ennemis
             }
             
         }
@@ -177,12 +181,8 @@ namespace SpicyInvader_V_01
                     { // TODO : vérifier les positions de lancement : ptetre voir pour les trouver par rapport aux tailles de shape
                         missile.Fire(new Position(_position.X + 2, _position.Y - 1)); // position de départ de missile peut être voir pour modifier selon le vaisseau
                     }
-                    
-                    //new SoundPlayer("..//..//Sounds//LazerFire.wav").Play(); // TODO : ptetre faire un son différent pour les ennemis
-                    //PlaySound("..//..//Sounds//LazerFire.wav");
-                    Thread _threadListener = new Thread(new ThreadStart(PlaySound));
-                    _threadListener.Name = "fireSound";
-                    _threadListener.Start();
+
+                    PlayAttackSound();
                     return;
                 }
                 else
@@ -199,7 +199,7 @@ namespace SpicyInvader_V_01
                 if (!missile.IsFired())
                 {
                     missile.Fire(a_firePosition);
-                    // TODO : ptetre faire un son différent pour les ennemis
+                    PlayAttackSound();
                     return;
                 }
                 else
@@ -341,7 +341,6 @@ namespace SpicyInvader_V_01
             return _lifePoints;
         }
 
-
         public void UpgradWeaponSlot()
         {
             if (_weaponSlot < 4)
@@ -349,6 +348,15 @@ namespace SpicyInvader_V_01
                 _weaponSlot++;
                 InitBasesMissiles(_weaponSlot, _missileDirection);
             }
+        }
+
+        /// <summary>
+        /// Retourne la position de tire
+        /// </summary>
+        /// <returns></returns>
+        protected virtual Position GetFirePosition()
+        {
+            return new Position(_position.X + GetHorizontalHightSize() / 2, _position.Y + GetHeight());
         }
     }
 }

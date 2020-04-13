@@ -24,7 +24,6 @@ namespace SpicyInvader_V_01
         //on considère ici qu'une silhouhaite est réctangulaire
         private List<List<string>> _shapes;
         private List<int> _sizes; // la taille de la liste est sa hauteur // chaque nombre de la liste est la taille de la ligne
-        //private HitBox _hitbox; // TODO : faire une class hitbox contenant un tableau de boolean
 
         private int _hightWidth;
 

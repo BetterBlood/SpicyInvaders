@@ -51,7 +51,6 @@ namespace SpicyInvader_V_01
             _enemies = new List<Enemy>();
 
             _bossStage = a_bossStage; 
-            //_bossStage = true; // TODO : c'est un test pour calibrer les missile du boss
             InitEnemies();
             SetFireRight();
         }
@@ -77,9 +76,8 @@ namespace SpicyInvader_V_01
         /// <param name="a_lvl"></param>
         private void InitBosses(int a_lvl)
         {
-            // TODO : voir si j'ai pas oublié un truc ici, spoiler : surement oui, comparer avec InnitInvaders juste en dessous !!
             //_enemies.Add(new Boss(a_lvl, "  \\__/4 -<==>-4  \\__/"));
-            _enemies.Add(new Boss(a_lvl, Menu.ENNEMY_SKIN_1));
+            _enemies.Add(new Boss(a_lvl, Menu.ENNEMY_SKIN_1)); // TODO : faire une selection des skin de boss selon le lvl !!! (comme pour InitInvaders)
         }
 
         /// <summary>
@@ -88,7 +86,8 @@ namespace SpicyInvader_V_01
         /// <param name="a_fleet_lvl"></param>
         public void InitInvaders(int a_fleet_lvl)
         {
-            _numberOfInvader = 3 + (a_fleet_lvl * 2)%20; // le modulo 20 c'est pour ne pas avoir plus de 22 invaders
+            // TODO : Vérifier que ça fait bien les vagues d'ennemies comme on veut
+            _numberOfInvader = 3 + (a_fleet_lvl * 2)%20; // le modulo 20 c'est pour ne pas avoir plus de 22 invaders 
 
             int invaderSize = Invader.HORIZONTAL_SIZE; // ptetre mettre en static dans Invader la taille par défaut genre un Invader.Width() ?
             int y = 0;
