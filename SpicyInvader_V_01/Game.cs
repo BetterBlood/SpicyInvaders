@@ -83,7 +83,7 @@ namespace SpicyInvader_V_01
         }
 
         /// <summary>
-        /// Lance le menu principal
+        /// Lance la cinématique de début (intro, ou un game over si le vaisseau est mort)
         /// </summary>
         public void Begin(bool a_begin = true)
         {
@@ -91,13 +91,13 @@ namespace SpicyInvader_V_01
             {
                 Thread playingMusicThread = new Thread(new ParameterizedThreadStart(PlayAudioFile));
                 playingMusicThread.Start("..//..//Sounds//IntroSpicyInvaders.wav");
-                //PlayAudioFile("..//..//Sounds//IntroSpicyInvaders.wav"); // TODO trouver un moyen de faire un delegate ptetre ?
 
                 Intro intro = new Intro();
 
                 intro.FallingIntro();
 
                 _menu.ShowMenu(Menu.MAIN_MENU, this);
+                playingMusicThread.Abort(); // TODO : à tester pas sur que ce soit juste
             }
             else
             {
@@ -220,14 +220,14 @@ namespace SpicyInvader_V_01
         }
 
         /// <summary>
-        /// Reignisialisation d'une partie
+        /// Réinisialisation d'une partie
         /// </summary>
         public void ResetGame()
         {
             _ship = new Ship();
             _level = new Level();
             _fleet = _level.GetFleet();
-            _score = 0; // TODO : ne pas oublié de récupéré le score dans le fichier adéquats si nécessaire normalement c'est bon mais à vérifier
+            _score = 0;
 
             _menu = new Menu();
             _isLost = false;

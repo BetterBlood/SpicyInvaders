@@ -45,7 +45,7 @@ namespace SpicyInvader_V_01
         /// </summary>
         /// <param name="a_fleet"></param>
         /// <returns></returns>
-        public bool IsDead(Fleet a_fleet) // TODO implémenter ça dans Ally je pense !
+        public bool IsDead(Fleet a_fleet)
         {
             foreach (Enemy enemy in a_fleet.GetMembers())
             {
@@ -105,6 +105,15 @@ namespace SpicyInvader_V_01
         public int GetMaxLife()
         {
             return _maxLifePoint;
+        }
+
+        /// <summary>
+        /// Retourne la position de tire
+        /// </summary>
+        /// <returns></returns>
+        protected override Position GetFirePosition() // TODO : voir pour utiliser cette méthode quand l'allié tire (permet d'avoir des vaisseaux de différentes tailles)
+        {
+            return new Position(_position.X + GetHorizontalHightSize() / 2, _position.Y - 1);
         }
     }
 }

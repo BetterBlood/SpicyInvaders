@@ -120,8 +120,6 @@ namespace SpicyInvader_V_01
         /// <returns></returns>
         public bool Move(List<Entity> a_entities, Fleet a_fleet, Game a_game) // return true si le mouvement a eut lieu sans rencontrer qqch
         {
-            // TODO : modifier en List de vaisseau ou bien d'invader ou de boss a attaquer (genre une liste d'entity)
-
             Clear();
             switch (_missileDirection)
             {
@@ -205,11 +203,9 @@ namespace SpicyInvader_V_01
                 {
                     a_entities.Remove(enemy);
                 }
-                //new SoundPlayer("..//..//Sounds//EnnemyDeath.wav").Play();
+
                 // TODO : appel d'une méthode d'explosion des invader ?? ( au lieu de clear, mais pas compatible avec invaders.Remove(invader);)
-                Thread _threadListener = new Thread(new ThreadStart(PlaySound));
-                _threadListener.Name = "ennemyDeath";
-                _threadListener.Start();
+                PlaySound();
             }
 
             if (enemyIsHit || allyIsHit)

@@ -91,6 +91,8 @@ namespace SpicyInvader_V_01
         public const string ENNEMY_SKIN_5 = "/00\\4|--|"; // Invader : X = 4, Y = 2
         public const string ENNEMY_SKIN_6 = " ITI 4|/¨\\|"; // Invader : X = 5, Y = 2
 
+        private int _saveSelected = -1;
+        private int _bonusSelected = -1;
 
         /// <summary>
         /// Constructeur par défaut qui initialise les full path des fichiers de sauvegarde
@@ -131,7 +133,7 @@ namespace SpicyInvader_V_01
             {
                 ShowMainMenu(a_game);
             }
-            else if (a_menuType.Equals(GAME_OVER))
+            else if (a_menuType.Equals(GAME_OVER)) // TODO : ptetre inutil à voir
             {
                 ShowGameOverMenu(a_game);
             }
@@ -145,6 +147,127 @@ namespace SpicyInvader_V_01
             }
         }
 
+
+        private void DisplayMenu(string[] a_tab, int a_place, bool a_confirmation = false, bool a_slotMenu = false) // TODO : implémenter la confirmation, notamment pour les sauvegardes et le choix des bonus
+        {
+            if (a_slotMenu)
+            {
+                int x = 0;
+
+                //affichage du menu
+                foreach (string affichage in a_tab)
+                {
+                    string[] tab2 = { "╔═" + MultThisSymbol("═", a_tab[x].Length) + "═╗", "║ " + a_tab[x] + " ║", "╚═" + MultThisSymbol("═", a_tab[x].Length) + "═╝" };
+
+                    if (x == a_place) // surlignement en jaune du text concerné en rouge si la save est selectionné
+                    {
+                        Console.ForegroundColor = x == _saveSelected ? ConsoleColor.Red : ConsoleColor.Yellow;
+
+                        int heightAjustment = -1;
+
+                        foreach (string ligne in tab2)
+                        {
+                            Console.SetCursorPosition(Console.WindowWidth / 2 - tab2[0].Length / 2, Console.WindowHeight / 3 + x * 3 + heightAjustment);
+                            Console.WriteLine(ligne);
+                            heightAjustment++;
+                        }
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = x == _saveSelected ? ConsoleColor.Red : ConsoleColor.Gray;
+
+                        int heightAjustment = -1;
+
+                        foreach (string ligne in tab2)
+                        {
+                            Console.SetCursorPosition(Console.WindowWidth / 2 - tab2[0].Length / 2, Console.WindowHeight / 3 + x * 3 + heightAjustment);
+                            Console.WriteLine(ligne);
+                            heightAjustment++;
+                        }
+                    }
+
+                    x++;
+                }
+            }
+            else if (a_confirmation)
+            {
+                int x = 0;
+
+                //affichage du menu
+                foreach (string affichage in a_tab)
+                {
+                    if (x == a_place) // surlignement en jaune du text concerné en rouge si la save est selectionné
+                    {
+                        Console.ForegroundColor = x == _bonusSelected ? ConsoleColor.Red : ConsoleColor.Yellow;
+                        string[] tab2 = a_tab[x].Split('.');
+
+                        int heightAjustment = -1;
+
+                        foreach (string ligne in tab2)
+                        {
+                            Console.SetCursorPosition(Console.WindowWidth / 2 - tab2[0].Length / 2, Console.WindowHeight / 3 + x * 3 + heightAjustment);
+                            Console.WriteLine(ligne);
+                            heightAjustment++;
+                        }
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = x == _bonusSelected ? ConsoleColor.Red : ConsoleColor.Gray;
+                        string[] tab2 = a_tab[x].Split('.');
+
+                        int heightAjustment = -1;
+
+                        foreach (string ligne in tab2)
+                        {
+                            Console.SetCursorPosition(Console.WindowWidth / 2 - tab2[0].Length / 2, Console.WindowHeight / 3 + x * 3 + heightAjustment);
+                            Console.WriteLine(ligne);
+                            heightAjustment++;
+                        }
+                    }
+
+                    x++;
+                }
+            }
+            else
+            {
+                int x = 0;
+
+                // affichage du menu
+                foreach (string affichage in a_tab)
+                {
+                    if (x == a_place) // surlignement en jaune du text concerné
+                    {
+                        string[] tab2 = a_tab[x].Split('.');
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+
+                        int heightAjustment = -1;
+
+                        foreach (string ligne in tab2)
+                        {
+                            Console.SetCursorPosition(Console.WindowWidth / 2 - tab2[0].Length / 2, Console.WindowHeight / 3 + x * 3 + heightAjustment);
+                            Console.WriteLine(ligne);
+                            heightAjustment++;
+                        }
+                    }
+                    else // affichage en gris du reste du text
+                    {
+                        string[] tab2 = a_tab[x].Split('.');
+                        Console.ForegroundColor = ConsoleColor.Gray;
+
+                        int heightAjustment = -1;
+
+                        foreach (string ligne in tab2)
+                        {
+                            Console.SetCursorPosition(Console.WindowWidth / 2 - tab2[0].Length / 2, Console.WindowHeight / 3 + x * 3 + heightAjustment);
+                            Console.WriteLine(ligne);
+                            heightAjustment++;
+                        }
+                    }
+
+                    x++;
+                }
+            }
+        }
         /// <summary>
         /// Affichage du menu principal
         /// </summary>
@@ -162,47 +285,9 @@ namespace SpicyInvader_V_01
 
             while (true)
             {
-                ConsoleKeyInfo key;
+                DisplayMenu(tab, place); // affichage du menu
 
-                int x = 0;
-
-                // affichage du menu
-                foreach (string affichage in tab)
-                {
-                    if (x == place) // surlignement en jaune du text concerné
-                    {
-                        string[] tab2 = tab[x].Split('.');
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-
-                        int heightAjustment = -1;
-
-                        foreach (string ligne in tab2)
-                        {
-                            Console.SetCursorPosition(Console.WindowWidth / 2 - tab2[0].Length / 2, Console.WindowHeight / 3 + x*3 + heightAjustment);
-                            Console.WriteLine(ligne);
-                            heightAjustment++;
-                        }
-                        
-                    }
-                    else
-                    {
-                        string[] tab2 = tab[x].Split('.');
-                        Console.ForegroundColor = ConsoleColor.Gray;
-
-                        int heightAjustment = -1;
-
-                        foreach (string ligne in tab2)
-                        {
-                            Console.SetCursorPosition(Console.WindowWidth / 2 - tab2[0].Length / 2, Console.WindowHeight / 3 + x * 3 + heightAjustment);
-                            Console.WriteLine(ligne);
-                            heightAjustment++;
-                        }
-                    }
-
-                    x++;
-                }
-
-                key = Console.ReadKey();
+                ConsoleKeyInfo key = Console.ReadKey();
 
                 if (key.Key == ConsoleKey.DownArrow && place < tab.Length - 1)
                 {
@@ -229,11 +314,9 @@ namespace SpicyInvader_V_01
 
                         case 2: // charger
                             ShowSlotMenu(false, a_game);
-                            // TODO : méthode permettant d'atteindre les slot de sauvegarde de la partie en mode charger une partie (il doit être possible de revenir en arrière vers ce menu) normalement c'est bon
                             break;
 
                         case 3: // parametres
-                            // TODO : méthode permettant d'atteindre les réglages
                             Console.Clear();
                             ShowParamMenu(a_game);
                             break;
@@ -259,7 +342,7 @@ namespace SpicyInvader_V_01
         {
             bool retour = false;
             bool sound_on = SoundIsON();
-            string[] tab = new string[2];
+            string[] tab = new string[2]; // modifier en fonction du nombre de paramètre 
 
             if (sound_on) 
             {
@@ -272,48 +355,12 @@ namespace SpicyInvader_V_01
             tab[1] = BACK;
 
             int place = 0;
+            
+            ConsoleKeyInfo key;
 
             while (true)
             {
-                ConsoleKeyInfo key;
-
-                int x = 0;
-
-                // affichage du menu
-                foreach (string affichage in tab)
-                {
-                    if (x == place) // surlignement en jaune du text concerné
-                    {
-                        string[] tab2 = tab[x].Split('.');
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-
-                        int heightAjustment = -1;
-
-                        foreach (string ligne in tab2)
-                        {
-                            Console.SetCursorPosition(Console.WindowWidth / 2 - tab2[0].Length / 2, Console.WindowHeight / 3 + x * 3 + heightAjustment);
-                            Console.WriteLine(ligne);
-                            heightAjustment++;
-                        }
-
-                    }
-                    else
-                    {
-                        string[] tab2 = tab[x].Split('.');
-                        Console.ForegroundColor = ConsoleColor.Gray;
-
-                        int heightAjustment = -1;
-
-                        foreach (string ligne in tab2)
-                        {
-                            Console.SetCursorPosition(Console.WindowWidth / 2 - tab2[0].Length / 2, Console.WindowHeight / 3 + x * 3 + heightAjustment);
-                            Console.WriteLine(ligne);
-                            heightAjustment++;
-                        }
-                    }
-
-                    x++;
-                }
+                DisplayMenu(tab, place);// affichage du menu
 
                 key = Console.ReadKey();
 
@@ -407,48 +454,10 @@ namespace SpicyInvader_V_01
             bool back = false;
 
             ConsoleKeyInfo key;
-            int saveSelected = -1;
 
             while (!back)
             {
-                int x = 0;
-
-                // affichage du menu
-                foreach (string affichage in tab)
-                {
-                    string[] tab2 = { "╔═" + MultThisSymbol("═", tab[x].Length) + "═╗", "║ " + tab[x] + " ║", "╚═" + MultThisSymbol("═", tab[x].Length) + "═╝" };
-
-
-                    if (x == place) // surlignement en jaune du text concerné en rouge si la save est selectionné
-                    {
-                        Console.ForegroundColor = x == saveSelected ? ConsoleColor.Red : ConsoleColor.Yellow;
-
-                        int heightAjustment = -1;
-
-                        foreach (string ligne in tab2)
-                        {
-                            Console.SetCursorPosition(Console.WindowWidth / 2 - tab2[0].Length / 2, Console.WindowHeight / 3 + x * 3 + heightAjustment);
-                            Console.WriteLine(ligne);
-                            heightAjustment++;
-                        }
-
-                    }
-                    else
-                    {
-                        Console.ForegroundColor = x == saveSelected ? ConsoleColor.Red : ConsoleColor.Gray;
-
-                        int heightAjustment = -1;
-
-                        foreach (string ligne in tab2)
-                        {
-                            Console.SetCursorPosition(Console.WindowWidth / 2 - tab2[0].Length / 2, Console.WindowHeight / 3 + x * 3 + heightAjustment);
-                            Console.WriteLine(ligne);
-                            heightAjustment++;
-                        }
-                    }
-
-                    x++;
-                }
+                DisplayMenu(tab, place, true, true); // affichage du menu
 
                 key = Console.ReadKey();
 
@@ -475,9 +484,9 @@ namespace SpicyInvader_V_01
                         switch (place)
                         {
                             case 0: // slot 1
-                                if (saveSelected !=0)
+                                if (_saveSelected !=0)
                                 {
-                                    saveSelected = 0;
+                                    _saveSelected = 0;
                                 }
                                 else if (abbleToSave)
                                 {
@@ -490,9 +499,9 @@ namespace SpicyInvader_V_01
                                 break;
 
                             case 1: // slot 2
-                                if (saveSelected != 1)
+                                if (_saveSelected != 1)
                                 {
-                                    saveSelected = 1;
+                                    _saveSelected = 1;
                                 }
                                 else if (abbleToSave)
                                 {
@@ -505,9 +514,9 @@ namespace SpicyInvader_V_01
                                 break;
 
                             case 2: // slot 3
-                                if (saveSelected != 2)
+                                if (_saveSelected != 2)
                                 {
-                                    saveSelected = 2;
+                                    _saveSelected = 2;
                                 }
                                 else if (abbleToSave)
                                 {
@@ -528,17 +537,7 @@ namespace SpicyInvader_V_01
 
                 if (!save.Equals(""))
                 {
-                    string[] saveSplit = save.Split('!');
-                    // 0 = date
-                    string score = saveSplit[1].Split('?')[1];
-                    string fleetLevel = saveSplit[2].Split('?')[1];
-                    string[] shipStats = saveSplit[3].Split('?');
-                    string shipLife = shipStats[1].Split('.')[1];
-
-                    //string shipMissileNumber = shipStats[2].Split('.')[1];
-
-                    //a_game.LoadGame(Convert.ToInt32(score), Convert.ToInt32(fleetLevel), Convert.ToInt32(shipLife));
-                    a_game.LoadGame(saveSplit);
+                    a_game.LoadGame(save.Split('!'));
 
                     back = true;
                 }
@@ -559,47 +558,13 @@ namespace SpicyInvader_V_01
             Console.Clear();
 
             int place = 0;
+            _bonusSelected = -1;
 
             ConsoleKeyInfo key;
 
-            while (!reprendre)
+            while (!reprendre) // TODO : trouver un mot en anglais pour reprendre....
             {
-                int x = 0;
-
-                // affichage du menu
-                foreach (string affichage in tab) // TODO : faire une méthode pour ça !!! et regarder dans les autre méthodes car c'est pareil !!!!
-                {
-                    if (x == place) // surlignement en jaune du text concerné
-                    {
-                        string[] tab2 = tab[x].Split('.');
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-
-                        int heightAjustment = -1;
-
-                        foreach (string ligne in tab2)
-                        {
-                            Console.SetCursorPosition(Console.WindowWidth / 2 - tab2[0].Length / 2, Console.WindowHeight / 3 + x * 3 + heightAjustment);
-                            Console.WriteLine(ligne);
-                            heightAjustment++;
-                        }
-                    }
-                    else
-                    {
-                        string[] tab2 = tab[x].Split('.');
-                        Console.ForegroundColor = ConsoleColor.Gray;
-
-                        int heightAjustment = -1;
-
-                        foreach (string ligne in tab2)
-                        {
-                            Console.SetCursorPosition(Console.WindowWidth / 2 - tab2[0].Length / 2, Console.WindowHeight / 3 + x * 3 + heightAjustment);
-                            Console.WriteLine(ligne);
-                            heightAjustment++;
-                        }
-                    }
-
-                    x++;
-                }
+                DisplayMenu(tab, place, true); // affichage du menu
 
                 key = Console.ReadKey();
 
@@ -616,17 +581,39 @@ namespace SpicyInvader_V_01
                     switch (place)
                     {
                         case 0:
-                            a_game.BonusShipWeaponSlot();
-                            reprendre = true;
+                            if (_bonusSelected != 0)
+                            {
+                                _bonusSelected = 0;
+                            }
+                            else
+                            {
+                                a_game.BonusShipWeaponSlot();
+                                reprendre = true;
+                            }
                             break;
+
                         case 1:
-                            a_game.BonusShipMaxHeath();
-                            reprendre = true;
+                            if (_bonusSelected != 1)
+                            {
+                                _bonusSelected = 1;
+                            }
+                            else
+                            {
+                                a_game.BonusShipMaxHeath();
+                                reprendre = true;
+                            } 
                             break;
 
                         case 2:
-                            a_game.BonusShipHeal();
-                            reprendre = true;
+                            if (_bonusSelected != 2)
+                            {
+                                _bonusSelected = 2;
+                            }
+                            else
+                            {
+                                a_game.BonusShipHeal();
+                                reprendre = true;
+                            } 
                             break;
                     }
                 }
@@ -653,42 +640,8 @@ namespace SpicyInvader_V_01
 
             while (!reprendre)
             {
-                int x = 0;
 
-                // affichage du menu
-                foreach (string affichage in tab) // TODO : faire une méthode pour ça !!! et regarder dans les autre méthodes car c'est pareil !!!!
-                {
-                    if (x == place) // surlignement en jaune du text concerné
-                    {
-                        string[] tab2 = tab[x].Split('.');
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-
-                        int heightAjustment = -1;
-
-                        foreach (string ligne in tab2)
-                        {
-                            Console.SetCursorPosition(Console.WindowWidth / 2 - tab2[0].Length / 2, Console.WindowHeight / 3 + x * 3 + heightAjustment);
-                            Console.WriteLine(ligne);
-                            heightAjustment++;
-                        }
-                    }
-                    else
-                    {
-                        string[] tab2 = tab[x].Split('.');
-                        Console.ForegroundColor = ConsoleColor.Gray;
-
-                        int heightAjustment = -1;
-
-                        foreach (string ligne in tab2)
-                        {
-                            Console.SetCursorPosition(Console.WindowWidth / 2 - tab2[0].Length / 2, Console.WindowHeight / 3 + x * 3 + heightAjustment);
-                            Console.WriteLine(ligne);
-                            heightAjustment++;
-                        }
-                    }
-
-                    x++;
-                }
+                DisplayMenu(tab, place);// affichage du menu
 
                 key = Console.ReadKey();
 
@@ -749,42 +702,7 @@ namespace SpicyInvader_V_01
 
             while (!reprendre)
             {
-                int x = 0;
-
-                // affichage du menu
-                foreach(string affichage in tab)
-                {
-                    if (x == place) // surlignement en jaune du text concerné
-                    {
-                        string[] tab2 = tab[x].Split('.');
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-
-                        int heightAjustment = -1;
-
-                        foreach (string ligne in tab2)
-                        {
-                            Console.SetCursorPosition(Console.WindowWidth / 2 - tab2[0].Length / 2, Console.WindowHeight / 3 + x * 3 + heightAjustment);
-                            Console.WriteLine(ligne);
-                            heightAjustment++;
-                        }
-                    }
-                    else
-                    {
-                        string[] tab2 = tab[x].Split('.');
-                        Console.ForegroundColor = ConsoleColor.Gray;
-
-                        int heightAjustment = -1;
-
-                        foreach (string ligne in tab2)
-                        {
-                            Console.SetCursorPosition(Console.WindowWidth / 2 - tab2[0].Length / 2, Console.WindowHeight / 3 + x * 3 + heightAjustment);
-                            Console.WriteLine(ligne);
-                            heightAjustment++;
-                        }
-                    }
-
-                    x++;
-                }
+                DisplayMenu(tab, place);// affichage du menu
 
                 key = Console.ReadKey();
 
@@ -839,46 +757,11 @@ namespace SpicyInvader_V_01
             bool newGame = false;
             bool load = false;
 
+            ConsoleKeyInfo key;
+            
             while (true)
             {
-                ConsoleKeyInfo key;
-
-                int x = 0;
-
-                // affichage du menu
-                foreach (string affichage in tab)
-                {
-                    if (x == place) // surlignement en jaune du text concerné
-                    {
-                        string[] tab2 = tab[x].Split('.');
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-
-                        int heightAjustment = -1;
-
-                        foreach (string ligne in tab2)
-                        {
-                            Console.SetCursorPosition(Console.WindowWidth / 2 - tab2[0].Length / 2, Console.WindowHeight / 3 + x * 3 + heightAjustment);
-                            Console.WriteLine(ligne);
-                            heightAjustment++;
-                        }
-                    }
-                    else
-                    {
-                        string[] tab2 = tab[x].Split('.');
-                        Console.ForegroundColor = ConsoleColor.Gray;
-
-                        int heightAjustment = -1;
-
-                        foreach (string ligne in tab2)
-                        {
-                            Console.SetCursorPosition(Console.WindowWidth / 2 - tab2[0].Length / 2, Console.WindowHeight / 3 + x * 3 + heightAjustment);
-                            Console.WriteLine(ligne);
-                            heightAjustment++;
-                        }
-                    }
-
-                    x++;
-                }
+                DisplayMenu(tab, place); // affichage du menu
 
                 key = Console.ReadKey();
 
@@ -901,7 +784,6 @@ namespace SpicyInvader_V_01
                             break;
                         case 1: // charger
                             ShowSlotMenu(false, a_game);
-                            // TODO : méthode permettant d'atteindre les slot de sauvegarde de la partie en mode charger une partie (il doit être possible de revenir en arrière vers ce menu)
                             Console.Clear();
                             load = true;
                             break;

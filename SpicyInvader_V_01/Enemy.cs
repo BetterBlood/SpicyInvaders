@@ -46,7 +46,7 @@ namespace SpicyInvader_V_01
             _rightDirection = a_rightDirection;
             _startYPosition = a_position.Y;
 
-            _isInFrontLane = false; // TODO : initialiser a false ! mais d'abord faire une méthode qui mets automatiquement le premier space ivader en frontlane !
+            _isInFrontLane = false;
             _random = new Random();
         }
 
@@ -159,7 +159,7 @@ namespace SpicyInvader_V_01
         /// Retourne la position de tire
         /// </summary>
         /// <returns></returns>
-        protected Position GetFirePosition() // TODO : ptetre enlever le virtual car avec le GetHor...() on obtien la bonne position
+        protected override Position GetFirePosition()
         {
             return new Position(_position.X + GetHorizontalHightSize()/2, _position.Y + GetHeight()); 
         }
