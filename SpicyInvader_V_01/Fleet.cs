@@ -91,7 +91,7 @@ namespace SpicyInvader_V_01
 
             int invaderSize = Invader.HORIZONTAL_SIZE; // ptetre mettre en static dans Invader la taille par défaut genre un Invader.Width() ?
             int y = 0;
-            string skin = Menu.ENNEMY_SKIN_6;
+            string skin = Menu.ENNEMY_SKIN_4; // ENNEMY_SKIN_7 // ENNEMY_SKIN_4
 
             for (int i = 0, j = 0; i < _numberOfInvader; i++, j++)
             {
@@ -100,6 +100,7 @@ namespace SpicyInvader_V_01
                     j = 0;
                     y += Invader.VERTICAL_SIZE + 1;
                 }
+
                 if (a_fleet_lvl > 10)
                 {
                     skin = Menu.ENNEMY_SKIN_5;
