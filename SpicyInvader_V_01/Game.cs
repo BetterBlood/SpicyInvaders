@@ -176,6 +176,7 @@ namespace SpicyInvader_V_01
                 if (_ship.IsDead(_fleet))
                 {
                     //_menu.ShowMenu(Menu.GAME_OVER, this);
+                    _menu.ShowMenu(Menu.HIGH_SCORE, this);
                     _isLost = true;
                     
                 }

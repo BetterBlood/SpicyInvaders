@@ -73,6 +73,9 @@ namespace SpicyInvader_V_01
         public const string GAME_OVER = "game over";
         public const string STAGE_WIN = "stage win";
         public const string BONUS_STAGE = "bonus stage";
+        public const string HIGH_SCORE = "╔════════════╗." +
+                                         "║ high score ║." +
+                                         "╚════════════╝";
 
         public const int MISSILE_DISPLAY_POSITION_X = 30;
         public const int MISSILE_DISPLAY_POSITION_Y = 40;
@@ -87,9 +90,11 @@ namespace SpicyInvader_V_01
         public const string ENNEMY_SKIN_2 = "    /**\\   4----0  0----4    /**\\  4   /    \\  "; // BOSS
         public const string ENNEMY_SKIN_3 = "     ■     ■     4|  ■■ ■■■■■ ■■  |4|    ■■■■■■■    |4\\----■ ■■■ ■----/4      ■■■■■      "; // BOSS
 
-        public const string ENNEMY_SKIN_4 = "\\_||_/4-0||0-4__/\\__"; // Invader : X = 6, Y = 3
-        public const string ENNEMY_SKIN_5 = "/00\\4|--|"; // Invader : X = 4, Y = 2
-        public const string ENNEMY_SKIN_6 = " ITI 4|/¨\\|"; // Invader : X = 5, Y = 2
+        //public const string ENNEMY_SKIN_4 = "\\_||_/4-0||0-4__/\\__"; // Invader : X = 6, Y = 3
+        public const string ENNEMY_SKIN_4 = "/00\\4|--|"; // Invader : X = 4, Y = 2
+        public const string ENNEMY_SKIN_5 = " ITI 4|/¨\\|"; // Invader : X = 5, Y = 2p
+        public const string ENNEMY_SKIN_6 = "-\\_/-4 ||| ";
+        public const string ENNEMY_SKIN_7 = " /|\\ 4.q|p.";
 
         private int _saveSelected = -1;
         private int _bonusSelected = -1;
@@ -145,10 +150,14 @@ namespace SpicyInvader_V_01
             {
                 ShowBonusMenu(a_game);
             }
+            else if (a_menuType.Equals(HIGH_SCORE))
+            {
+                ShowHighScore(a_game);
+            }
         }
 
 
-        private void DisplayMenu(string[] a_tab, int a_place, bool a_confirmation = false, bool a_slotMenu = false) // TODO : implémenter la confirmation, notamment pour les sauvegardes et le choix des bonus
+        private void DisplayMenu(string[] a_tab, int a_place, bool a_confirmation = false, bool a_slotMenu = false, bool a_slotMenuLike = false) // TODO : implémenter la confirmation, notamment pour les sauvegardes et le choix des bonus
         {
             if (a_slotMenu)
             {
@@ -157,7 +166,7 @@ namespace SpicyInvader_V_01
                 //affichage du menu
                 foreach (string affichage in a_tab)
                 {
-                    string[] tab2 = { "╔═" + MultThisSymbol("═", a_tab[x].Length) + "═╗", "║ " + a_tab[x] + " ║", "╚═" + MultThisSymbol("═", a_tab[x].Length) + "═╝" };
+                    string[] tab2 = { "╔═" + MultThisSymbol("═", affichage.Length) + "═╗", "║ " + affichage + " ║", "╚═" + MultThisSymbol("═", affichage.Length) + "═╝" };
 
                     if (x == a_place) // surlignement en jaune du text concerné en rouge si la save est selectionné
                     {
@@ -214,6 +223,45 @@ namespace SpicyInvader_V_01
                     {
                         Console.ForegroundColor = x == _bonusSelected ? ConsoleColor.Red : ConsoleColor.Gray;
                         string[] tab2 = a_tab[x].Split('.');
+
+                        int heightAjustment = -1;
+
+                        foreach (string ligne in tab2)
+                        {
+                            Console.SetCursorPosition(Console.WindowWidth / 2 - tab2[0].Length / 2, Console.WindowHeight / 3 + x * 3 + heightAjustment);
+                            Console.WriteLine(ligne);
+                            heightAjustment++;
+                        }
+                    }
+
+                    x++;
+                }
+            }
+            else if (a_slotMenuLike) 
+            {
+                int x = 0;
+
+                //affichage du menu
+                foreach (string affichage in a_tab)
+                {
+                    string[] tab2 = { "╔═" + MultThisSymbol("═", affichage.Length) + "═╗", "║ " + affichage + " ║", "╚═" + MultThisSymbol("═", affichage.Length) + "═╝" };
+
+                    if (x == a_place) // surlignement en jaune du text concerné en rouge si la save est selectionné
+                    {
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+
+                        int heightAjustment = -1;
+
+                        foreach (string ligne in tab2)
+                        {
+                            Console.SetCursorPosition(Console.WindowWidth / 2 - tab2[0].Length / 2, Console.WindowHeight / 3 + x * 3 + heightAjustment);
+                            Console.WriteLine(ligne);
+                            heightAjustment++;
+                        }
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Gray;
 
                         int heightAjustment = -1;
 
@@ -808,6 +856,114 @@ namespace SpicyInvader_V_01
                     break; // TODO : pour l'instant on break simplement le while(pour sortir du menu) mais après il faudra ptetre rediriger ailleurs
                 }
             }
+        }
+
+
+        private void ShowHighScore(Game a_game)
+        {
+            // TODO : demander a l'utilisateur son pseudo
+            string pseudo = "tmp";
+            bool reprendre = false;
+
+            string highScores = File.ReadAllText(PATH_HIGH_SCORE);
+
+            string newHighScores = FindPlace(highScores, pseudo);
+
+
+            // appel de la méthode de calcul permettant de classer correctement les high_scores
+            // écrire le fichier de score
+
+            File.WriteAllText(PATH_HIGH_SCORE, newHighScores);
+
+
+            string[] highScoreSplit = newHighScores.Split('!');
+
+            string[] tab = { HIGH_SCORE, "1 " + highScoreSplit[0], "2 " + highScoreSplit[1], "3 " + highScoreSplit[2], 
+                                        "4 " + highScoreSplit[3], "5 " + highScoreSplit[4], CONTINUE};
+
+            Console.Clear();
+
+            int place = 0;
+
+            ConsoleKeyInfo key;
+
+            while (!reprendre)
+            {
+                DisplayMenu(tab, place);// affichage du menu
+
+                key = Console.ReadKey();
+
+                if (key.Key == ConsoleKey.DownArrow && place < tab.Length - 1)
+                {
+                    place++;
+                }
+                else if (key.Key == ConsoleKey.UpArrow && place > 0)
+                {
+                    place--;
+                }
+                else if (key.Key == ConsoleKey.Enter || key.Key == ConsoleKey.Spacebar)
+                {
+                    switch (place)
+                    {
+                        case 0: // nothing
+                            break;
+
+                        case 1: // nothing
+                            break;
+
+                        case 2: // nothing
+                            break;
+
+                        case 3: // nothing
+                            break;
+
+                        case 4: // nothing
+                            break;
+
+                        case 5: // nothing
+                            break;
+
+                        case 6: // continuer
+                            reprendre = true;
+                            break;
+                    }
+                }
+            }
+        }
+
+        public string FindPlace(string a_highScores, string a_pseudo)
+        {
+            string newHighScores = "";
+
+            string[] highScoreSplit = a_highScores.Split('!');
+
+            int score = Game._score;
+            bool placeFinded = false;
+
+            for (int i = 0, j = 0; i < 5; i++)
+            {
+                if (!placeFinded && Convert.ToInt32(highScoreSplit[i].Split('?')[1]) <= score)
+                {
+                    placeFinded = true;
+
+                    newHighScores += a_pseudo + "?" + score;
+                    if (i != 4)
+                    {
+                        newHighScores += "!";
+                    }
+                }
+                else
+                {
+                    newHighScores += highScoreSplit[j];
+                    if (i != 4)
+                    {
+                        newHighScores += "!";
+                    }
+                    j++;
+                }
+            }
+
+            return newHighScores;
         }
 
         /// <summary>
