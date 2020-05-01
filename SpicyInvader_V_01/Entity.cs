@@ -350,6 +350,12 @@ namespace SpicyInvader_V_01
             }
         }
 
+        public void SetHardMode()
+        {
+            _weaponSlot = 1;
+            InitBasesMissiles(_weaponSlot, _missileDirection);
+        }
+
         /// <summary>
         /// Retourne la position de tire
         /// </summary>

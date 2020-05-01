@@ -52,7 +52,7 @@ namespace SpicyInvader_V_01
         private readonly string PATH_SLOT_1;
         private readonly string PATH_SLOT_2;
         private readonly string PATH_SLOT_3;
-        private static readonly string PATH_REGLAGE = Path.GetFullPath("reglage.txt");
+        private static readonly string PATH_REGLAGE = Path.GetFullPath("reglage.txt"); // TODO : pk pas dans le constructeur ? à cause du static ?
         private readonly string PATH_HIGH_SCORE;
 
         private const string upgrade1 = "╔═════════════════════════╗." +
@@ -76,6 +76,7 @@ namespace SpicyInvader_V_01
         public const string HIGH_SCORE = "╔════════════╗." +
                                          "║ high score ║." +
                                          "╚════════════╝";
+        public const string DIFFICULTY_CHOISE = "choix de la difficultée";
 
         public const int MISSILE_DISPLAY_POSITION_X = 30;
         public const int MISSILE_DISPLAY_POSITION_Y = 40;
@@ -153,6 +154,10 @@ namespace SpicyInvader_V_01
             else if (a_menuType.Equals(HIGH_SCORE))
             {
                 ShowHighScore(a_game);
+            }
+            else if (a_menuType.Equals(DIFFICULTY_CHOISE))
+            {
+                ShowDifficultyMenu(a_game);
             }
         }
 
@@ -858,8 +863,59 @@ namespace SpicyInvader_V_01
             }
         }
 
+        private void ShowDifficultyMenu(Game a_game)
+        {
+            Console.Clear();
+            string[] tab = { DIFFICULTY_CHOISE, "EASY", "HARD", "NOT EASY" };
 
-        private void ShowHighScore(Game a_game)
+            int place = 0;
+
+            bool notChoiced = true;
+
+            ConsoleKeyInfo key;
+
+            while (notChoiced)
+            {
+                DisplayMenu(tab, place); // affichage du menu
+
+                key = Console.ReadKey();
+
+                if (key.Key == ConsoleKey.DownArrow && place < tab.Length - 1)
+                {
+                    place++;
+                }
+                else if (key.Key == ConsoleKey.UpArrow && place > 0)
+                {
+                    place--;
+                }
+                else if (key.Key == ConsoleKey.Enter || key.Key == ConsoleKey.Spacebar)
+                {
+                    switch (place)
+                    {
+                        case 0: // titre
+                            // nothing to do
+                            break;
+                        case 1: // easy
+                            a_game._difficulty = "easy";
+                            notChoiced = false;
+                            break;
+
+                        case 2: // hard
+                            a_game._difficulty = "hard";
+                            notChoiced = false;
+                            break;
+
+                        case 3: // really hard
+                            a_game._difficulty = "harder";
+                            notChoiced = false;
+                            break;
+                    }
+                }
+
+            }
+        }
+
+        private void ShowHighScore(Game a_game) // TODO : voir si c'est utile d'avoir l'instance de game pour l'affichage des high scores
         {
             // TODO : demander a l'utilisateur son pseudo
             string pseudo = "tmp";
