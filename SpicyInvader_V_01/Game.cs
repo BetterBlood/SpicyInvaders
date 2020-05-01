@@ -24,6 +24,7 @@ namespace SpicyInvader_V_01
         /// Attributs
         /// </summary>
         static public int _score; // static public car on a besoin de pouvoir le modifier et de l'atteindre dans le main ainsi que dans d'autres classes
+        public string _difficulty;
         private bool _isLost;
 
         private Fleet _fleet;
@@ -52,6 +53,7 @@ namespace SpicyInvader_V_01
             _fleet = _level.GetFleet();
 
             _menu = new Menu();
+            _difficulty = null;
 
             InitEntities();
         }
@@ -117,6 +119,32 @@ namespace SpicyInvader_V_01
         /// <param name="a_tics"></param>
         public void Update(int a_tics)
         {
+
+            if(_difficulty == null)
+            {
+                _menu.ShowMenu(Menu.DIFFICULTY_CHOISE, this);
+                // TODO : prendre la _difficulty et orienté le ship selon ça
+
+                switch (_difficulty)
+                {
+                    case "easy":
+                        _ship.UpgradLife();
+                        _ship.Heal();
+                        break;
+                    case "hard":
+                        // normal
+                        break;
+                    case "harder":
+                        _ship.SetHardMode();
+                        break;
+                    default:
+                        // au cas ou
+                        break;
+                }
+                InitEntities();
+                Console.Clear();
+            }
+
             if (Console.KeyAvailable)
             {
                 ConsoleKeyInfo key = Console.ReadKey(true);
@@ -209,6 +237,11 @@ namespace SpicyInvader_V_01
         public void AllyIsHit(int a_power)
         {
             _ship.TakeDamage(a_power);
+
+            if (_difficulty.Equals("harder"))
+            {
+                _score -= 5; // TODO : voir si ça vaut la peine
+            }
         }
 
         /// <summary>
@@ -217,7 +250,24 @@ namespace SpicyInvader_V_01
         /// <param name="a_pointNumber"></param>
         public void IncreasePoint(int a_pointNumber)
         {
-            _score += a_pointNumber;
+            int difficultyMultiplier = 1;
+
+            switch(_difficulty)
+            {
+                case "easy":
+                    difficultyMultiplier = 1;
+                    break;
+                case "hard":
+                    difficultyMultiplier = 2;
+                    break;
+                case "harder":
+                    difficultyMultiplier = 3;
+                    break;
+                default:
+                    // normalement inutil
+                    break;
+            }
+            _score += a_pointNumber * difficultyMultiplier;
         }
 
         /// <summary>
@@ -232,6 +282,7 @@ namespace SpicyInvader_V_01
 
             _menu = new Menu();
             _isLost = false;
+            _difficulty = null;
 
             InitEntities();
         }
@@ -263,6 +314,8 @@ namespace SpicyInvader_V_01
             save += "fleet_lvl?" + _level.GetLevel();
             save += separator;
             save += "ship_State?" + _ship.GetSaveStat(separator);
+            save += separator;
+            save += "difficulty?" + _difficulty; 
 
             return save;
         }
@@ -283,6 +336,8 @@ namespace SpicyInvader_V_01
             _ship = new Ship(Convert.ToInt32(shipStats[1].Split('/')[2].Split('.')[1]), Convert.ToInt32(shipStats[1].Split('/')[1].Split('.')[1])); // life et nombre de missile
             _ship.TakeDamage(Convert.ToInt32(shipStats[1].Split('/')[2].Split('.')[1]) - Convert.ToInt32(shipStats[1].Split('/')[0].Split('.')[1])); // ajustement de la vie
             _menu = new Menu(); // ptetre pas util
+
+            _difficulty = a_saveStat[4].Split('?')[1];
 
             InitEntities();
         }
