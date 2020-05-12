@@ -30,7 +30,7 @@ namespace SpicyInvader_V_01
 
         int HowManyMissilesLeft();
 
-        void Fire();
+        void Fire(bool a_bossStage);
 
 
     }

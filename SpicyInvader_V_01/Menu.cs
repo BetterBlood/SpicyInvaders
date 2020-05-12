@@ -95,7 +95,7 @@ namespace SpicyInvader_V_01
         public const string ENNEMY_SKIN_4 = "/00\\4|--|"; // Invader : X = 4, Y = 2
         public const string ENNEMY_SKIN_5 = " ITI 4|/¨\\|"; // Invader : X = 5, Y = 2p
         public const string ENNEMY_SKIN_6 = "-\\_/-4 ||| ";
-        public const string ENNEMY_SKIN_7 = " /|\\ 4.q|p.";
+        public const string ENNEMY_SKIN_7 = " /|\\ 4.<|>.";
 
         private int _saveSelected = -1;
         private int _bonusSelected = -1;
@@ -162,7 +162,7 @@ namespace SpicyInvader_V_01
         }
 
 
-        private void DisplayMenu(string[] a_tab, int a_place, bool a_confirmation = false, bool a_slotMenu = false, bool a_slotMenuLike = false) // TODO : implémenter la confirmation, notamment pour les sauvegardes et le choix des bonus
+        private void DisplayMenu(string[] a_tab, int a_place, int a_selection = -1, bool a_confirmation = false, bool a_slotMenu = false, bool a_slotMenuLike = false) // TODO : implémenter la confirmation, notamment pour les sauvegardes et le choix des bonus
         {
             if (a_slotMenu)
             {
@@ -253,7 +253,7 @@ namespace SpicyInvader_V_01
 
                     if (x == a_place) // surlignement en jaune du text concerné en rouge si la save est selectionné
                     {
-                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.ForegroundColor = x == a_selection ? ConsoleColor.Red : ConsoleColor.Yellow;
 
                         int heightAjustment = -1;
 
@@ -266,7 +266,7 @@ namespace SpicyInvader_V_01
                     }
                     else
                     {
-                        Console.ForegroundColor = ConsoleColor.Gray;
+                        Console.ForegroundColor = x == a_selection ? ConsoleColor.Red : ConsoleColor.Gray;
 
                         int heightAjustment = -1;
 
@@ -321,6 +321,7 @@ namespace SpicyInvader_V_01
                 }
             }
         }
+
         /// <summary>
         /// Affichage du menu principal
         /// </summary>
@@ -510,7 +511,7 @@ namespace SpicyInvader_V_01
 
             while (!back)
             {
-                DisplayMenu(tab, place, true, true); // affichage du menu
+                DisplayMenu(tab, place, -1, true, true); // affichage du menu
 
                 key = Console.ReadKey();
 
@@ -617,7 +618,7 @@ namespace SpicyInvader_V_01
 
             while (!reprendre) // TODO : trouver un mot en anglais pour reprendre....
             {
-                DisplayMenu(tab, place, true); // affichage du menu
+                DisplayMenu(tab, place, -1, true); // affichage du menu
 
                 key = Console.ReadKey();
 
@@ -869,6 +870,7 @@ namespace SpicyInvader_V_01
             string[] tab = { DIFFICULTY_CHOISE, "EASY", "HARD", "NOT EASY" };
 
             int place = 0;
+            int a_selection = -1;
 
             bool notChoiced = true;
 
@@ -876,7 +878,7 @@ namespace SpicyInvader_V_01
 
             while (notChoiced)
             {
-                DisplayMenu(tab, place); // affichage du menu
+                DisplayMenu(tab, place, a_selection, false, false, true); // affichage du menu
 
                 key = Console.ReadKey();
 
@@ -894,48 +896,96 @@ namespace SpicyInvader_V_01
                     {
                         case 0: // titre
                             // nothing to do
+                            a_selection = -1;
                             break;
+
                         case 1: // easy
-                            a_game._difficulty = "easy";
-                            notChoiced = false;
+                            if (a_selection != 1)
+                            {
+                                a_selection = 1;
+                            }
+                            else
+                            {
+                                a_game._difficulty = "easy";
+                                notChoiced = false;
+                            }
                             break;
 
                         case 2: // hard
-                            a_game._difficulty = "hard";
-                            notChoiced = false;
+                            if (a_selection != 2)
+                            {
+                                a_selection = 2;
+                            }
+                            else
+                            {
+                                a_game._difficulty = "hard";
+                                notChoiced = false;
+                            }
                             break;
 
                         case 3: // really hard
-                            a_game._difficulty = "harder";
-                            notChoiced = false;
+                            if (a_selection != 3)
+                            {
+                                a_selection = 3;
+                            }
+                            else
+                            {
+                                a_game._difficulty = "harder";
+                                notChoiced = false;
+                            }
                             break;
                     }
                 }
-
             }
         }
 
         private void ShowHighScore(Game a_game) // TODO : voir si c'est utile d'avoir l'instance de game pour l'affichage des high scores
         {
             // TODO : demander a l'utilisateur son pseudo
-            string pseudo = "tmp";
+            bool name_not_conforme = true;
+            string pseudo = "Anne O'Nyme";
+
+            while (name_not_conforme)
+            {
+                Console.Clear();
+                Console.SetCursorPosition(2, Console.WindowHeight / 2);
+                Console.Write("Voulez vous entrer votre pseudo ? (oui, entrez votre pseudo // non, entrez '-') : ");
+                pseudo = Console.ReadLine();
+
+                if (pseudo.Equals("-"))
+                {
+                    pseudo = "Anne O'Nyme";
+                    name_not_conforme = false;
+                }
+                else if (pseudo.Contains('!') || pseudo.Contains('?') || pseudo.Contains('\\') ) // TODO : voir s'il y a pas besoin d'exclure d'autres caractères !
+                {
+                    pseudo = "Anne O'Nyme";
+                    Console.WriteLine("le pseudo entré est invalide (press Enter to retry)");
+                    Console.ReadLine();
+                }
+                else
+                {
+                    name_not_conforme = false;
+                }
+            }
+            
+
             bool reprendre = false;
 
-            string highScores = File.ReadAllText(PATH_HIGH_SCORE);
-
-            string newHighScores = FindPlace(highScores, pseudo);
-
-
-            // appel de la méthode de calcul permettant de classer correctement les high_scores
-            // écrire le fichier de score
-
-            File.WriteAllText(PATH_HIGH_SCORE, newHighScores);
+            string highScores = File.ReadAllText(PATH_HIGH_SCORE); // récupère les données des meilleures scores
+            string newHighScores = FindPlace(highScores, pseudo); // calcul le placement du score (depuis le haut) dans le tableau des meilleures scores
+            File.WriteAllText(PATH_HIGH_SCORE, newHighScores); // enregistre le nouveaux tableau des meilleures scores
 
 
             string[] highScoreSplit = newHighScores.Split('!');
 
-            string[] tab = { HIGH_SCORE, "1 " + highScoreSplit[0], "2 " + highScoreSplit[1], "3 " + highScoreSplit[2], 
-                                        "4 " + highScoreSplit[3], "5 " + highScoreSplit[4], CONTINUE};
+            string[] tab = { HIGH_SCORE, 
+                            "1 " + highScoreSplit[0].Split('?')[0] + " : " + highScoreSplit[0].Split('?')[1],
+                            "2 " + highScoreSplit[1].Split('?')[0] + " : " + highScoreSplit[1].Split('?')[1], 
+                            "3 " + highScoreSplit[2].Split('?')[0] + " : " + highScoreSplit[2].Split('?')[1], 
+                            "4 " + highScoreSplit[3].Split('?')[0] + " : " + highScoreSplit[3].Split('?')[1], 
+                            "5 " + highScoreSplit[4].Split('?')[0] + " : " + highScoreSplit[4].Split('?')[1], 
+                            CONTINUE};
 
             Console.Clear();
 
@@ -961,22 +1011,12 @@ namespace SpicyInvader_V_01
                 {
                     switch (place)
                     {
-                        case 0: // nothing
-                            break;
-
-                        case 1: // nothing
-                            break;
-
-                        case 2: // nothing
-                            break;
-
-                        case 3: // nothing
-                            break;
-
-                        case 4: // nothing
-                            break;
-
-                        case 5: // nothing
+                        case 0: // nothing -> 1
+                        case 1: // nothing -> 2
+                        case 2: // nothing -> 3
+                        case 3: // nothing -> 4
+                        case 4: // nothing -> 5
+                        case 5: // nothing -> break !
                             break;
 
                         case 6: // continuer
@@ -1075,14 +1115,13 @@ namespace SpicyInvader_V_01
 
             Console.ForegroundColor = ConsoleColor.Gray;
 
-            Console.Write(realoadind);
+            Console.Write(realoadind); // efface ou bien écrit 
             // fin // missiles
 
             // début // vie :
 
             Console.SetCursorPosition(30, 42); // TODO : mettre en constante les valeur du display
             Console.WriteLine("vies : " + a_ship.GetLife() + "/" + a_ship.GetMaxLife());
-
 
             // fin // vie
         }

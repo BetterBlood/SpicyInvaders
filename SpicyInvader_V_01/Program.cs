@@ -25,6 +25,8 @@ namespace SpicyInvader_V_01
         /// <param name="args"></param>
         static void Main(string[] args)
         {
+            Console.Title = "Spicy Invaders";
+
             Game game = new Game();
             
             int tics = 0;

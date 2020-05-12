@@ -76,6 +76,22 @@ namespace SpicyInvader_V_01
             }
         }
 
+        private void PlayBossThem()
+        {
+            if (Menu.SoundIsON())
+            {
+                PlayAudioFile("..//..//Sounds//BossThemSpicyInvaders.wav");
+            }
+        }
+
+        private void PlayBossVictory()
+        {
+            if (Menu.SoundIsON())
+            {
+                PlayAudioFile("..//..//Sounds//EnnemyDeath.wav");
+            }
+        }
+
         private void PlayAudioFile(object a_relativePath) 
         {
             if (Menu.SoundIsON())
@@ -170,7 +186,7 @@ namespace SpicyInvader_V_01
                         //Un seul missile à la fois
                         if (_ship.IsAMissileNotFired())
                         {
-                            _ship.Fire();
+                            _ship.Fire(_fleet.IsBossStage());
                         }
                         break;
 
@@ -217,6 +233,7 @@ namespace SpicyInvader_V_01
                 {
                     if (_fleet.IsBossStage())
                     {
+                        PlayBossVictory(); // TODO : vérifier si ça close l'ancien son
                         _menu.ShowMenu(Menu.BONUS_STAGE, this);
                     }
 
@@ -226,6 +243,11 @@ namespace SpicyInvader_V_01
                     InitEntities();
 
                     _menu.ShowMenu(Menu.STAGE_WIN, this);
+
+                    if (_fleet.IsBossStage())
+                    {
+                        PlayBossThem();
+                    }
                 }
             }
         }
