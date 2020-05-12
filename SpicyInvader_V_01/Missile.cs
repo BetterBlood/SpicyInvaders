@@ -139,10 +139,9 @@ namespace SpicyInvader_V_01
                     break;
             }
 
-
             if (IsEntityHit(a_entities, a_fleet, a_game))
             {
-                // TODO : afficher une explosion 
+                // TODO : afficher une explosion ptetre ?
                 Rearmed();
                 return false;
             }
@@ -205,7 +204,7 @@ namespace SpicyInvader_V_01
                 }
 
                 // TODO : appel d'une méthode d'explosion des invader ?? ( au lieu de clear, mais pas compatible avec invaders.Remove(invader);)
-                PlaySound();
+                PlayDeathSound(a_fleet.IsBossStage());
             }
 
             if (enemyIsHit || allyIsHit)
@@ -216,9 +215,9 @@ namespace SpicyInvader_V_01
             return false;
         }
 
-        public void PlaySound()
+        public void PlayDeathSound(bool a_bossStage)
         {
-            if (Menu.SoundIsON())
+            if (Menu.SoundIsON() && !a_bossStage)
             {
                 new SoundPlayer("..//..//Sounds//EnnemyDeath.wav").Play();
             }

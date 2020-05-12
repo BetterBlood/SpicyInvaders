@@ -151,15 +151,19 @@ namespace SpicyInvader_V_01
             return nbrMissilesLeft;
         }
 
-        public void PlayAttackSound()
+        public void PlayAttackSound(bool a_bossStage)
         {
-            if (Menu.SoundIsON() && this is Ally)
+            if (Menu.SoundIsON() && this is Ally && !a_bossStage)
             {
                 new SoundPlayer("..//..//Sounds//LazerFire.wav").Play();
             }
-            else if (Menu.SoundIsON() && this is Enemy)
+            else if (Menu.SoundIsON() && this is Enemy && !a_bossStage)
             {
                 // TODO : ptetre faire un son différent pour les ennemis
+            }
+            else
+            {
+                // le son est désactivé
             }
             
         }
@@ -167,7 +171,7 @@ namespace SpicyInvader_V_01
         /// <summary>
         /// Tire un missile si les conditions sont remplies
         /// </summary>
-        public void Fire()
+        public void Fire(bool a_bossStage)
         {
             foreach (Missile missile in _missiles)
             {
@@ -179,10 +183,10 @@ namespace SpicyInvader_V_01
                     }
                     else
                     { // TODO : vérifier les positions de lancement : ptetre voir pour les trouver par rapport aux tailles de shape
-                        missile.Fire(new Position(_position.X + 2, _position.Y - 1)); // position de départ de missile peut être voir pour modifier selon le vaisseau
+                        missile.Fire(new Position(_position.X + 2, _position.Y - 1)); // position de départ de missile peut être voir pour modifier selon le style d'ennemy
                     }
 
-                    PlayAttackSound();
+                    PlayAttackSound(a_bossStage);
                     return;
                 }
                 else
@@ -199,7 +203,7 @@ namespace SpicyInvader_V_01
                 if (!missile.IsFired())
                 {
                     missile.Fire(a_firePosition);
-                    PlayAttackSound();
+                    PlayAttackSound(false);
                     return;
                 }
                 else
