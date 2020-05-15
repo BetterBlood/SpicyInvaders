@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace SpicyInvader_V_01
 {
@@ -142,5 +143,3 @@ namespace SpicyInvader_V_01
         }
     }
 }
-
-using System.Threading.Tasks;
