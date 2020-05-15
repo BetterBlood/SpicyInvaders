@@ -215,14 +215,6 @@ namespace SpicyInvader_V_01
             return false;
         }
 
-        public void PlayDeathSound(bool a_bossStage)
-        {
-            if (Menu.SoundIsON() && !a_bossStage)
-            {
-                new SoundPlayer("..//..//Sounds//EnnemyDeath.wav").Play();
-            }
-        }
-
         /// <summary>
         /// Lance le son de la mort d'un ennemi
         /// </summary>

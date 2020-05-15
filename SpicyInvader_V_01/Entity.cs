@@ -150,23 +150,6 @@ namespace SpicyInvader_V_01
             return nbrMissilesLeft;
         }
 
-        public void PlayAttackSound(bool a_bossStage)
-        {
-            if (Menu.SoundIsON() && this is Ally && !a_bossStage)
-            {
-                new SoundPlayer("..//..//Sounds//LazerFire.wav").Play();
-            }
-            else if (Menu.SoundIsON() && this is Enemy && !a_bossStage)
-            {
-                // TODO : ptetre faire un son différent pour les ennemis
-            }
-            else
-            {
-                // le son est désactivé
-            }
-            
-        }
-
         /// <summary>
         /// Son de tire d'un missile
         /// </summary>
@@ -317,11 +300,6 @@ namespace SpicyInvader_V_01
         public int GetHorizontalHightSize()
         {
             return _shape.GetHorizontalHightSize();
-        }
-
-        public int GetHeight()
-        {
-            return _shape.GetVerticalLenght();
         }
 
         /// <summary>

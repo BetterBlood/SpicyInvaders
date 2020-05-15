@@ -18,10 +18,6 @@ namespace SpicyInvader_V_01
     /// </summary>
     public class Invader : Enemy
     {
-
-        public static int HORIZONTAL_SIZE = 5;
-        public static int VERTICAL_SIZE = 2;
-
         /// <summary>
         /// Attributs
         /// </summary>

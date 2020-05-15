@@ -112,18 +112,6 @@ namespace SpicyInvader_V_01
             PATH_HIGH_SCORE = Path.GetFullPath("high_score.txt");
         }
 
-        public string MultThisSymbol(string a_symbol, int a_nbrOfMult)
-        {
-            string result = "";
-
-            for (int i = 0; i < a_nbrOfMult; i++)
-            {
-                result += a_symbol;
-            }
-
-            return result;
-        }
-
         /// <summary>
         ///     
         /// </summary>

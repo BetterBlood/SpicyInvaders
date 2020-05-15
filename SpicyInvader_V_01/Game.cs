@@ -79,30 +79,6 @@ namespace SpicyInvader_V_01
             }
         }
 
-        private void PlayBossThem()
-        {
-            if (Menu.SoundIsON())
-            {
-                PlayAudioFile("..//..//Sounds//BossThemSpicyInvaders.wav");
-            }
-        }
-
-        private void PlayBossVictory()
-        {
-            if (Menu.SoundIsON())
-            {
-                PlayAudioFile("..//..//Sounds//EnnemyDeath.wav");
-            }
-        }
-
-        private void PlayAudioFile(object a_relativePath) 
-        {
-            if (Menu.SoundIsON())
-            {
-                new SoundPlayer(a_relativePath.ToString()).Play();
-            }
-        }
-
         /// <summary>
         /// Lance le son des combats de boss
         /// </summary>
