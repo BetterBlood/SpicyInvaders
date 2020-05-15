@@ -18,6 +18,9 @@ using System.Windows.Markup;
 
 namespace SpicyInvader_V_01
 {
+    /// <summary>
+    /// Class Game
+    /// </summary>
     public class Game
     {
         /// <summary>
@@ -92,6 +95,40 @@ namespace SpicyInvader_V_01
             }
         }
 
+        private void PlayAudioFile(object a_relativePath) 
+        {
+            if (Menu.SoundIsON())
+            {
+                new SoundPlayer(a_relativePath.ToString()).Play();
+            }
+        }
+
+        /// <summary>
+        /// Lance le son des combats de boss
+        /// </summary>
+        private void PlayBossThem()
+        {
+            if (Menu.SoundIsON())
+            {
+                PlayAudioFile("..//..//Sounds//BossThemSpicyInvaders.wav");
+            }
+        }
+
+        /// <summary>
+        /// Lance le son de la victoire contre un boss
+        /// </summary>
+        private void PlayBossVictory()
+        {
+            if (Menu.SoundIsON())
+            {
+                PlayAudioFile("..//..//Sounds//EnnemyDeath.wav");
+            }
+        }
+
+        /// <summary>
+        /// Joue le son séléctionné
+        /// </summary>
+        /// <param name="a_relativePath"></param>
         private void PlayAudioFile(object a_relativePath) 
         {
             if (Menu.SoundIsON())
@@ -364,21 +401,34 @@ namespace SpicyInvader_V_01
             InitEntities();
         }
 
+        /// <summary>
+        /// Retourne l'état finale de la partie
+        /// </summary>
+        /// <returns></returns>
         public bool IsLost()
         {
             return _isLost;
         }
 
+        /// <summary>
+        /// Appele la méthode d'amélioration du nombre de missile
+        /// </summary>
         public void BonusShipWeaponSlot()
         {
             _ship.UpgradWeaponSlot();
         }
 
+        /// <summary>
+        /// Appele la méthode d'amélioration du nombre de points de vie
+        /// </summary>
         public void BonusShipMaxHeath()
         {
             _ship.UpgradLife();
         }
 
+        /// <summary>
+        /// Appele la méthode qui soigne le vaisseau
+        /// </summary>
         public void BonusShipHeal()
         {
             _ship.Heal();

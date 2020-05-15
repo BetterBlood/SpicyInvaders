@@ -1,19 +1,34 @@
-﻿using System;
+﻿/*
+ * ETML
+ * Auteur : Jeremiah, Adrian, Laetitia et Toine
+ * Date : Mars 2020
+ * Desciption : la classe Game
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace SpicyInvader_V_01
 {
+    /// <summary>
+    /// Class Game=ver
+    /// </summary>
     class GameOver
     {
+        /// <summary>
+        /// Attributs
+        /// </summary>
         const int SCROLLINGSPEED = 50;
         const int _INT_TITLE_INTRO = 6;
 
         bool scroll = true;
         string[] text = new string[_INT_TITLE_INTRO];
+
+        /// <summary>
+        /// Constructeur par défaut
+        /// </summary>
         public GameOver()
         {
             Console.CursorVisible = false;
@@ -27,6 +42,9 @@ namespace SpicyInvader_V_01
             text[5] = "=======================================================";
         }
 
+        /// <summary>
+        /// Animation de la chute du texte
+        /// </summary>
         public void FallingOutro()
         {
             Console.ForegroundColor = ConsoleColor.Green;
@@ -81,6 +99,10 @@ namespace SpicyInvader_V_01
             
         }
 
+        /// <summary>
+        /// Permet de changer de menus
+        /// </summary>
+        /// <param name="a_tick"></param>
         public void PressAKeyToStart(ref int a_tick)
         {
             string textIntro = "Appuyez sur une touche pour Continuer";
@@ -120,3 +142,5 @@ namespace SpicyInvader_V_01
         }
     }
 }
+
+using System.Threading.Tasks;

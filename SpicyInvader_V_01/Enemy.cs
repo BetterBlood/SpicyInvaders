@@ -117,7 +117,7 @@ namespace SpicyInvader_V_01
         }
 
         /// <summary>
-        /// 
+        /// Permet d'optenir la position du charactère de gauche de l'ennemi
         /// </summary>
         /// <returns></returns>
         public List<Position> GetPositions()
@@ -147,7 +147,7 @@ namespace SpicyInvader_V_01
         }
 
         /// <summary>
-        /// 
+        /// Détermine si les ennemis sont en première ligne
         /// </summary>
         /// <param name="a_isAbleToFire"></param>
         public void SetFireStatue(bool a_isAbleToFire)
@@ -178,6 +178,9 @@ namespace SpicyInvader_V_01
             Console.ForegroundColor = ConsoleColor.Gray;
         }
 
+        /// <summary>
+        /// Augement la puissance des ennemis en fonction du niveau
+        /// </summary>
         public void Upgrad()
         {
             switch(_upgradeLvl)
