@@ -10,6 +10,7 @@ using System.Linq;
 using System.Media;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace SpicyInvader_V_01
 {
@@ -28,7 +29,7 @@ namespace SpicyInvader_V_01
         private int _power;
 
         private bool _missileFired;
-        private EnumDirection _missileDirection; // true signifie que le missile monte, false qu'il descend
+        private EnumDirection _missileDirection;
 
         /// <summary>
         /// Propriétés
@@ -119,8 +120,6 @@ namespace SpicyInvader_V_01
         /// <returns></returns>
         public bool Move(List<Entity> a_entities, Fleet a_fleet, Game a_game) // return true si le mouvement a eut lieu sans rencontrer qqch
         {
-            // TODO : modifier en List de vaisseau ou bien d'invader ou de boss a attaquer (genre une liste d'entity)
-
             Clear();
             switch (_missileDirection)
             {
@@ -140,15 +139,14 @@ namespace SpicyInvader_V_01
                     break;
             }
 
-
             if (IsEntityHit(a_entities, a_fleet, a_game))
             {
-                // TODO : afficher une explosion 
+                // TODO : afficher une explosion ptetre ?
                 Rearmed();
                 return false;
             }
 
-            if (_position.Y <= 0 || _position.Y >= 27)// TODO: mettre 27 en constant quelque part, ptetre dans ship
+            if (_position.Y <= 0 || _position.Y >= Enemy._MAX_FIRE_RANGE)
             {
                 Rearmed();
                 return false;
@@ -204,8 +202,9 @@ namespace SpicyInvader_V_01
                 {
                     a_entities.Remove(enemy);
                 }
-                new SoundPlayer("..//..//Sounds//EnnemyDeath.wav").Play();
+
                 // TODO : appel d'une méthode d'explosion des invader ?? ( au lieu de clear, mais pas compatible avec invaders.Remove(invader);)
+                PlayDeathSound(a_fleet.IsBossStage());
             }
 
             if (enemyIsHit || allyIsHit)
@@ -217,11 +216,23 @@ namespace SpicyInvader_V_01
         }
 
         /// <summary>
+        /// Lance le son de la mort d'un ennemi
+        /// </summary>
+        /// <param name="a_bossStage"></param>
+        public void PlayDeathSound(bool a_bossStage)
+        {
+            if (Menu.SoundIsON() && !a_bossStage)
+            {
+                new SoundPlayer("..//..//Sounds//EnnemyDeath.wav").Play();
+            }
+        }
+
+        /// <summary>
         /// Supprime un missile
         /// </summary>
         private void Clear()
         {
-            if (_position.X >= 0 && _position.Y >= 0 && _position.Y <= 27) // TODO : mettre 27 en constant quelque part, ptetre dans ship
+            if (_position.X >= 0 && _position.Y >= 0 && _position.Y <= Enemy._MAX_FIRE_RANGE)
             {
                 _shape.Clear(_position);
             }
@@ -232,7 +243,7 @@ namespace SpicyInvader_V_01
         /// </summary>
         public void Draw()
         {
-            if (_position.Y != 0 && _position.Y <= 27) // TODO : mettre 27 en constant quelque part, ptetre dans ship
+            if (_position.Y != 0 && _position.Y <= Enemy._MAX_FIRE_RANGE)
             {
                 _shape.Draw(_position);
             }

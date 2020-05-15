@@ -21,19 +21,35 @@ namespace SpicyInvader_V_01
         /// <summary>
         /// Constructeur par défaut
         /// </summary>
-        public Ship() : base ("_/-\\_4 \\*/ ", new Position(50, 26), 2) { }
+        public Ship() : this (Menu.ALLY_SHIP_SKIN_2, new Position(50, 34), 2) { }
 
         /// <summary>
         /// Constructeur renseigné
         /// </summary>
         /// <param name="a_shape"></param>
-        public Ship(string a_shape) : base (a_shape, new Position(50, 26), 2) { }
+        public Ship(string a_shape) : this (a_shape, new Position(50, 34), 2) { }
 
         /// <summary>
         /// Constructeur renseigné
         /// </summary>
         /// <param name="a_lifePoint"></param>
-        public Ship(int a_lifePoint) : base("_/-\\_4 \\*/ ", new Position(50, 26), 2, a_lifePoint) { }
+        public Ship(int a_lifePoint) : base (Menu.ALLY_SHIP_SKIN_2, new Position(50, 34), 2, a_lifePoint) { }
+
+        /// <summary>
+        /// Constructeur renseigné
+        /// </summary>
+        /// <param name="a_lifePoint"></param>
+        /// <param name="a_nbrOfMissile"></param>
+        public Ship(int a_lifePoint, int a_nbrOfMissile) : base(Menu.ALLY_SHIP_SKIN_2, new Position(50, 34), a_nbrOfMissile, a_lifePoint) { }
+
+        /// <summary>
+        /// Constructeur renseigné
+        /// </summary>
+        /// <param name="a_shape"></param>
+        /// <param name="a_position"></param>
+        /// <param name="a_lifePoint"></param>
+        public Ship(string a_shape, Position a_position, int a_lifePoint) : base(a_shape, a_position, a_lifePoint) { }
+
 
     }
 }

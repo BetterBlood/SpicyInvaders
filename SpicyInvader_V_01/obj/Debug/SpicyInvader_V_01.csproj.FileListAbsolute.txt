@@ -1,5 +1,4 @@
 F:\Projet\space invader\SpicyInvaders\SpicyInvader_V_01\obj\Debug\SpicyInvader_V_01.csproj.CoreCompileInputs.cache
-F:\Projet\space invader\SpicyInvaders\SpicyInvader_V_01\obj\Debug\SpicyInvader_V_01.csprojResolveAssemblyReference.cache
 F:\Projet\space invader\SpicyInvaders\SpicyInvader_V_01\bin\Debug\SpicyInvader_V_01.exe.config
 F:\Projet\space invader\SpicyInvaders\SpicyInvader_V_01\bin\Debug\SpicyInvader_V_01.exe
 F:\Projet\space invader\SpicyInvaders\SpicyInvader_V_01\bin\Debug\SpicyInvader_V_01.pdb
@@ -12,3 +11,17 @@ F:\Projet\Space invader\SpacyInvaderPasGit2\SpicyInvader_V_01\obj\Debug\SpicyInv
 F:\Projet\Space invader\SpacyInvaderPasGit2\SpicyInvader_V_01\obj\Debug\SpicyInvader_V_01.csproj.CoreCompileInputs.cache
 F:\Projet\Space invader\SpacyInvaderPasGit2\SpicyInvader_V_01\obj\Debug\SpicyInvader_V_01.exe
 F:\Projet\Space invader\SpacyInvaderPasGit2\SpicyInvader_V_01\obj\Debug\SpicyInvader_V_01.pdb
+G:\ETML\02 - 2ème semestre\01 - Prog Barosso\02 - Projet\SpicyInvader_V_01\SpicyInvader_V_01\obj\Debug\SpicyInvader_V_01.csprojAssemblyReference.cache
+G:\ETML\02 - 2ème semestre\01 - Prog Barosso\02 - Projet\SpicyInvader_V_01\SpicyInvader_V_01\obj\Debug\SpicyInvader_V_01.exe
+G:\ETML\02 - 2ème semestre\01 - Prog Barosso\02 - Projet\SpicyInvader_V_01\SpicyInvader_V_01\obj\Debug\SpicyInvader_V_01.pdb
+G:\ETML\02 - 2ème semestre\01 - Prog Barosso\02 - Projet\SpicyInvader_V_01\SpicyInvader_V_01\bin\Debug\SpicyInvader_V_01.exe.config
+G:\ETML\02 - 2ème semestre\01 - Prog Barosso\02 - Projet\SpicyInvader_V_01\SpicyInvader_V_01\bin\Debug\SpicyInvader_V_01.exe
+G:\ETML\02 - 2ème semestre\01 - Prog Barosso\02 - Projet\SpicyInvader_V_01\SpicyInvader_V_01\bin\Debug\SpicyInvader_V_01.pdb
+H:\ETML\02 - 2ème semestre\01 - Prog Barosso\02 - Projet\SpicyInvader_V_01\SpicyInvader_V_01\bin\Debug\SpicyInvader_V_01.exe.config
+H:\ETML\02 - 2ème semestre\01 - Prog Barosso\02 - Projet\SpicyInvader_V_01\SpicyInvader_V_01\bin\Debug\SpicyInvader_V_01.exe
+H:\ETML\02 - 2ème semestre\01 - Prog Barosso\02 - Projet\SpicyInvader_V_01\SpicyInvader_V_01\bin\Debug\SpicyInvader_V_01.pdb
+H:\ETML\02 - 2ème semestre\01 - Prog Barosso\02 - Projet\SpicyInvader_V_01\SpicyInvader_V_01\obj\Debug\SpicyInvader_V_01.csprojAssemblyReference.cache
+H:\ETML\02 - 2ème semestre\01 - Prog Barosso\02 - Projet\SpicyInvader_V_01\SpicyInvader_V_01\obj\Debug\SpicyInvader_V_01.csproj.CoreCompileInputs.cache
+H:\ETML\02 - 2ème semestre\01 - Prog Barosso\02 - Projet\SpicyInvader_V_01\SpicyInvader_V_01\obj\Debug\SpicyInvader_V_01.exe
+H:\ETML\02 - 2ème semestre\01 - Prog Barosso\02 - Projet\SpicyInvader_V_01\SpicyInvader_V_01\obj\Debug\SpicyInvader_V_01.pdb
+F:\Projet\Space invader\SpicyInvaders\SpicyInvader_V_01\obj\Debug\SpicyInvader_V_01.csprojAssemblyReference.cache

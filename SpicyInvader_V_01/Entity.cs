@@ -10,6 +10,7 @@ using System.Linq;
 using System.Media;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace SpicyInvader_V_01
 {
@@ -23,12 +24,14 @@ namespace SpicyInvader_V_01
         /// </summary>
         private Shape _shape;
         private HitBox _hitBox;
-
+        /// <summary>
+        /// hdeksfhesk
+        /// </summary>
         protected Position _position;
-
         protected List<Missile> _missiles;
-
-        protected int _lifePoints; // TODO : ajouter les point de vie dans la méthode qui dit si le truc touché est mort
+        protected int _lifePoints;
+        private int _weaponSlot;
+        private EnumDirection _missileDirection;
 
         /// <summary>
         /// Constructeur par défaut
@@ -56,8 +59,10 @@ namespace SpicyInvader_V_01
             _position = a_position;
 
             _lifePoints = 1;
+            _weaponSlot = a_nbrMissile;
+            _missileDirection = a_missileDirection;
 
-            InitBasesMissiles(a_nbrMissile, a_missileDirection);
+            InitBasesMissiles(_weaponSlot, _missileDirection);
         }
 
         /// <summary>
@@ -72,13 +77,13 @@ namespace SpicyInvader_V_01
         /// <summary>
         /// Ajoute le nombre nombre de missile possédé par une entité dans sa liste
         /// </summary>
-        /// <param name="a_missileNumber"></param>
+        /// <param name="a_weaponSlot"></param>
         /// <param name="a_missileDirection"></param>
-        public void InitBasesMissiles(int a_missileNumber, EnumDirection a_missileDirection)
+        public void InitBasesMissiles(int a_weaponSlot, EnumDirection a_missileDirection)
         {
             _missiles = new List<Missile>();
 
-            for (int i = 0; i < a_missileNumber; i++)
+            for (int i = 0; i < a_weaponSlot; i++)
             {
                 _missiles.Add(new Missile(a_missileDirection));
             }
@@ -102,7 +107,7 @@ namespace SpicyInvader_V_01
         }
 
         /// <summary>
-        /// 
+        /// Position verticale du missile
         /// </summary>
         /// <returns></returns>
         public int GetMissileYPos() // TODO : il y a un truc bizarre dans cette méthode voir a quoi elle sert vraiment et la nommer en conséquence !
@@ -127,7 +132,7 @@ namespace SpicyInvader_V_01
         }
 
         /// <summary>
-        /// 
+        /// Nombre de missiles disponible
         /// </summary>
         /// <returns></returns>
         public int HowManyMissilesLeft()
@@ -146,16 +151,45 @@ namespace SpicyInvader_V_01
         }
 
         /// <summary>
+        /// Son de tire d'un missile
+        /// </summary>
+        /// <param name="a_bossStage"></param>
+        public void PlayAttackSound(bool a_bossStage)
+        {
+            if (Menu.SoundIsON() && this is Ally && !a_bossStage)
+            {
+                new SoundPlayer("..//..//Sounds//LazerFire.wav").Play();
+            }
+            else if (Menu.SoundIsON() && this is Enemy && !a_bossStage)
+            {
+                // TODO : ptetre faire un son différent pour les ennemis
+            }
+            else
+            {
+                // le son est désactivé
+            }
+            
+        }
+
+        /// <summary>
         /// Tire un missile si les conditions sont remplies
         /// </summary>
-        public void Fire()
+        public void Fire(bool a_bossStage)
         {
             foreach (Missile missile in _missiles)
             {
                 if (!missile.IsFired())
                 {
-                    missile.Fire(new Position(_position.X + 2, _position.Y - 1)); // position de départ de missile peut être voir pour modifier selon le vaisseau
-                    new SoundPlayer("..//..//Sounds//LazerFire.wav").Play();
+                    if (this is Ally)
+                    {
+                        missile.Fire(new Position(_position.X + _shape.GetHorizontalHightSize() / 2, _position.Y));
+                    }
+                    else
+                    { // TODO : vérifier les positions de lancement : ptetre voir pour les trouver par rapport aux tailles de shape
+                        missile.Fire(new Position(_position.X + 2, _position.Y - 1)); // position de départ de missile peut être voir pour modifier selon le style d'ennemy
+                    }
+
+                    PlayAttackSound(a_bossStage);
                     return;
                 }
                 else
@@ -165,6 +199,10 @@ namespace SpicyInvader_V_01
             }
         }
 
+        /// <summary>
+        /// Lance un missile depuis une position donnée
+        /// </summary>
+        /// <param name="a_firePosition"></param>
         public void Fire(Position a_firePosition)
         {
             foreach (Missile missile in _missiles)
@@ -172,7 +210,7 @@ namespace SpicyInvader_V_01
                 if (!missile.IsFired())
                 {
                     missile.Fire(a_firePosition);
-                    // TODO : ptetre faire un son différent pour les ennemis
+                    PlayAttackSound(false);
                     return;
                 }
                 else
@@ -265,6 +303,15 @@ namespace SpicyInvader_V_01
         }
 
         /// <summary>
+        /// Retourne la largeur de l'entité
+        /// </summary>
+        /// <returns></returns>
+        public int GetHeight()
+        {
+            return _shape.GetVerticalLenght();
+        }
+
+        /// <summary>
         /// Retourne un objet de classe HitBox
         /// </summary>
         /// <returns></returns>
@@ -307,6 +354,36 @@ namespace SpicyInvader_V_01
         public int GetLife()
         {
             return _lifePoints;
+        }
+
+        /// <summary>
+        /// Augment le nombre de missiles de reserve
+        /// </summary>
+        public void UpgradWeaponSlot()
+        {
+            if (_weaponSlot < 4)
+            {
+                _weaponSlot++;
+                InitBasesMissiles(_weaponSlot, _missileDirection);
+            }
+        }
+
+        /// <summary>
+        /// Modifie les charactéristique pour le hard mode
+        /// </summary>
+        public void SetHardMode()
+        {
+            _weaponSlot = 1;
+            InitBasesMissiles(_weaponSlot, _missileDirection);
+        }
+
+        /// <summary>
+        /// Retourne la position de tire
+        /// </summary>
+        /// <returns></returns>
+        protected virtual Position GetFirePosition()
+        {
+            return new Position(_position.X + GetHorizontalHightSize() / 2, _position.Y + GetHeight());
         }
     }
 }

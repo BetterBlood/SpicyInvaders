@@ -34,14 +34,5 @@ namespace SpicyInvader_V_01
             _lifePoints = a_lvl * 5;
             _pointNumber = a_lvl * 2;
         }
-
-        /// <summary>
-        /// Retourn la position de tire
-        /// </summary>
-        /// <returns></returns>
-        protected override Position GetFirePosition()
-        {
-            return new Position(_position.X + 3, _position.Y + 4);
-        }
     }
 }

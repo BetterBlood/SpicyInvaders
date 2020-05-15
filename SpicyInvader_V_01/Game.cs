@@ -6,18 +6,29 @@
  */
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Media;
+using System.Threading;
 using System.Text;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Markup;
+
+
 
 namespace SpicyInvader_V_01
 {
+    /// <summary>
+    /// Class Game
+    /// </summary>
     public class Game
     {
         /// <summary>
         /// Attributs
         /// </summary>
         static public int _score; // static public car on a besoin de pouvoir le modifier et de l'atteindre dans le main ainsi que dans d'autres classes
+        public string _difficulty;
+        private bool _isLost;
 
         private Fleet _fleet;
         private Ship _ship;
@@ -33,17 +44,19 @@ namespace SpicyInvader_V_01
         /// </summary>
         public Game()
         {
-            Console.WindowWidth = 71;
+            Console.WindowWidth = Console.LargestWindowWidth - 50;
             Console.WindowHeight = Console.LargestWindowHeight - 10;
 
-            _fleet = new Fleet();
             _ship = new Ship();
 
             _score = 0;
+            _isLost = false;
 
-            _level = new Level(1);
+            _level = new Level();
+            _fleet = _level.GetFleet();
 
             _menu = new Menu();
+            _difficulty = null;
 
             InitEntities();
         }
@@ -67,11 +80,66 @@ namespace SpicyInvader_V_01
         }
 
         /// <summary>
-        /// Lance le menu principal
+        /// Lance le son des combats de boss
         /// </summary>
-        public void Begin()
+        private void PlayBossThem()
         {
-            _menu.ShowMenu(Menu.MAIN_MENU, this);
+            if (Menu.SoundIsON())
+            {
+                PlayAudioFile("..//..//Sounds//BossThemSpicyInvaders.wav");
+            }
+        }
+
+        /// <summary>
+        /// Lance le son de la victoire contre un boss
+        /// </summary>
+        private void PlayBossVictory()
+        {
+            if (Menu.SoundIsON())
+            {
+                PlayAudioFile("..//..//Sounds//EnnemyDeath.wav");
+            }
+        }
+
+        /// <summary>
+        /// Joue le son séléctionné
+        /// </summary>
+        /// <param name="a_relativePath"></param>
+        private void PlayAudioFile(object a_relativePath) 
+        {
+            if (Menu.SoundIsON())
+            {
+                new SoundPlayer(a_relativePath.ToString()).Play();
+            }
+        }
+
+        /// <summary>
+        /// Lance la cinématique de début (intro, ou un game over si le vaisseau est mort)
+        /// </summary>
+        public void Begin(bool a_begin = true)
+        {
+            if (a_begin)
+            {
+                Thread playingMusicThread = new Thread(new ParameterizedThreadStart(PlayAudioFile));
+                playingMusicThread.Start("..//..//Sounds//IntroSpicyInvaders.wav");
+
+                Intro intro = new Intro();
+
+                intro.FallingIntro();
+
+                _menu.ShowMenu(Menu.MAIN_MENU, this);
+                playingMusicThread.Abort(); // TODO : à tester pas sur que ce soit juste
+            }
+            else
+            {
+                GameOver game_over = new GameOver();
+
+                game_over.FallingOutro();
+
+                _menu.ShowMenu(Menu.MAIN_MENU, this);
+            }
+
+            _isLost = false;
         }
 
         /// <summary>
@@ -80,6 +148,32 @@ namespace SpicyInvader_V_01
         /// <param name="a_tics"></param>
         public void Update(int a_tics)
         {
+
+            if(_difficulty == null)
+            {
+                _menu.ShowMenu(Menu.DIFFICULTY_CHOISE, this);
+                // TODO : prendre la _difficulty et orienté le ship selon ça
+
+                switch (_difficulty)
+                {
+                    case "easy":
+                        _ship.UpgradLife();
+                        _ship.Heal();
+                        break;
+                    case "hard":
+                        // normal
+                        break;
+                    case "harder":
+                        _ship.SetHardMode();
+                        break;
+                    default:
+                        // au cas ou
+                        break;
+                }
+                InitEntities();
+                Console.Clear();
+            }
+
             if (Console.KeyAvailable)
             {
                 ConsoleKeyInfo key = Console.ReadKey(true);
@@ -105,7 +199,7 @@ namespace SpicyInvader_V_01
                         //Un seul missile à la fois
                         if (_ship.IsAMissileNotFired())
                         {
-                            _ship.Fire();
+                            _ship.Fire(_fleet.IsBossStage());
                         }
                         break;
 
@@ -138,36 +232,35 @@ namespace SpicyInvader_V_01
 
                 if (_ship.IsDead(_fleet))
                 {
-                    _menu.ShowMenu(Menu.GAME_OVER, this);
+                    //_menu.ShowMenu(Menu.GAME_OVER, this);
+                    _menu.ShowMenu(Menu.HIGH_SCORE, this);
+                    _isLost = true;
+                    
                 }
                 else
                 {
-                    _menu.DisplayHUD(_ship, _level.GetLevel());
+                    _menu.DisplayHUD(_ship, _level.GetLevel(), _fleet.GetEnemiesLife());
                 }
 
                 if (_fleet.FleetIsDefeated())
                 {
+                    if (_fleet.IsBossStage())
+                    {
+                        PlayBossVictory(); // TODO : vérifier si ça close l'ancien son
+                        _menu.ShowMenu(Menu.BONUS_STAGE, this);
+                    }
+
                     _level.LevelUP();
                     _fleet = _level.GetFleet();
-                    
+
                     InitEntities();
 
                     _menu.ShowMenu(Menu.STAGE_WIN, this);
 
-                    // TODO : afficher les bonus si c'est un bossStage
-                    // TODO : afficher le menu pour sauver 
-                    /*
-                    if (_fleetLvl%5 == 0) // boss stage // TODO : voir avec la class Level
+                    if (_fleet.IsBossStage())
                     {
-                        _fleet = new Fleet(_fleetLvl, true);
-                        
-                        InitEntities();
+                        PlayBossThem();
                     }
-                    else
-                    {
-                        _fleet = new Fleet(_fleetLvl, false);
-                        InitEntities();
-                    }*/
                 }
             }
         }
@@ -179,6 +272,11 @@ namespace SpicyInvader_V_01
         public void AllyIsHit(int a_power)
         {
             _ship.TakeDamage(a_power);
+
+            if (_difficulty.Equals("harder"))
+            {
+                _score -= 5; // TODO : voir si ça vaut la peine
+            }
         }
 
         /// <summary>
@@ -187,20 +285,39 @@ namespace SpicyInvader_V_01
         /// <param name="a_pointNumber"></param>
         public void IncreasePoint(int a_pointNumber)
         {
-            _score += a_pointNumber;
+            int difficultyMultiplier = 1;
+
+            switch(_difficulty)
+            {
+                case "easy":
+                    difficultyMultiplier = 1;
+                    break;
+                case "hard":
+                    difficultyMultiplier = 2;
+                    break;
+                case "harder":
+                    difficultyMultiplier = 3;
+                    break;
+                default:
+                    // normalement inutil
+                    break;
+            }
+            _score += a_pointNumber * difficultyMultiplier;
         }
 
         /// <summary>
-        /// Reignisialisation d'une partie
+        /// Réinisialisation d'une partie
         /// </summary>
         public void ResetGame()
         {
-            _fleet = new Fleet();
             _ship = new Ship();
-
-            _score = 0; // TODO : ne pas oublié de récupéré le score dans le fichier adéquats si nécessaire
+            _level = new Level();
+            _fleet = _level.GetFleet();
+            _score = 0;
 
             _menu = new Menu();
+            _isLost = false;
+            _difficulty = null;
 
             InitEntities();
         }
@@ -209,7 +326,7 @@ namespace SpicyInvader_V_01
         /// String comptenant les informations de la sauvegarde
         /// </summary>
         /// <returns></returns>
-        public string GetSaveStat() // return une string qui donne toutes les infos nécessaire pour la sauvegarde
+        public string GetSaveStat()
         {
             // on va faire pour l'instant que l'on peut save le niveau mais pas l'état exact des ennemis
             // donc on a besoin pour ça d'avoir :
@@ -231,9 +348,9 @@ namespace SpicyInvader_V_01
             save += separator;
             save += "fleet_lvl?" + _level.GetLevel();
             save += separator;
-            save += "ship_State?" + _ship.GetSaveStat();
-
-
+            save += "ship_State?" + _ship.GetSaveStat(separator);
+            save += separator;
+            save += "difficulty?" + _difficulty; 
 
             return save;
         }
@@ -241,19 +358,56 @@ namespace SpicyInvader_V_01
         /// <summary>
         /// Chargement d'une partie
         /// </summary>
-        /// <param name="a_score"></param>
-        /// <param name="a_fleetLevel"></param>
-        /// <param name="a_shipLife"></param>
-        public void LoadGame(int a_score, int a_fleetLevel, int a_shipLife)
+        /// <param name="a_saveStat">string contenant les info récupérée du fichier de sauvegarde</param>
+        public void LoadGame(string[] a_saveStat)
         {
-            _level = new Level(a_fleetLevel);
-            _score = a_score;
+            _score = Convert.ToInt32(a_saveStat[1].Split('?')[1]);
+            _level = new Level(Convert.ToInt32(a_saveStat[2].Split('?')[1]));
+            _fleet = _level.GetFleet(); 
 
-            _fleet = _level.GetFleet();
-            _ship = new Ship(a_shipLife);
-            _menu = new Menu();
+            string[] shipStats = a_saveStat[3].Split('?');
+            
+            //TODO : faire deux saves de vie, tot et actuelle
+            _ship = new Ship(Convert.ToInt32(shipStats[1].Split('/')[2].Split('.')[1]), Convert.ToInt32(shipStats[1].Split('/')[1].Split('.')[1])); // life et nombre de missile
+            _ship.TakeDamage(Convert.ToInt32(shipStats[1].Split('/')[2].Split('.')[1]) - Convert.ToInt32(shipStats[1].Split('/')[0].Split('.')[1])); // ajustement de la vie
+            _menu = new Menu(); // ptetre pas util
+
+            _difficulty = a_saveStat[4].Split('?')[1];
 
             InitEntities();
+        }
+
+        /// <summary>
+        /// Retourne l'état finale de la partie
+        /// </summary>
+        /// <returns></returns>
+        public bool IsLost()
+        {
+            return _isLost;
+        }
+
+        /// <summary>
+        /// Appele la méthode d'amélioration du nombre de missile
+        /// </summary>
+        public void BonusShipWeaponSlot()
+        {
+            _ship.UpgradWeaponSlot();
+        }
+
+        /// <summary>
+        /// Appele la méthode d'amélioration du nombre de points de vie
+        /// </summary>
+        public void BonusShipMaxHeath()
+        {
+            _ship.UpgradLife();
+        }
+
+        /// <summary>
+        /// Appele la méthode qui soigne le vaisseau
+        /// </summary>
+        public void BonusShipHeal()
+        {
+            _ship.Heal();
         }
     }
 }

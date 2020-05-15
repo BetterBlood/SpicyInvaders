@@ -17,7 +17,14 @@ namespace SpicyInvader_V_01
     /// </summary>
     public interface IDrawable
     {
+        /// <summary>
+        /// Dessine la forme
+        /// </summary>
         void Draw();
+
+        /// <summary>
+        /// Efface la forme
+        /// </summary>
         void Clear();
     }
 }

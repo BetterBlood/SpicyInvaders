@@ -51,7 +51,6 @@ namespace SpicyInvader_V_01
             _enemies = new List<Enemy>();
 
             _bossStage = a_bossStage; 
-            //_bossStage = true; // TODO : c'est un test pour calibrer les missile du boss
             InitEnemies();
             SetFireRight();
         }
@@ -75,10 +74,10 @@ namespace SpicyInvader_V_01
         /// Ajout d'un boss
         /// </summary>
         /// <param name="a_lvl"></param>
-        public void InitBosses(int a_lvl)
+        private void InitBosses(int a_lvl)
         {
-            // TODO : voir si j'ai pas oublié un truc ici, spoiler : surement oui, comparer avec InnitInvaders juste en dessous !!
-            _enemies.Add(new Boss(a_lvl, "  \\__/4 -<==>-4  \\__/"));
+            //_enemies.Add(new Boss(a_lvl, "  \\__/4 -<==>-4  \\__/"));
+            _enemies.Add(new Boss(a_lvl, Menu.ENNEMY_SKIN_1)); // TODO : faire une selection des skin de boss selon le lvl !!! (comme pour InitInvaders)
         }
 
         /// <summary>
@@ -87,21 +86,52 @@ namespace SpicyInvader_V_01
         /// <param name="a_fleet_lvl"></param>
         public void InitInvaders(int a_fleet_lvl)
         {
-            _numberOfInvader = 3 + a_fleet_lvl * 2;
+            // TODO : Vérifier que ça fait bien les vagues d'ennemies comme on veut
+            _numberOfInvader = 3 + (a_fleet_lvl * 2)%20; // le modulo 20 c'est pour ne pas avoir plus de 22 invaders 
 
-            int invaderSize = 4; // ptetre mettre en static dans Invader la taille par défaut genre un Invader.Width() ?
+            int invaderSize = Invader.HORIZONTAL_SIZE; // ptetre mettre en static dans Invader la taille par défaut genre un Invader.Width() ?
             int y = 0;
+            string skin = Menu.ENNEMY_SKIN_4; // ENNEMY_SKIN_7 // ENNEMY_SKIN_4
 
             for (int i = 0, j = 0; i < _numberOfInvader; i++, j++)
             {
-                if (i % 5 == 0)
+                if (i % 10 == 0) // 10 = nombre d'ennemis par ligne
                 {
                     j = 0;
-                    y++;
+                    y += Invader.VERTICAL_SIZE + 1;
                 }
 
-                _enemies.Add(new Invader(new Position(j * (invaderSize + 1), y), true));
+                if (a_fleet_lvl > 10)
+                {
+                    skin = Menu.ENNEMY_SKIN_5;
+                    invaderSize = 4;
+                }
+                if (a_fleet_lvl > 20)
+                {
+                    skin = Menu.ENNEMY_SKIN_6; // normalement le 4 mais il est pas fonctionnel !
+                    invaderSize = 5;
+                }
+
+                _enemies.Add(new Invader(skin, new Position(j * (invaderSize + 2), y), true));
             }
+
+            /// géstion du lvl des invaders :
+            if (a_fleet_lvl > 10)
+            {
+                foreach (Enemy enemy in _enemies)
+                {
+                    enemy.Upgrad();
+                }
+            }
+
+            if (a_fleet_lvl > 20)
+            {
+                foreach (Enemy enemy in _enemies)
+                {
+                    enemy.Upgrad();
+                }
+            }
+
         }
 
         /// <summary>
@@ -218,6 +248,30 @@ namespace SpicyInvader_V_01
         {
             return _fleetLevel.ToString();
         }
-        
+
+        /// <summary>
+        /// Retourne le type de niveau
+        /// </summary>
+        /// <returns></returns>
+        public bool IsBossStage()
+        {
+            return _bossStage;
+        }
+
+        /// <summary>
+        /// Retourne la quantitée de vie possédée par les ennemis
+        /// </summary>
+        /// <returns></returns>
+        public int GetEnemiesLife()
+        {
+            int lifeTot = 0;
+
+            foreach(Enemy enemy in _enemies)
+            {
+                lifeTot += enemy.GetLife();
+            }
+
+            return lifeTot;
+        }
     }
 }

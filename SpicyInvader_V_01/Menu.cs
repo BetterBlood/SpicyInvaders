@@ -18,12 +18,31 @@ namespace SpicyInvader_V_01
         /// <summary>
         /// Attributs
         /// </summary>
-        private const string NEW_GAME = "nouvelle partie";
-        private const string CONTINUE = "continuer";
-        private const string SAVE = "sauvegarder";
-        private const string LOAD = "charger";
-        private const string SETTINGS = "parametres";
-        private const string LEAVE = "quitter";
+        private const string NEW_GAME = "╔═════════════════╗." +
+                                        "║ nouvelle partie ║." +
+                                        "╚═════════════════╝";
+        private const string CONTINUE = "╔═════════════════╗." +
+                                        "║    continuer    ║." +
+                                        "╚═════════════════╝";
+        private const string SAVE = "╔═════════════════╗." +
+                                    "║   sauvegarder   ║." +
+                                    "╚═════════════════╝";
+        private const string LOAD = "╔═════════════════╗." +
+                                    "║     charger     ║." +
+                                    "╚═════════════════╝";
+        private const string SETTINGS = "╔═════════════════╗." +
+                                        "║    parametres   ║." +
+                                        "╚═════════════════╝";
+        private const string LEAVE = "╔═════════════════╗." +
+                                     "║     quitter     ║." +
+                                     "╚═════════════════╝";
+        private const string SOUND_ON = "╔═════════════════╗." +
+                                        "║     Sound ON    ║." +
+                                        "╚═════════════════╝";
+        private const string SOUND_OFF = "╔═════════════════╗." +
+                                         "║     Sound OFF   ║." +
+                                         "╚═════════════════╝";
+
         private const string BACK = "retour";
 
         private const string SLOT_1 = "Slot 1";
@@ -33,26 +52,82 @@ namespace SpicyInvader_V_01
         private readonly string PATH_SLOT_1;
         private readonly string PATH_SLOT_2;
         private readonly string PATH_SLOT_3;
+        private static readonly string PATH_REGLAGE = Path.GetFullPath("reglage.txt"); // TODO : pk pas dans le constructeur ? à cause du static ?
+        private readonly string PATH_HIGH_SCORE;
 
-        public const string MAIN_MENU = "menu principale";
+        private const string upgrade1 = "╔═════════════════════════╗." +
+                                        "║  Increase Weapon Slot   ║." +
+                                        "╚═════════════════════════╝";
+        private const string upgrade2 = "╔═════════════════════════╗." +
+                                        "║   Get one more life     ║." +
+                                        "╚═════════════════════════╝";
+        private const string upgrade3 = "╔═════════════════════════╗." +
+                                        "║ Regen one point of life ║." +
+                                        "╚═════════════════════════╝";
+
+
+        public const string MAIN_MENU = "╔═════════════════╗." +
+                                        "║ menu principale ║." +
+                                        "╚═════════════════╝";
         public const string PAUSE = "pause";
         public const string GAME_OVER = "game over";
         public const string STAGE_WIN = "stage win";
+        public const string BONUS_STAGE = "bonus stage";
+        public const string HIGH_SCORE = "╔════════════╗." +
+                                         "║ high score ║." +
+                                         "╚════════════╝";
+        public const string DIFFICULTY_CHOISE = "choix de la difficultée";
 
         public const int MISSILE_DISPLAY_POSITION_X = 30;
-        public const int MISSILE_DISPLAY_POSITION_Y = 29;
+        public const int MISSILE_DISPLAY_POSITION_Y = 40;
         // TODO : faire aussi les coordonnée des autre HUD en const
 
-        public const char STRING_SHAPE_SEPARATOR = '4';  // ATTENTION : on ne peut donc pas utiliser le chiffre 4 pour la construction de silhouette 
+        public const char STRING_SHAPE_SEPARATOR = '4';  // ATTENTION : on ne peut donc pas utiliser le chiffre 4 pour la construction de silhouette
+
+        public const string ALLY_SHIP_SKIN_1 = "      ■      4     ■■■     4    ■■■■■    4 ///■■■■■\\\\\\ 4////■■■■■\\\\\\\\"; // ALLY
+        public const string ALLY_SHIP_SKIN_2 = "     |     4    /■\\    4  //■■■\\\\  4█--■■■■■--█4 \\\\ ■■■ // "; // ALLY
+
+        public const string ENNEMY_SKIN_1 = "    /■\\    4¥  /■■■\\  ¥4| /■■■■■\\ |4|/■■■■■■■\\|4/--O---O--\\"; // BOSS
+        public const string ENNEMY_SKIN_2 = "    /**\\   4----0  0----4    /**\\  4   /    \\  "; // BOSS
+        public const string ENNEMY_SKIN_3 = "     ■     ■     4|  ■■ ■■■■■ ■■  |4|    ■■■■■■■    |4\\----■ ■■■ ■----/4      ■■■■■      "; // BOSS
+
+        //public const string ENNEMY_SKIN_4 = "\\_||_/4-0||0-4__/\\__"; // Invader : X = 6, Y = 3
+        public const string ENNEMY_SKIN_4 = "/00\\4|--|"; // Invader : X = 4, Y = 2
+        public const string ENNEMY_SKIN_5 = " ITI 4|/¨\\|"; // Invader : X = 5, Y = 2p
+        public const string ENNEMY_SKIN_6 = "-\\_/-4 ||| ";
+        public const string ENNEMY_SKIN_7 = " /|\\ 4.<|>.";
+
+        private int _saveSelected = -1;
+        private int _bonusSelected = -1;
 
         /// <summary>
-        /// Constructeur par défaut
+        /// Constructeur par défaut qui initialise les full path des fichiers de sauvegarde
         /// </summary>
         public Menu()
         {
+            // TODO : ptetre mettre un try catch au cas ou les fichier existe pas, (il y a des méthode pour vérifier si un fichier existe et pour les créer au cas ou)
             PATH_SLOT_1 = Path.GetFullPath("slot_1.txt");
             PATH_SLOT_2 = Path.GetFullPath("slot_2.txt");
             PATH_SLOT_3 = Path.GetFullPath("slot_3.txt");
+            PATH_HIGH_SCORE = Path.GetFullPath("high_score.txt");
+        }
+
+        /// <summary>
+        ///     
+        /// </summary>
+        /// <param name="a_symbol"></param>
+        /// <param name="a_nbrOfMult"></param>
+        /// <returns></returns>
+        public string MultThisSymbol(string a_symbol, int a_nbrOfMult)
+        {
+            string result = "";
+
+            for (int i = 0; i < a_nbrOfMult; i++)
+            {
+                result += a_symbol;
+            }
+
+            return result;
         }
 
         /// <summary>
@@ -70,13 +145,186 @@ namespace SpicyInvader_V_01
             {
                 ShowMainMenu(a_game);
             }
-            else if (a_menuType.Equals(GAME_OVER))
+            else if (a_menuType.Equals(GAME_OVER)) // TODO : ptetre inutil à voir
             {
                 ShowGameOverMenu(a_game);
             }
             else if (a_menuType.Equals(STAGE_WIN))
             {
                 ShowWinMenu(a_game);    
+            }
+            else if (a_menuType.Equals(BONUS_STAGE))
+            {
+                ShowBonusMenu(a_game);
+            }
+            else if (a_menuType.Equals(HIGH_SCORE))
+            {
+                ShowHighScore(a_game);
+            }
+            else if (a_menuType.Equals(DIFFICULTY_CHOISE))
+            {
+                ShowDifficultyMenu(a_game);
+            }
+        }
+
+
+        private void DisplayMenu(string[] a_tab, int a_place, int a_selection = -1, bool a_confirmation = false, bool a_slotMenu = false, bool a_slotMenuLike = false) // TODO : implémenter la confirmation, notamment pour les sauvegardes et le choix des bonus
+        {
+            if (a_slotMenu)
+            {
+                int x = 0;
+
+                //affichage du menu
+                foreach (string affichage in a_tab)
+                {
+                    string[] tab2 = { "╔═" + MultThisSymbol("═", affichage.Length) + "═╗", "║ " + affichage + " ║", "╚═" + MultThisSymbol("═", affichage.Length) + "═╝" };
+
+                    if (x == a_place) // surlignement en jaune du text concerné en rouge si la save est selectionné
+                    {
+                        Console.ForegroundColor = x == _saveSelected ? ConsoleColor.Red : ConsoleColor.Yellow;
+
+                        int heightAjustment = -1;
+
+                        foreach (string ligne in tab2)
+                        {
+                            Console.SetCursorPosition(Console.WindowWidth / 2 - tab2[0].Length / 2, Console.WindowHeight / 3 + x * 3 + heightAjustment);
+                            Console.WriteLine(ligne);
+                            heightAjustment++;
+                        }
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = x == _saveSelected ? ConsoleColor.Red : ConsoleColor.Gray;
+
+                        int heightAjustment = -1;
+
+                        foreach (string ligne in tab2)
+                        {
+                            Console.SetCursorPosition(Console.WindowWidth / 2 - tab2[0].Length / 2, Console.WindowHeight / 3 + x * 3 + heightAjustment);
+                            Console.WriteLine(ligne);
+                            heightAjustment++;
+                        }
+                    }
+
+                    x++;
+                }
+            }
+            else if (a_confirmation)
+            {
+                int x = 0;
+
+                //affichage du menu
+                foreach (string affichage in a_tab)
+                {
+                    if (x == a_place) // surlignement en jaune du text concerné en rouge si la save est selectionné
+                    {
+                        Console.ForegroundColor = x == _bonusSelected ? ConsoleColor.Red : ConsoleColor.Yellow;
+                        string[] tab2 = a_tab[x].Split('.');
+
+                        int heightAjustment = -1;
+
+                        foreach (string ligne in tab2)
+                        {
+                            Console.SetCursorPosition(Console.WindowWidth / 2 - tab2[0].Length / 2, Console.WindowHeight / 3 + x * 3 + heightAjustment);
+                            Console.WriteLine(ligne);
+                            heightAjustment++;
+                        }
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = x == _bonusSelected ? ConsoleColor.Red : ConsoleColor.Gray;
+                        string[] tab2 = a_tab[x].Split('.');
+
+                        int heightAjustment = -1;
+
+                        foreach (string ligne in tab2)
+                        {
+                            Console.SetCursorPosition(Console.WindowWidth / 2 - tab2[0].Length / 2, Console.WindowHeight / 3 + x * 3 + heightAjustment);
+                            Console.WriteLine(ligne);
+                            heightAjustment++;
+                        }
+                    }
+
+                    x++;
+                }
+            }
+            else if (a_slotMenuLike) 
+            {
+                int x = 0;
+
+                //affichage du menu
+                foreach (string affichage in a_tab)
+                {
+                    string[] tab2 = { "╔═" + MultThisSymbol("═", affichage.Length) + "═╗", "║ " + affichage + " ║", "╚═" + MultThisSymbol("═", affichage.Length) + "═╝" };
+
+                    if (x == a_place) // surlignement en jaune du text concerné en rouge si la save est selectionné
+                    {
+                        Console.ForegroundColor = x == a_selection ? ConsoleColor.Red : ConsoleColor.Yellow;
+
+                        int heightAjustment = -1;
+
+                        foreach (string ligne in tab2)
+                        {
+                            Console.SetCursorPosition(Console.WindowWidth / 2 - tab2[0].Length / 2, Console.WindowHeight / 3 + x * 3 + heightAjustment);
+                            Console.WriteLine(ligne);
+                            heightAjustment++;
+                        }
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = x == a_selection ? ConsoleColor.Red : ConsoleColor.Gray;
+
+                        int heightAjustment = -1;
+
+                        foreach (string ligne in tab2)
+                        {
+                            Console.SetCursorPosition(Console.WindowWidth / 2 - tab2[0].Length / 2, Console.WindowHeight / 3 + x * 3 + heightAjustment);
+                            Console.WriteLine(ligne);
+                            heightAjustment++;
+                        }
+                    }
+
+                    x++;
+                }
+            }
+            else
+            {
+                int x = 0;
+
+                // affichage du menu
+                foreach (string affichage in a_tab)
+                {
+                    if (x == a_place) // surlignement en jaune du text concerné
+                    {
+                        string[] tab2 = a_tab[x].Split('.');
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+
+                        int heightAjustment = -1;
+
+                        foreach (string ligne in tab2)
+                        {
+                            Console.SetCursorPosition(Console.WindowWidth / 2 - tab2[0].Length / 2, Console.WindowHeight / 3 + x * 3 + heightAjustment);
+                            Console.WriteLine(ligne);
+                            heightAjustment++;
+                        }
+                    }
+                    else // affichage en gris du reste du text
+                    {
+                        string[] tab2 = a_tab[x].Split('.');
+                        Console.ForegroundColor = ConsoleColor.Gray;
+
+                        int heightAjustment = -1;
+
+                        foreach (string ligne in tab2)
+                        {
+                            Console.SetCursorPosition(Console.WindowWidth / 2 - tab2[0].Length / 2, Console.WindowHeight / 3 + x * 3 + heightAjustment);
+                            Console.WriteLine(ligne);
+                            heightAjustment++;
+                        }
+                    }
+
+                    x++;
+                }
             }
         }
 
@@ -97,30 +345,9 @@ namespace SpicyInvader_V_01
 
             while (true)
             {
-                ConsoleKeyInfo key;
+                DisplayMenu(tab, place); // affichage du menu
 
-                int x = 0;
-
-                // affichage du menu
-                foreach (string affichage in tab)
-                {
-                    if (x == place) // surlignement en jaune du text concerné
-                    {
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.SetCursorPosition(Console.WindowWidth / 2 - tab[x].Length / 2, Console.WindowHeight / 3 + x*2);
-                        Console.WriteLine(tab[x]);
-                    }
-                    else
-                    {
-                        Console.ForegroundColor = ConsoleColor.Gray;
-                        Console.SetCursorPosition(Console.WindowWidth / 2 - tab[x].Length / 2, Console.WindowHeight / 3 + x*2);
-                        Console.WriteLine(tab[x]);
-                    }
-
-                    x++;
-                }
-
-                key = Console.ReadKey();
+                ConsoleKeyInfo key = Console.ReadKey();
 
                 if (key.Key == ConsoleKey.DownArrow && place < tab.Length - 1)
                 {
@@ -147,11 +374,11 @@ namespace SpicyInvader_V_01
 
                         case 2: // charger
                             ShowSlotMenu(false, a_game);
-                            // TODO : méthode permettant d'atteindre les slot de sauvegarde de la partie en mode charger une partie (il doit être possible de revenir en arrière vers ce menu) normalement c'est bon
                             break;
 
                         case 3: // parametres
-                            // TODO : méthode permettant d'atteindre les réglages
+                            Console.Clear();
+                            ShowParamMenu(a_game);
                             break;
 
                         case 4: // quitter
@@ -171,6 +398,82 @@ namespace SpicyInvader_V_01
             }
         }
 
+        private void ShowParamMenu(Game a_game)
+        {
+            bool retour = false;
+            bool sound_on = SoundIsON();
+            string[] tab = new string[2]; // modifier en fonction du nombre de paramètre 
+
+            if (sound_on) 
+            {
+                tab[0] = SOUND_ON;
+            }
+            else
+            {
+                tab[0] = SOUND_OFF;
+            }
+            tab[1] = BACK;
+
+            int place = 0;
+            
+            ConsoleKeyInfo key;
+
+            while (true)
+            {
+                DisplayMenu(tab, place);// affichage du menu
+
+                key = Console.ReadKey();
+
+                if (key.Key == ConsoleKey.DownArrow && place < tab.Length - 1)
+                {
+                    place++;
+                }
+                else if (key.Key == ConsoleKey.UpArrow && place > 0)
+                {
+                    place--;
+                }
+                else if (key.Key == ConsoleKey.Enter || key.Key == ConsoleKey.Spacebar)
+                {
+                    switch (place)
+                    {
+                        case 0: // Modifier le son
+                            if (sound_on)
+                            {
+                                sound_on = false;
+                                tab[0] = SOUND_OFF;
+                                File.WriteAllText(PATH_REGLAGE, "Sound?OFF!"); // TODO : utiliser une méthode pour écrire correctement les réglages (car là pour l'instant on overide tout le fichier pour mettre juste le reglage concernant le son)
+                            }
+                            else
+                            {
+                                sound_on = true;
+                                tab[0] = SOUND_ON;
+                                File.WriteAllText(PATH_REGLAGE, "Sound?ON!"); // TODO : utiliser une méthode pour écrire correctement les réglages (car là pour l'instant on overide tout le fichier pour mettre juste le reglage concernant le son)
+                            }
+
+                            Console.Clear();
+                            break;
+                        case 1: // retour
+                            
+                            Console.Clear();
+                            retour = true;
+                            break;
+                    }
+                }
+
+                if (retour)
+                {
+                    break;
+                }
+            }
+        }
+
+        public static bool SoundIsON()
+        {
+            string reglage = File.ReadAllText(PATH_REGLAGE);
+
+            return reglage.Split('!')[0].Split('?')[1].Equals("ON");
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -179,11 +482,31 @@ namespace SpicyInvader_V_01
         private void ShowSlotMenu(bool abbleToSave, Game a_game)
         {
             // le boolean c'est pour dire si on est en mode écriture, en gros si c'est true alors on peut écraser les saves et sauver à la place
+
+            // TODO : ptetre voir pour un try catch au cas où les fichier existe pas
             string save1 = File.ReadAllText(PATH_SLOT_1);
             string save2 = File.ReadAllText(PATH_SLOT_2);
             string save3 = File.ReadAllText(PATH_SLOT_3);
 
-            string[] tab = {SLOT_1 + " " + save1.Split('!')[0].Split('?')[1], SLOT_2 + " " + save2.Split('!')[0].Split('?')[1], SLOT_3 + " " + save3.Split('!')[0].Split('?')[1], BACK};
+            string[] tab = {
+                // save 1:
+                SLOT_1 + " | Save date: " + save1.Split('!')[0].Split('?')[1] + 
+                    " | Enemy lvl: " + save1.Split('!')[2].Split('?')[1] + 
+                    " | Life: " + save1.Split('!')[3].Split('?')[1].Split('/')[0].Split('.')[1] + "/"+ save1.Split('!')[3].Split('?')[1].Split('/')[2].Split('.')[1] + 
+                    " | Nombre de missiles: " + save1.Split('!')[3].Split('?')[1].Split('/')[1].Split('.')[1],
+                // save 2:
+                SLOT_2 + " | Save date: " + save2.Split('!')[0].Split('?')[1] + 
+                    " | Enemy lvl: " + save2.Split('!')[2].Split('?')[1] + 
+                    " | Life: " + save2.Split('!')[3].Split('?')[1].Split('/')[0].Split('.')[1] + "/"+ save2.Split('!')[3].Split('?')[1].Split('/')[2].Split('.')[1] + 
+                    " | Nombre de missiles: " + save2.Split('!')[3].Split('?')[1].Split('/')[1].Split('.')[1],
+                // save 3:
+                SLOT_3 + " | Save date: " + save3.Split('!')[0].Split('?')[1] + 
+                    " | Enemy lvl: " + save3.Split('!')[2].Split('?')[1] + 
+                    " | Life: " + save3.Split('!')[3].Split('?')[1].Split('/')[0].Split('.')[1] + "/"+ save3.Split('!')[3].Split('?')[1].Split('/')[2].Split('.')[1] + 
+                    " | Nombre de missiles: " + save3.Split('!')[3].Split('?')[1].Split('/')[1].Split('.')[1],
+
+                BACK
+            };
 
             Console.Clear();
 
@@ -194,30 +517,13 @@ namespace SpicyInvader_V_01
 
             while (!back)
             {
-                int x = 0;
-
-                // affichage du menu
-                foreach (string affichage in tab)
-                {
-                    if (x == place) // surlignement en jaune du text concerné
-                    {
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.SetCursorPosition(Console.WindowWidth / 2 - tab[x].Length / 2, Console.WindowHeight / 3 + x * 2);
-                        Console.WriteLine(tab[x]);
-                    }
-                    else
-                    {
-                        Console.ForegroundColor = ConsoleColor.Gray;
-                        Console.SetCursorPosition(Console.WindowWidth / 2 - tab[x].Length / 2, Console.WindowHeight / 3 + x * 2);
-                        Console.WriteLine(tab[x]);
-                    }
-
-                    x++;
-                }
+                DisplayMenu(tab, place, -1, true, true); // affichage du menu
 
                 key = Console.ReadKey();
 
-                switch(key.Key)
+                string save = "";
+
+                switch (key.Key)
                 {
                     case ConsoleKey.DownArrow:
                         if (place < tab.Length - 1)
@@ -238,70 +544,142 @@ namespace SpicyInvader_V_01
                         switch (place)
                         {
                             case 0: // slot 1
-                                if (abbleToSave)
+                                if (_saveSelected !=0)
+                                {
+                                    _saveSelected = 0;
+                                }
+                                else if (abbleToSave)
                                 {
                                     File.WriteAllText(PATH_SLOT_1, a_game.GetSaveStat());
                                 }
                                 else if (!save1.Equals(""))
                                 {
-                                    string save = save1;
-                                    string[] saveSplit = save.Split('!');
-                                    // 0 = date
-                                    string[] score = saveSplit[1].Split('?');
-                                    string[] fleetLevel = saveSplit[2].Split('?');
-                                    string[] shipStats = saveSplit[3].Split('?');
-                                    string[] shipLife = shipStats[1].Split('.');
-
-                                    a_game.LoadGame(Convert.ToInt32(score[1]), Convert.ToInt32(fleetLevel[1]), Convert.ToInt32(shipLife[1]));
+                                    save = save1;
                                 }
                                 break;
 
                             case 1: // slot 2
-                                if (abbleToSave)
+                                if (_saveSelected != 1)
+                                {
+                                    _saveSelected = 1;
+                                }
+                                else if (abbleToSave)
                                 {
                                     File.WriteAllText(PATH_SLOT_2, a_game.GetSaveStat());
                                 }
                                 else if (!save2.Equals(""))
                                 {
-                                    string save = save2;
-                                    string[] saveSplit = save.Split('!');
-                                    // 0 = date
-                                    string[] score = saveSplit[1].Split('?');
-                                    string[] fleetLevel = saveSplit[2].Split('?');
-                                    string[] shipStats = saveSplit[3].Split('?');
-                                    string[] shipLife = shipStats[1].Split('.');
-
-                                    a_game.LoadGame(Convert.ToInt32(score[1]), Convert.ToInt32(fleetLevel[1]), Convert.ToInt32(shipLife[1]));
+                                    save = save2;
                                 }
                                 break;
 
                             case 2: // slot 3
-                                if (abbleToSave)
+                                if (_saveSelected != 2)
+                                {
+                                    _saveSelected = 2;
+                                }
+                                else if (abbleToSave)
                                 {
                                     File.WriteAllText(PATH_SLOT_3, a_game.GetSaveStat());
                                 }
                                 else if (!save3.Equals(""))
                                 {
-                                    string save = save3;
-                                    string[] saveSplit = save.Split('!');
-                                    // 0 = date
-                                    string[] score = saveSplit[1].Split('?');
-                                    string[] fleetLevel = saveSplit[2].Split('?');
-                                    string[] shipStats = saveSplit[3].Split('?');
-                                    string[] shipLife = shipStats[1].Split('.');
-
-                                    a_game.LoadGame(Convert.ToInt32(score[1]), Convert.ToInt32(fleetLevel[1]), Convert.ToInt32(shipLife[1]));
+                                    save = save3;
                                 }
                                 break;
 
                             case 3: // on retourne au menu précédent
                                 back = true;
-                                Console.Clear();
                                 break;
                         }
                         break;
                 }
+
+                if (!save.Equals(""))
+                {
+                    a_game.LoadGame(save.Split('!'));
+
+                    back = true;
+                }
+
+                if (back)
+                {
+                    Console.Clear();
+                }
             }
+        }
+
+        private void ShowBonusMenu(Game a_game)
+        {
+            bool reprendre = false;
+
+            string[] tab = {upgrade1, upgrade2, upgrade3}; // TODO : voir pour mettre des upgrades aléatoire ptetre
+
+            Console.Clear();
+
+            int place = 0;
+            _bonusSelected = -1;
+
+            ConsoleKeyInfo key;
+
+            while (!reprendre) // TODO : trouver un mot en anglais pour reprendre....
+            {
+                DisplayMenu(tab, place, -1, true); // affichage du menu
+
+                key = Console.ReadKey();
+
+                if (key.Key == ConsoleKey.DownArrow && place < tab.Length - 1)
+                {
+                    place++;
+                }
+                else if (key.Key == ConsoleKey.UpArrow && place > 0)
+                {
+                    place--;
+                }
+                else if (key.Key == ConsoleKey.Enter || key.Key == ConsoleKey.Spacebar)
+                {
+                    switch (place)
+                    {
+                        case 0:
+                            if (_bonusSelected != 0)
+                            {
+                                _bonusSelected = 0;
+                            }
+                            else
+                            {
+                                a_game.BonusShipWeaponSlot();
+                                reprendre = true;
+                            }
+                            break;
+
+                        case 1:
+                            if (_bonusSelected != 1)
+                            {
+                                _bonusSelected = 1;
+                            }
+                            else
+                            {
+                                a_game.BonusShipMaxHeath();
+                                reprendre = true;
+                            } 
+                            break;
+
+                        case 2:
+                            if (_bonusSelected != 2)
+                            {
+                                _bonusSelected = 2;
+                            }
+                            else
+                            {
+                                a_game.BonusShipHeal();
+                                reprendre = true;
+                            } 
+                            break;
+                    }
+                }
+            }
+
+            Console.Clear();
         }
 
         /// <summary>
@@ -322,26 +700,8 @@ namespace SpicyInvader_V_01
 
             while (!reprendre)
             {
-                int x = 0;
 
-                // affichage du menu
-                foreach (string affichage in tab) // TODO : faire une méthode pour ça !!! et regarder dans les autre méthodes car c'est pareil !!!!
-                {
-                    if (x == place) // surlignement en jaune du text concerné
-                    {
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.SetCursorPosition(Console.WindowWidth / 2 - tab[x].Length / 2, Console.WindowHeight / 3 + x * 2);
-                        Console.WriteLine(tab[x]);
-                    }
-                    else
-                    {
-                        Console.ForegroundColor = ConsoleColor.Gray;
-                        Console.SetCursorPosition(Console.WindowWidth / 2 - tab[x].Length / 2, Console.WindowHeight / 3 + x * 2);
-                        Console.WriteLine(tab[x]);
-                    }
-
-                    x++;
-                }
+                DisplayMenu(tab, place);// affichage du menu
 
                 key = Console.ReadKey();
 
@@ -366,7 +726,8 @@ namespace SpicyInvader_V_01
                             break;
 
                         case 2: // parametres
-                            // TODO : méthode permettant d'atteindre les réglages
+                            Console.Clear();
+                            ShowParamMenu(a_game);
                             break;
 
                         case 3: // menu principale
@@ -391,7 +752,7 @@ namespace SpicyInvader_V_01
         {
             bool reprendre = false;
 
-            string[] tab = { CONTINUE, SAVE, LOAD, SETTINGS, MAIN_MENU, LEAVE };
+            string[] tab = { CONTINUE, LOAD, SETTINGS, MAIN_MENU, LEAVE };
 
             Console.Clear();
 
@@ -401,26 +762,7 @@ namespace SpicyInvader_V_01
 
             while (!reprendre)
             {
-                int x = 0;
-
-                // affichage du menu
-                foreach(string affichage in tab)
-                {
-                    if (x == place) // surlignement en jaune du text concerné
-                    {
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.SetCursorPosition(Console.WindowWidth / 2 - tab[x].Length / 2, Console.WindowHeight / 3 + x*2);
-                        Console.WriteLine(tab[x]);
-                    }
-                    else
-                    {
-                        Console.ForegroundColor = ConsoleColor.Gray;
-                        Console.SetCursorPosition(Console.WindowWidth / 2 - tab[x].Length / 2, Console.WindowHeight / 3 + x*2);
-                        Console.WriteLine(tab[x]);
-                    }
-
-                    x++;
-                }
+                DisplayMenu(tab, place);// affichage du menu
 
                 key = Console.ReadKey();
 
@@ -441,30 +783,25 @@ namespace SpicyInvader_V_01
                             Console.Clear();
                             break;
 
-                        case 1: // sauvegarder
-                            ShowSlotMenu(true, a_game);
-                            break;
-
-                        case 2: // charger
+                        case 1: // charger
                             ShowSlotMenu(false, a_game);
                             break;
 
-                        case 3: // parametres
-                            // TODO : méthode permettant d'atteindre les réglages
+                        case 2: // parametres
+                            Console.Clear();
+                            ShowParamMenu(a_game);
                             break;
 
-                        case 4: // menu principale
+                        case 3: // menu principale
                             // TODO : méthode qui permet de rejoindre le menu principal
                             break;
 
-                        case 5: // quitter
+                        case 4: // quitter
                             Environment.Exit(0);
                             break;
                     }
                 }
             }
-
-
         }
         /// <summary>
         /// Affiche le menu de défaite
@@ -480,30 +817,11 @@ namespace SpicyInvader_V_01
             bool newGame = false;
             bool load = false;
 
+            ConsoleKeyInfo key;
+            
             while (true)
             {
-                ConsoleKeyInfo key;
-
-                int x = 0;
-
-                // affichage du menu
-                foreach (string affichage in tab)
-                {
-                    if (x == place) // surlignement en jaune du text concerné
-                    {
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.SetCursorPosition(Console.WindowWidth / 2 - tab[x].Length / 2, Console.WindowHeight / 3 + x * 2);
-                        Console.WriteLine(tab[x]);
-                    }
-                    else
-                    {
-                        Console.ForegroundColor = ConsoleColor.Gray;
-                        Console.SetCursorPosition(Console.WindowWidth / 2 - tab[x].Length / 2, Console.WindowHeight / 3 + x * 2);
-                        Console.WriteLine(tab[x]);
-                    }
-
-                    x++;
-                }
+                DisplayMenu(tab, place); // affichage du menu
 
                 key = Console.ReadKey();
 
@@ -526,13 +844,13 @@ namespace SpicyInvader_V_01
                             break;
                         case 1: // charger
                             ShowSlotMenu(false, a_game);
-                            // TODO : méthode permettant d'atteindre les slot de sauvegarde de la partie en mode charger une partie (il doit être possible de revenir en arrière vers ce menu)
                             Console.Clear();
                             load = true;
                             break;
 
                         case 2: // parametres
-                            // TODO : méthode permettant d'atteindre les réglages
+                            Console.Clear();
+                            ShowParamMenu(a_game);
                             break;
 
                         case 3: // menu principale
@@ -552,14 +870,215 @@ namespace SpicyInvader_V_01
             }
         }
 
+        private void ShowDifficultyMenu(Game a_game)
+        {
+            Console.Clear();
+            string[] tab = { DIFFICULTY_CHOISE, "EASY", "HARD", "NOT EASY" };
+
+            int place = 0;
+            int a_selection = -1;
+
+            bool notChoiced = true;
+
+            ConsoleKeyInfo key;
+
+            while (notChoiced)
+            {
+                DisplayMenu(tab, place, a_selection, false, false, true); // affichage du menu
+
+                key = Console.ReadKey();
+
+                if (key.Key == ConsoleKey.DownArrow && place < tab.Length - 1)
+                {
+                    place++;
+                }
+                else if (key.Key == ConsoleKey.UpArrow && place > 0)
+                {
+                    place--;
+                }
+                else if (key.Key == ConsoleKey.Enter || key.Key == ConsoleKey.Spacebar)
+                {
+                    switch (place)
+                    {
+                        case 0: // titre
+                            // nothing to do
+                            a_selection = -1;
+                            break;
+
+                        case 1: // easy
+                            if (a_selection != 1)
+                            {
+                                a_selection = 1;
+                            }
+                            else
+                            {
+                                a_game._difficulty = "easy";
+                                notChoiced = false;
+                            }
+                            break;
+
+                        case 2: // hard
+                            if (a_selection != 2)
+                            {
+                                a_selection = 2;
+                            }
+                            else
+                            {
+                                a_game._difficulty = "hard";
+                                notChoiced = false;
+                            }
+                            break;
+
+                        case 3: // really hard
+                            if (a_selection != 3)
+                            {
+                                a_selection = 3;
+                            }
+                            else
+                            {
+                                a_game._difficulty = "harder";
+                                notChoiced = false;
+                            }
+                            break;
+                    }
+                }
+            }
+        }
+
+        private void ShowHighScore(Game a_game) // TODO : voir si c'est utile d'avoir l'instance de game pour l'affichage des high scores
+        {
+            // TODO : demander a l'utilisateur son pseudo
+            bool name_not_conforme = true;
+            string pseudo = "Anne O'Nyme";
+
+            while (name_not_conforme)
+            {
+                Console.Clear();
+                Console.SetCursorPosition(2, Console.WindowHeight / 2);
+                Console.Write("Voulez vous entrer votre pseudo ? (oui, entrez votre pseudo // non, entrez '-') : ");
+                pseudo = Console.ReadLine();
+
+                if (pseudo.Equals("-"))
+                {
+                    pseudo = "Anne O'Nyme";
+                    name_not_conforme = false;
+                }
+                else if (pseudo.Contains('!') || pseudo.Contains('?') || pseudo.Contains('\\') ) // TODO : voir s'il y a pas besoin d'exclure d'autres caractères !
+                {
+                    pseudo = "Anne O'Nyme";
+                    Console.WriteLine("le pseudo entré est invalide (press Enter to retry)");
+                    Console.ReadLine();
+                }
+                else
+                {
+                    name_not_conforme = false;
+                }
+            }
+            
+
+            bool reprendre = false;
+
+            string highScores = File.ReadAllText(PATH_HIGH_SCORE); // récupère les données des meilleures scores
+            string newHighScores = FindPlace(highScores, pseudo); // calcul le placement du score (depuis le haut) dans le tableau des meilleures scores
+            File.WriteAllText(PATH_HIGH_SCORE, newHighScores); // enregistre le nouveaux tableau des meilleures scores
+
+
+            string[] highScoreSplit = newHighScores.Split('!');
+
+            string[] tab = { HIGH_SCORE, 
+                            "1 " + highScoreSplit[0].Split('?')[0] + " : " + highScoreSplit[0].Split('?')[1],
+                            "2 " + highScoreSplit[1].Split('?')[0] + " : " + highScoreSplit[1].Split('?')[1], 
+                            "3 " + highScoreSplit[2].Split('?')[0] + " : " + highScoreSplit[2].Split('?')[1], 
+                            "4 " + highScoreSplit[3].Split('?')[0] + " : " + highScoreSplit[3].Split('?')[1], 
+                            "5 " + highScoreSplit[4].Split('?')[0] + " : " + highScoreSplit[4].Split('?')[1], 
+                            CONTINUE};
+
+            Console.Clear();
+
+            int place = 0;
+
+            ConsoleKeyInfo key;
+
+            while (!reprendre)
+            {
+                DisplayMenu(tab, place);// affichage du menu
+
+                key = Console.ReadKey();
+
+                if (key.Key == ConsoleKey.DownArrow && place < tab.Length - 1)
+                {
+                    place++;
+                }
+                else if (key.Key == ConsoleKey.UpArrow && place > 0)
+                {
+                    place--;
+                }
+                else if (key.Key == ConsoleKey.Enter || key.Key == ConsoleKey.Spacebar)
+                {
+                    switch (place)
+                    {
+                        case 0: // nothing -> 1
+                        case 1: // nothing -> 2
+                        case 2: // nothing -> 3
+                        case 3: // nothing -> 4
+                        case 4: // nothing -> 5
+                        case 5: // nothing -> break !
+                            break;
+
+                        case 6: // continuer
+                            reprendre = true;
+                            break;
+                    }
+                }
+            }
+        }
+
+        public string FindPlace(string a_highScores, string a_pseudo)
+        {
+            string newHighScores = "";
+
+            string[] highScoreSplit = a_highScores.Split('!');
+
+            int score = Game._score;
+            bool placeFinded = false;
+
+            for (int i = 0, j = 0; i < 5; i++)
+            {
+                if (!placeFinded && Convert.ToInt32(highScoreSplit[i].Split('?')[1]) <= score)
+                {
+                    placeFinded = true;
+
+                    newHighScores += a_pseudo + "?" + score;
+                    if (i != 4)
+                    {
+                        newHighScores += "!";
+                    }
+                }
+                else
+                {
+                    newHighScores += highScoreSplit[j];
+                    if (i != 4)
+                    {
+                        newHighScores += "!";
+                    }
+                    j++;
+                }
+            }
+
+            return newHighScores;
+        }
+
         /// <summary>
-        /// Affiche le level actuel
+        /// Affiche le level actuel et le total de vie de la vague ennemie
         /// </summary>
         /// <param name="a_level"></param>
-        public void DisplayLevel(int a_level)
+        /// <param name="a_enemyLife"></param>
+        public void DisplayEnemyLevel(int a_level, int a_enemyLife)
         {
             Console.SetCursorPosition(0, 0);
-            Console.Write("Level : " + a_level);
+            Console.Write(new string(' ', Console.WindowWidth));
+            Console.SetCursorPosition(0, 0);
+            Console.Write("Level : " + a_level + " / Enemy life : " + a_enemyLife);
         }
 
         /// <summary>
@@ -567,7 +1086,7 @@ namespace SpicyInvader_V_01
         /// </summary>
         public void DisplayScore()
         {
-            Console.SetCursorPosition(30, 33); // TODO : mettre en constante les valeur du display
+            Console.SetCursorPosition(30, 44); // TODO : mettre en constante les valeur du display
             Console.Write("score : {0}", Game._score);
         }
 
@@ -576,13 +1095,13 @@ namespace SpicyInvader_V_01
         /// </summary>
         /// <param name="a_ship"></param>
         /// <param name="a_level"></param>
-        public void DisplayHUD(Ship a_ship, int a_level)
+        public void DisplayHUD(Ship a_ship, int a_level, int a_enemyLife)
         {
             // début // scores :
             DisplayScore();
             // fin // scores
 
-            DisplayLevel(a_level);
+            DisplayEnemyLevel(a_level, a_enemyLife);
 
             // début // missiles :
             int missileTotal = a_ship.GetMissilesCapacity();
@@ -602,17 +1121,15 @@ namespace SpicyInvader_V_01
 
             Console.ForegroundColor = ConsoleColor.Gray;
 
-            Console.Write(realoadind);
+            Console.Write(realoadind); // efface ou bien écrit 
             // fin // missiles
 
             // début // vie :
 
-            Console.SetCursorPosition(30, 31); // TODO : mettre en constante les valeur du display
-            Console.WriteLine("vies : " + a_ship.GetLife());
-
+            Console.SetCursorPosition(30, 42); // TODO : mettre en constante les valeur du display
+            Console.WriteLine("vies : " + a_ship.GetLife() + "/" + a_ship.GetMaxLife());
 
             // fin // vie
-
         }
     }
 }

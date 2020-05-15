@@ -24,7 +24,6 @@ namespace SpicyInvader_V_01
         //on considère ici qu'une silhouhaite est réctangulaire
         private List<List<string>> _shapes;
         private List<int> _sizes; // la taille de la liste est sa hauteur // chaque nombre de la liste est la taille de la ligne
-        //private HitBox _hitbox; // TODO : faire une class hitbox contenant un tableau de boolean
 
         private int _hightWidth;
 
@@ -55,7 +54,7 @@ namespace SpicyInvader_V_01
         }
 
         /// <summary>
-        /// 
+        /// Cree la forme du vaisseau
         /// </summary>
         /// <param name="a_shapes"></param>
         private void InitShape(string a_shapes)
@@ -77,7 +76,7 @@ namespace SpicyInvader_V_01
         }
 
         /// <summary>
-        /// 
+        /// Détermine la taille du vaisseau
         /// </summary>
         private void InitSize()
         {
@@ -96,13 +95,13 @@ namespace SpicyInvader_V_01
         }
 
         /// <summary>
-        /// 
+        /// permet d'obtenir la taille horizontal de la ligne demandé
         /// </summary>
         /// <param name="a_row"></param>
         /// <returns></returns>
         public int GetHorizontalLenght(int a_row)
         {
-            if (a_row > _shapes.Count - 1 || a_row < 0)
+            if (a_row > _shapes.Count - 1 || a_row < 0) // renvois 0 si a_row n'est pas correct
             {
                 return 0;
             }
@@ -123,16 +122,16 @@ namespace SpicyInvader_V_01
         }
 
         /// <summary>
-        /// 
+        /// Retourne la hauteur de l'entité
         /// </summary>
         /// <returns></returns>
         public int GetHorizontalHightSize()
         {
-            return _hightWidth;
+            return _hightWidth; // TODO Jérémiah fait de la merde (il y a vertical et horizontal dans le nom c'est chelou)
         }
 
         /// <summary>
-        /// 
+        /// donne une copie de la shape
         /// </summary>
         /// <returns></returns>
         public List<List<string>> GetShape()
@@ -156,7 +155,7 @@ namespace SpicyInvader_V_01
         }
 
         /// <summary>
-        /// 
+        /// permet d'obtenir une liste contenant la taille de chaque ligne
         /// </summary>
         /// <returns></returns>
         public List<int> GetSizes()
@@ -173,7 +172,7 @@ namespace SpicyInvader_V_01
         }
 
         /// <summary>
-        /// 
+        /// Dessine la forme
         /// </summary>
         /// <param name="position"></param>
         public void Draw(Position position)
@@ -192,7 +191,7 @@ namespace SpicyInvader_V_01
         }
 
         /// <summary>
-        /// 
+        /// Efface le dessin
         /// </summary>
         /// <param name="position"></param>
         public void Clear(Position position)

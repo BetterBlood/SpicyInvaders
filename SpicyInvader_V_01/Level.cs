@@ -26,6 +26,11 @@ namespace SpicyInvader_V_01
         private bool _bossStage;
 
         /// <summary>
+        /// construceteur par défaut appellant le constructeur renseigné avec 1 comme paramètre
+        /// </summary>
+        public Level() : this (1) { }
+
+        /// <summary>
         /// Constructeur renseigné
         /// </summary>
         /// <param name="a_lvl"></param>

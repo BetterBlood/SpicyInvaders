@@ -21,8 +21,10 @@ namespace SpicyInvader_V_01
         /// Attributs
         /// </summary>
         protected int _pointNumber; // protected car réassigné suivant les points de l'ennemi : Ex :Invader = 1 pts, Boss = lvl*3 pts
+        private int _upgradeLvl;
         private static bool _rightDirection;
         private int _startYPosition;
+        public const int _MAX_FIRE_RANGE = 39;
 
         private bool _isInFrontLane;
 
@@ -39,11 +41,12 @@ namespace SpicyInvader_V_01
         /// <param name="a_rightDirection"></param>
         public Enemy(string a_shape, Position a_position, int a_nbrMissile, bool a_rightDirection) : base(a_shape, a_position, a_nbrMissile, EnumDirection.DOWN) 
         {
+            _upgradeLvl = 0;
             _pointNumber = 1;
             _rightDirection = a_rightDirection;
             _startYPosition = a_position.Y;
 
-            _isInFrontLane = false; // TODO : initialiser a false ! mais d'abord faire une méthode qui mets automatiquement le premier space ivader en frontlane !
+            _isInFrontLane = false;
             _random = new Random();
         }
 
@@ -114,7 +117,7 @@ namespace SpicyInvader_V_01
         }
 
         /// <summary>
-        /// 
+        /// Permet d'optenir la position du charactère de gauche de l'ennemi
         /// </summary>
         /// <returns></returns>
         public List<Position> GetPositions()
@@ -144,7 +147,7 @@ namespace SpicyInvader_V_01
         }
 
         /// <summary>
-        /// 
+        /// Détermine si les ennemis sont en première ligne
         /// </summary>
         /// <param name="a_isAbleToFire"></param>
         public void SetFireStatue(bool a_isAbleToFire)
@@ -156,9 +159,9 @@ namespace SpicyInvader_V_01
         /// Retourne la position de tire
         /// </summary>
         /// <returns></returns>
-        protected virtual Position GetFirePosition()
+        protected override Position GetFirePosition()
         {
-            return new Position(_position.X + 2, _position.Y + 1); // TODO : redéfinir ça dans boss mot clé : new !
+            return new Position(_position.X + GetHorizontalHightSize()/2, _position.Y + GetHeight()); 
         }
         
         /// <summary>
@@ -174,5 +177,32 @@ namespace SpicyInvader_V_01
             base.Draw();
             Console.ForegroundColor = ConsoleColor.Gray;
         }
+
+        /// <summary>
+        /// Augement la puissance des ennemis en fonction du niveau
+        /// </summary>
+        public void Upgrad()
+        {
+            switch(_upgradeLvl)
+            {
+                case 0: // première upgrade (correspond normalement au lvl 10) les ennemies ont maintenant 2 vies
+                    _upgradeLvl++;
+                    _lifePoints++;
+                    break;
+
+                case 1: // seconde upgrade (correspond au lvl 20) les ennemies ont maintenant 2 missiles simultanément
+                    _upgradeLvl++;
+                    UpgradWeaponSlot();
+                    break;
+                case 2: // première upgrade (correspond normalement au lvl 30) les ennemies ont maintenant 3 vies
+                    _upgradeLvl++;
+                    _lifePoints++;
+                    break;
+                default:
+                    // nothing to do ?
+                    break;
+            }
+        }
+
     }
 }
