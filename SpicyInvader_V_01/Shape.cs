@@ -54,7 +54,7 @@ namespace SpicyInvader_V_01
         }
 
         /// <summary>
-        /// 
+        /// Cree la forme du vaisseau
         /// </summary>
         /// <param name="a_shapes"></param>
         private void InitShape(string a_shapes)
@@ -76,7 +76,7 @@ namespace SpicyInvader_V_01
         }
 
         /// <summary>
-        /// 
+        /// Détermine la taille du vaisseau
         /// </summary>
         private void InitSize()
         {
@@ -122,12 +122,12 @@ namespace SpicyInvader_V_01
         }
 
         /// <summary>
-        /// 
+        /// Retourne la hauteur de l'entité
         /// </summary>
         /// <returns></returns>
         public int GetHorizontalHightSize()
         {
-            return _hightWidth;
+            return _hightWidth; // TODO Jérémiah fait de la merde (il y a vertical et horizontal dans le nom c'est chelou)
         }
 
         /// <summary>
@@ -172,7 +172,7 @@ namespace SpicyInvader_V_01
         }
 
         /// <summary>
-        /// 
+        /// Dessine la forme
         /// </summary>
         /// <param name="position"></param>
         public void Draw(Position position)
@@ -191,7 +191,7 @@ namespace SpicyInvader_V_01
         }
 
         /// <summary>
-        /// 
+        /// Efface le dessin
         /// </summary>
         /// <param name="position"></param>
         public void Clear(Position position)

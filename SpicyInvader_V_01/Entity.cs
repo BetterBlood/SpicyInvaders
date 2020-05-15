@@ -24,13 +24,12 @@ namespace SpicyInvader_V_01
         /// </summary>
         private Shape _shape;
         private HitBox _hitBox;
-
+        /// <summary>
+        /// hdeksfhesk
+        /// </summary>
         protected Position _position;
-
         protected List<Missile> _missiles;
-
         protected int _lifePoints;
-
         private int _weaponSlot;
         private EnumDirection _missileDirection;
 
@@ -78,7 +77,7 @@ namespace SpicyInvader_V_01
         /// <summary>
         /// Ajoute le nombre nombre de missile possédé par une entité dans sa liste
         /// </summary>
-        /// <param name="a_missileNumber"></param>
+        /// <param name="a_weaponSlot"></param>
         /// <param name="a_missileDirection"></param>
         public void InitBasesMissiles(int a_weaponSlot, EnumDirection a_missileDirection)
         {
@@ -108,7 +107,7 @@ namespace SpicyInvader_V_01
         }
 
         /// <summary>
-        /// 
+        /// Position verticale du missile
         /// </summary>
         /// <returns></returns>
         public int GetMissileYPos() // TODO : il y a un truc bizarre dans cette méthode voir a quoi elle sert vraiment et la nommer en conséquence !
@@ -133,7 +132,7 @@ namespace SpicyInvader_V_01
         }
 
         /// <summary>
-        /// 
+        /// Nombre de missiles disponible
         /// </summary>
         /// <returns></returns>
         public int HowManyMissilesLeft()
@@ -151,6 +150,27 @@ namespace SpicyInvader_V_01
             return nbrMissilesLeft;
         }
 
+        public void PlayAttackSound(bool a_bossStage)
+        {
+            if (Menu.SoundIsON() && this is Ally && !a_bossStage)
+            {
+                new SoundPlayer("..//..//Sounds//LazerFire.wav").Play();
+            }
+            else if (Menu.SoundIsON() && this is Enemy && !a_bossStage)
+            {
+                // TODO : ptetre faire un son différent pour les ennemis
+            }
+            else
+            {
+                // le son est désactivé
+            }
+            
+        }
+
+        /// <summary>
+        /// Son de tire d'un missile
+        /// </summary>
+        /// <param name="a_bossStage"></param>
         public void PlayAttackSound(bool a_bossStage)
         {
             if (Menu.SoundIsON() && this is Ally && !a_bossStage)
@@ -196,6 +216,10 @@ namespace SpicyInvader_V_01
             }
         }
 
+        /// <summary>
+        /// Lance un missile depuis une position donnée
+        /// </summary>
+        /// <param name="a_firePosition"></param>
         public void Fire(Position a_firePosition)
         {
             foreach (Missile missile in _missiles)
@@ -301,6 +325,15 @@ namespace SpicyInvader_V_01
         }
 
         /// <summary>
+        /// Retourne la largeur de l'entité
+        /// </summary>
+        /// <returns></returns>
+        public int GetHeight()
+        {
+            return _shape.GetVerticalLenght();
+        }
+
+        /// <summary>
         /// Retourne un objet de classe HitBox
         /// </summary>
         /// <returns></returns>
@@ -345,6 +378,9 @@ namespace SpicyInvader_V_01
             return _lifePoints;
         }
 
+        /// <summary>
+        /// Augment le nombre de missiles de reserve
+        /// </summary>
         public void UpgradWeaponSlot()
         {
             if (_weaponSlot < 4)
@@ -354,6 +390,9 @@ namespace SpicyInvader_V_01
             }
         }
 
+        /// <summary>
+        /// Modifie les charactéristique pour le hard mode
+        /// </summary>
         public void SetHardMode()
         {
             _weaponSlot = 1;

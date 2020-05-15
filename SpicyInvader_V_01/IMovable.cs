@@ -17,6 +17,10 @@ namespace SpicyInvader_V_01
     /// </summary>
     public interface IMovebale
     {
+        /// <summary>
+        /// Détérmine la nouvelle position de l'entité
+        /// </summary>
+        /// <param name="a_direction"></param>
         void PrivateMove(EnumDirection a_direction);
     }
 }

@@ -89,11 +89,17 @@ namespace SpicyInvader_V_01
                     "max_life" + innerSeparator2 + _maxLifePoint; 
         }
 
+        /// <summary>
+        /// Augemnt le nombre de points de vie
+        /// </summary>
         public void UpgradLife()
         {
             _maxLifePoint++;
         }
 
+        /// <summary>
+        /// Soigne le joueur
+        /// </summary>
         public void Heal()
         {
             if(_lifePoints < _maxLifePoint)
@@ -102,6 +108,10 @@ namespace SpicyInvader_V_01
             }
         }
 
+        /// <summary>
+        /// Retourne le nombre maximal de PV
+        /// </summary>
+        /// <returns></returns>
         public int GetMaxLife()
         {
             return _maxLifePoint;

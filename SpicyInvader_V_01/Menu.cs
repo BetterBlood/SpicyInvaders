@@ -125,6 +125,24 @@ namespace SpicyInvader_V_01
         }
 
         /// <summary>
+        ///     
+        /// </summary>
+        /// <param name="a_symbol"></param>
+        /// <param name="a_nbrOfMult"></param>
+        /// <returns></returns>
+        public string MultThisSymbol(string a_symbol, int a_nbrOfMult)
+        {
+            string result = "";
+
+            for (int i = 0; i < a_nbrOfMult; i++)
+            {
+                result += a_symbol;
+            }
+
+            return result;
+        }
+
+        /// <summary>
         /// Affichage du menu voulu
         /// </summary>
         /// <param name="a_menuType"></param>

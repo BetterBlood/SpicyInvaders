@@ -12,6 +12,9 @@ using System.Threading.Tasks;
 
 namespace SpicyInvader_V_01
 {
+    /// <summary>
+    /// Class Position
+    /// </summary>
     public class Position
     {
         /// <summary>

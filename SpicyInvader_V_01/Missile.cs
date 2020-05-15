@@ -224,6 +224,18 @@ namespace SpicyInvader_V_01
         }
 
         /// <summary>
+        /// Lance le son de la mort d'un ennemi
+        /// </summary>
+        /// <param name="a_bossStage"></param>
+        public void PlayDeathSound(bool a_bossStage)
+        {
+            if (Menu.SoundIsON() && !a_bossStage)
+            {
+                new SoundPlayer("..//..//Sounds//EnnemyDeath.wav").Play();
+            }
+        }
+
+        /// <summary>
         /// Supprime un missile
         /// </summary>
         private void Clear()

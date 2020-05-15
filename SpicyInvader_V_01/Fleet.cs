@@ -249,11 +249,19 @@ namespace SpicyInvader_V_01
             return _fleetLevel.ToString();
         }
 
+        /// <summary>
+        /// Retourne le type de niveau
+        /// </summary>
+        /// <returns></returns>
         public bool IsBossStage()
         {
             return _bossStage;
         }
 
+        /// <summary>
+        /// Retourne la quantitée de vie possédée par les ennemis
+        /// </summary>
+        /// <returns></returns>
         public int GetEnemiesLife()
         {
             int lifeTot = 0;
