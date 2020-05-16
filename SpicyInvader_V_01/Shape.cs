@@ -59,7 +59,7 @@ namespace SpicyInvader_V_01
         /// <param name="a_shapes"></param>
         private void InitShape(string a_shapes)
         {
-            string[] shapeBoard = a_shapes.Split(Menu.STRING_SHAPE_SEPARATOR); // ATTENTION : voir la classe Menu si l'on souhaite utiliser un séparateur différent
+            string[] shapeBoard = a_shapes.Split(UseFull.STRING_SHAPE_SEPARATOR); // ATTENTION : voir la classe Menu si l'on souhaite utiliser un séparateur différent
 
             for (int i = 0; i < shapeBoard.Length; i++)
             {

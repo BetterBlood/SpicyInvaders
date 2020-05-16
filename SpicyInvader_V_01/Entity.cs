@@ -156,11 +156,11 @@ namespace SpicyInvader_V_01
         /// <param name="a_bossStage"></param>
         public void PlayAttackSound(bool a_bossStage)
         {
-            if (Menu.SoundIsON() && this is Ally && !a_bossStage)
+            if (UseFull.SoundIsON() && this is Ally && !a_bossStage)
             {
                 new SoundPlayer("..//..//Sounds//LazerFire.wav").Play();
             }
-            else if (Menu.SoundIsON() && this is Enemy && !a_bossStage)
+            else if (UseFull.SoundIsON() && this is Enemy && !a_bossStage)
             {
                 // TODO : ptetre faire un son différent pour les ennemis
             }

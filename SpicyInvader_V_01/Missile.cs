@@ -221,7 +221,7 @@ namespace SpicyInvader_V_01
         /// <param name="a_bossStage"></param>
         public void PlayDeathSound(bool a_bossStage)
         {
-            if (Menu.SoundIsON() && !a_bossStage)
+            if (UseFull.SoundIsON() && !a_bossStage)
             {
                 new SoundPlayer("..//..//Sounds//EnnemyDeath.wav").Play();
             }

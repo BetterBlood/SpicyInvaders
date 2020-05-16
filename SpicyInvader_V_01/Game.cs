@@ -84,7 +84,7 @@ namespace SpicyInvader_V_01
         /// </summary>
         private void PlayBossThem()
         {
-            if (Menu.SoundIsON())
+            if (UseFull.SoundIsON())
             {
                 PlayAudioFile("..//..//Sounds//BossThemSpicyInvaders.wav");
             }
@@ -95,7 +95,7 @@ namespace SpicyInvader_V_01
         /// </summary>
         private void PlayBossVictory()
         {
-            if (Menu.SoundIsON())
+            if (UseFull.SoundIsON())
             {
                 PlayAudioFile("..//..//Sounds//EnnemyDeath.wav");
             }
@@ -107,7 +107,7 @@ namespace SpicyInvader_V_01
         /// <param name="a_relativePath"></param>
         private void PlayAudioFile(object a_relativePath) 
         {
-            if (Menu.SoundIsON())
+            if (UseFull.SoundIsON())
             {
                 new SoundPlayer(a_relativePath.ToString()).Play();
             }
@@ -127,7 +127,7 @@ namespace SpicyInvader_V_01
 
                 intro.FallingIntro();
 
-                _menu.ShowMenu(Menu.MAIN_MENU, this);
+                _menu.ShowMenu(UseFull.MAIN_MENU, this);
                 playingMusicThread.Abort(); // TODO : à tester pas sur que ce soit juste
             }
             else
@@ -136,7 +136,7 @@ namespace SpicyInvader_V_01
 
                 game_over.FallingOutro();
 
-                _menu.ShowMenu(Menu.MAIN_MENU, this);
+                _menu.ShowMenu(UseFull.MAIN_MENU, this);
             }
 
             _isLost = false;
@@ -151,7 +151,7 @@ namespace SpicyInvader_V_01
 
             if(_difficulty == null)
             {
-                _menu.ShowMenu(Menu.DIFFICULTY_CHOISE, this);
+                _menu.ShowMenu(UseFull.DIFFICULTY_CHOISE, this);
                 // TODO : prendre la _difficulty et orienté le ship selon ça
 
                 switch (_difficulty)
@@ -205,7 +205,7 @@ namespace SpicyInvader_V_01
 
                     //MENU PAUSE
                     case ConsoleKey.I:
-                        _menu.ShowMenu(Menu.PAUSE, this);
+                        _menu.ShowMenu(UseFull.PAUSE, this);
                         break;
 
                 }
@@ -232,8 +232,8 @@ namespace SpicyInvader_V_01
 
                 if (_ship.IsDead(_fleet))
                 {
-                    //_menu.ShowMenu(Menu.GAME_OVER, this);
-                    _menu.ShowMenu(Menu.HIGH_SCORE, this);
+                    //_menu.ShowMenu(UseFull.GAME_OVER, this);
+                    _menu.ShowMenu(UseFull.HIGH_SCORE, this);
                     _isLost = true;
                     
                 }
@@ -247,7 +247,7 @@ namespace SpicyInvader_V_01
                     if (_fleet.IsBossStage())
                     {
                         PlayBossVictory(); // TODO : vérifier si ça close l'ancien son
-                        _menu.ShowMenu(Menu.BONUS_STAGE, this);
+                        _menu.ShowMenu(UseFull.BONUS_STAGE, this);
                     }
 
                     _level.LevelUP();
@@ -255,7 +255,7 @@ namespace SpicyInvader_V_01
 
                     InitEntities();
 
-                    _menu.ShowMenu(Menu.STAGE_WIN, this);
+                    _menu.ShowMenu(UseFull.STAGE_WIN, this);
 
                     if (_fleet.IsBossStage())
                     {
