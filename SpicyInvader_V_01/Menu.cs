@@ -18,99 +18,13 @@ namespace SpicyInvader_V_01
         /// <summary>
         /// Attributs
         /// </summary>
-        private const string NEW_GAME = "╔═════════════════╗." +
-                                        "║ nouvelle partie ║." +
-                                        "╚═════════════════╝";
-        private const string CONTINUE = "╔═════════════════╗." +
-                                        "║    continuer    ║." +
-                                        "╚═════════════════╝";
-        private const string SAVE = "╔═════════════════╗." +
-                                    "║   sauvegarder   ║." +
-                                    "╚═════════════════╝";
-        private const string LOAD = "╔═════════════════╗." +
-                                    "║     charger     ║." +
-                                    "╚═════════════════╝";
-        private const string SETTINGS = "╔═════════════════╗." +
-                                        "║    parametres   ║." +
-                                        "╚═════════════════╝";
-        private const string LEAVE = "╔═════════════════╗." +
-                                     "║     quitter     ║." +
-                                     "╚═════════════════╝";
-        private const string SOUND_ON = "╔═════════════════╗." +
-                                        "║     Sound ON    ║." +
-                                        "╚═════════════════╝";
-        private const string SOUND_OFF = "╔═════════════════╗." +
-                                         "║     Sound OFF   ║." +
-                                         "╚═════════════════╝";
-
-        private const string BACK = "retour";
-
-        private const string SLOT_1 = "Slot 1";
-        private const string SLOT_2 = "Slot 2";
-        private const string SLOT_3 = "Slot 3";
-        
-        private readonly string PATH_SLOT_1;
-        private readonly string PATH_SLOT_2;
-        private readonly string PATH_SLOT_3;
-        private static readonly string PATH_REGLAGE = Path.GetFullPath("reglage.txt"); // TODO : pk pas dans le constructeur ? à cause du static ?
-        private readonly string PATH_HIGH_SCORE;
-
-        private const string upgrade1 = "╔═════════════════════════╗." +
-                                        "║  Increase Weapon Slot   ║." +
-                                        "╚═════════════════════════╝";
-        private const string upgrade2 = "╔═════════════════════════╗." +
-                                        "║   Get one more life     ║." +
-                                        "╚═════════════════════════╝";
-        private const string upgrade3 = "╔═════════════════════════╗." +
-                                        "║ Regen one point of life ║." +
-                                        "╚═════════════════════════╝";
-
-
-        public const string MAIN_MENU = "╔═════════════════╗." +
-                                        "║ menu principale ║." +
-                                        "╚═════════════════╝";
-        public const string PAUSE = "pause";
-        public const string GAME_OVER = "game over";
-        public const string STAGE_WIN = "stage win";
-        public const string BONUS_STAGE = "bonus stage";
-        public const string HIGH_SCORE = "╔════════════╗." +
-                                         "║ high score ║." +
-                                         "╚════════════╝";
-        public const string DIFFICULTY_CHOISE = "choix de la difficultée";
-
-        public const int MISSILE_DISPLAY_POSITION_X = 30;
-        public const int MISSILE_DISPLAY_POSITION_Y = 40;
-        // TODO : faire aussi les coordonnée des autre HUD en const
-
-        public const char STRING_SHAPE_SEPARATOR = '4';  // ATTENTION : on ne peut donc pas utiliser le chiffre 4 pour la construction de silhouette
-
-        public const string ALLY_SHIP_SKIN_1 = "      ■      4     ■■■     4    ■■■■■    4 ///■■■■■\\\\\\ 4////■■■■■\\\\\\\\"; // ALLY
-        public const string ALLY_SHIP_SKIN_2 = "     |     4    /■\\    4  //■■■\\\\  4█--■■■■■--█4 \\\\ ■■■ // "; // ALLY
-
-        public const string ENNEMY_SKIN_1 = "    /■\\    4¥  /■■■\\  ¥4| /■■■■■\\ |4|/■■■■■■■\\|4/--O---O--\\"; // BOSS
-        public const string ENNEMY_SKIN_2 = "    /**\\   4----0  0----4    /**\\  4   /    \\  "; // BOSS
-        public const string ENNEMY_SKIN_3 = "     ■     ■     4|  ■■ ■■■■■ ■■  |4|    ■■■■■■■    |4\\----■ ■■■ ■----/4      ■■■■■      "; // BOSS
-
-        //public const string ENNEMY_SKIN_4 = "\\_||_/4-0||0-4__/\\__"; // Invader : X = 6, Y = 3
-        public const string ENNEMY_SKIN_4 = "/00\\4|--|"; // Invader : X = 4, Y = 2
-        public const string ENNEMY_SKIN_5 = " ITI 4|/¨\\|"; // Invader : X = 5, Y = 2p
-        public const string ENNEMY_SKIN_6 = "-\\_/-4 ||| ";
-        public const string ENNEMY_SKIN_7 = " /|\\ 4.<|>.";
-
         private int _saveSelected = -1;
         private int _bonusSelected = -1;
 
         /// <summary>
         /// Constructeur par défaut qui initialise les full path des fichiers de sauvegarde
         /// </summary>
-        public Menu()
-        {
-            // TODO : ptetre mettre un try catch au cas ou les fichier existe pas, (il y a des méthode pour vérifier si un fichier existe et pour les créer au cas ou)
-            PATH_SLOT_1 = Path.GetFullPath("slot_1.txt");
-            PATH_SLOT_2 = Path.GetFullPath("slot_2.txt");
-            PATH_SLOT_3 = Path.GetFullPath("slot_3.txt");
-            PATH_HIGH_SCORE = Path.GetFullPath("high_score.txt");
-        }
+        public Menu() { }
 
         /// <summary>
         ///     
@@ -137,31 +51,31 @@ namespace SpicyInvader_V_01
         /// <param name="a_game"></param>
         public void ShowMenu(string a_menuType, Game a_game)
         {
-            if (a_menuType.Equals(PAUSE)) // TODO : C'EST MOCHE, switch à mettre
+            if (a_menuType.Equals(UseFull.PAUSE)) // TODO : C'EST MOCHE, switch à mettre
             {
                 ShowPauseMenu(a_game);
             }
-            else if (a_menuType.Equals(MAIN_MENU))
+            else if (a_menuType.Equals(UseFull.MAIN_MENU))
             {
                 ShowMainMenu(a_game);
             }
-            else if (a_menuType.Equals(GAME_OVER)) // TODO : ptetre inutil à voir
+            else if (a_menuType.Equals(UseFull.GAME_OVER)) // TODO : ptetre inutil à voir
             {
                 ShowGameOverMenu(a_game);
             }
-            else if (a_menuType.Equals(STAGE_WIN))
+            else if (a_menuType.Equals(UseFull.STAGE_WIN))
             {
                 ShowWinMenu(a_game);    
             }
-            else if (a_menuType.Equals(BONUS_STAGE))
+            else if (a_menuType.Equals(UseFull.BONUS_STAGE))
             {
                 ShowBonusMenu(a_game);
             }
-            else if (a_menuType.Equals(HIGH_SCORE))
+            else if (a_menuType.Equals(UseFull.HIGH_SCORE))
             {
                 ShowHighScore(a_game);
             }
-            else if (a_menuType.Equals(DIFFICULTY_CHOISE))
+            else if (a_menuType.Equals(UseFull.DIFFICULTY_CHOISE))
             {
                 ShowDifficultyMenu(a_game);
             }
@@ -336,7 +250,7 @@ namespace SpicyInvader_V_01
         {
             Console.Clear();
 
-            string[] tab = { NEW_GAME, CONTINUE, LOAD, SETTINGS, LEAVE };
+            string[] tab = { UseFull.NEW_GAME, UseFull.CONTINUE, UseFull.LOAD, UseFull.SETTINGS, UseFull.LEAVE };
 
             int place = 0;
 
@@ -401,18 +315,18 @@ namespace SpicyInvader_V_01
         private void ShowParamMenu(Game a_game)
         {
             bool retour = false;
-            bool sound_on = SoundIsON();
+            bool sound_on = UseFull.SoundIsON();
             string[] tab = new string[2]; // modifier en fonction du nombre de paramètre 
 
             if (sound_on) 
             {
-                tab[0] = SOUND_ON;
+                tab[0] = UseFull.SOUND_ON;
             }
             else
             {
-                tab[0] = SOUND_OFF;
+                tab[0] = UseFull.SOUND_OFF;
             }
-            tab[1] = BACK;
+            tab[1] = UseFull.BACK;
 
             int place = 0;
             
@@ -440,14 +354,14 @@ namespace SpicyInvader_V_01
                             if (sound_on)
                             {
                                 sound_on = false;
-                                tab[0] = SOUND_OFF;
-                                File.WriteAllText(PATH_REGLAGE, "Sound?OFF!"); // TODO : utiliser une méthode pour écrire correctement les réglages (car là pour l'instant on overide tout le fichier pour mettre juste le reglage concernant le son)
+                                tab[0] = UseFull.SOUND_OFF;
+                                File.WriteAllText(UseFull.PATH_REGLAGE, "Sound?OFF!"); // TODO : utiliser une méthode pour écrire correctement les réglages (car là pour l'instant on overide tout le fichier pour mettre juste le reglage concernant le son)
                             }
                             else
                             {
                                 sound_on = true;
-                                tab[0] = SOUND_ON;
-                                File.WriteAllText(PATH_REGLAGE, "Sound?ON!"); // TODO : utiliser une méthode pour écrire correctement les réglages (car là pour l'instant on overide tout le fichier pour mettre juste le reglage concernant le son)
+                                tab[0] = UseFull.SOUND_ON;
+                                File.WriteAllText(UseFull.PATH_REGLAGE, "Sound?ON!"); // TODO : utiliser une méthode pour écrire correctement les réglages (car là pour l'instant on overide tout le fichier pour mettre juste le reglage concernant le son)
                             }
 
                             Console.Clear();
@@ -467,12 +381,6 @@ namespace SpicyInvader_V_01
             }
         }
 
-        public static bool SoundIsON()
-        {
-            string reglage = File.ReadAllText(PATH_REGLAGE);
-
-            return reglage.Split('!')[0].Split('?')[1].Equals("ON");
-        }
 
         /// <summary>
         /// 
@@ -484,28 +392,28 @@ namespace SpicyInvader_V_01
             // le boolean c'est pour dire si on est en mode écriture, en gros si c'est true alors on peut écraser les saves et sauver à la place
 
             // TODO : ptetre voir pour un try catch au cas où les fichier existe pas
-            string save1 = File.ReadAllText(PATH_SLOT_1);
-            string save2 = File.ReadAllText(PATH_SLOT_2);
-            string save3 = File.ReadAllText(PATH_SLOT_3);
+            string save1 = File.ReadAllText(UseFull.PATH_SLOT_1);
+            string save2 = File.ReadAllText(UseFull.PATH_SLOT_2);
+            string save3 = File.ReadAllText(UseFull.PATH_SLOT_3);
 
             string[] tab = {
                 // save 1:
-                SLOT_1 + " | Save date: " + save1.Split('!')[0].Split('?')[1] + 
+                UseFull.SLOT_1 + " | Save date: " + save1.Split('!')[0].Split('?')[1] + 
                     " | Enemy lvl: " + save1.Split('!')[2].Split('?')[1] + 
                     " | Life: " + save1.Split('!')[3].Split('?')[1].Split('/')[0].Split('.')[1] + "/"+ save1.Split('!')[3].Split('?')[1].Split('/')[2].Split('.')[1] + 
                     " | Nombre de missiles: " + save1.Split('!')[3].Split('?')[1].Split('/')[1].Split('.')[1],
                 // save 2:
-                SLOT_2 + " | Save date: " + save2.Split('!')[0].Split('?')[1] + 
+                UseFull.SLOT_2 + " | Save date: " + save2.Split('!')[0].Split('?')[1] + 
                     " | Enemy lvl: " + save2.Split('!')[2].Split('?')[1] + 
                     " | Life: " + save2.Split('!')[3].Split('?')[1].Split('/')[0].Split('.')[1] + "/"+ save2.Split('!')[3].Split('?')[1].Split('/')[2].Split('.')[1] + 
                     " | Nombre de missiles: " + save2.Split('!')[3].Split('?')[1].Split('/')[1].Split('.')[1],
                 // save 3:
-                SLOT_3 + " | Save date: " + save3.Split('!')[0].Split('?')[1] + 
+                UseFull.SLOT_3 + " | Save date: " + save3.Split('!')[0].Split('?')[1] + 
                     " | Enemy lvl: " + save3.Split('!')[2].Split('?')[1] + 
                     " | Life: " + save3.Split('!')[3].Split('?')[1].Split('/')[0].Split('.')[1] + "/"+ save3.Split('!')[3].Split('?')[1].Split('/')[2].Split('.')[1] + 
                     " | Nombre de missiles: " + save3.Split('!')[3].Split('?')[1].Split('/')[1].Split('.')[1],
 
-                BACK
+                UseFull.BACK
             };
 
             Console.Clear();
@@ -550,7 +458,7 @@ namespace SpicyInvader_V_01
                                 }
                                 else if (abbleToSave)
                                 {
-                                    File.WriteAllText(PATH_SLOT_1, a_game.GetSaveStat());
+                                    File.WriteAllText(UseFull.PATH_SLOT_1, a_game.GetSaveStat());
                                 }
                                 else if (!save1.Equals(""))
                                 {
@@ -565,7 +473,7 @@ namespace SpicyInvader_V_01
                                 }
                                 else if (abbleToSave)
                                 {
-                                    File.WriteAllText(PATH_SLOT_2, a_game.GetSaveStat());
+                                    File.WriteAllText(UseFull.PATH_SLOT_2, a_game.GetSaveStat());
                                 }
                                 else if (!save2.Equals(""))
                                 {
@@ -580,7 +488,7 @@ namespace SpicyInvader_V_01
                                 }
                                 else if (abbleToSave)
                                 {
-                                    File.WriteAllText(PATH_SLOT_3, a_game.GetSaveStat());
+                                    File.WriteAllText(UseFull.PATH_SLOT_3, a_game.GetSaveStat());
                                 }
                                 else if (!save3.Equals(""))
                                 {
@@ -613,7 +521,7 @@ namespace SpicyInvader_V_01
         {
             bool reprendre = false;
 
-            string[] tab = {upgrade1, upgrade2, upgrade3}; // TODO : voir pour mettre des upgrades aléatoire ptetre
+            string[] tab = { UseFull.upgrade1, UseFull.upgrade2, UseFull.upgrade3 }; // TODO : voir pour mettre des upgrades aléatoire ptetre
 
             Console.Clear();
 
@@ -690,7 +598,7 @@ namespace SpicyInvader_V_01
         {
             bool reprendre = false;
 
-            string[] tab = { CONTINUE, SAVE, SETTINGS, MAIN_MENU, LEAVE};
+            string[] tab = { UseFull.CONTINUE, UseFull.SAVE, UseFull.SETTINGS, UseFull.MAIN_MENU, UseFull.LEAVE };
 
             Console.Clear();
 
@@ -752,7 +660,7 @@ namespace SpicyInvader_V_01
         {
             bool reprendre = false;
 
-            string[] tab = { CONTINUE, LOAD, SETTINGS, MAIN_MENU, LEAVE };
+            string[] tab = { UseFull.CONTINUE, UseFull.LOAD, UseFull.SETTINGS, UseFull.MAIN_MENU, UseFull.LEAVE };
 
             Console.Clear();
 
@@ -810,7 +718,7 @@ namespace SpicyInvader_V_01
         private void ShowGameOverMenu(Game a_game)
         {
             Console.Clear();
-            string[] tab = {NEW_GAME, LOAD, SETTINGS, MAIN_MENU, LEAVE };
+            string[] tab = { UseFull.NEW_GAME, UseFull.LOAD, UseFull.SETTINGS, UseFull.MAIN_MENU, UseFull.LEAVE };
 
             int place = 0;
 
@@ -873,7 +781,7 @@ namespace SpicyInvader_V_01
         private void ShowDifficultyMenu(Game a_game)
         {
             Console.Clear();
-            string[] tab = { DIFFICULTY_CHOISE, "EASY", "HARD", "NOT EASY" };
+            string[] tab = { UseFull.DIFFICULTY_CHOISE, "EASY", "HARD", "NOT EASY" };
 
             int place = 0;
             int a_selection = -1;
@@ -978,20 +886,20 @@ namespace SpicyInvader_V_01
 
             bool reprendre = false;
 
-            string highScores = File.ReadAllText(PATH_HIGH_SCORE); // récupère les données des meilleures scores
+            string highScores = File.ReadAllText(UseFull.PATH_HIGH_SCORE); // récupère les données des meilleures scores
             string newHighScores = FindPlace(highScores, pseudo); // calcul le placement du score (depuis le haut) dans le tableau des meilleures scores
-            File.WriteAllText(PATH_HIGH_SCORE, newHighScores); // enregistre le nouveaux tableau des meilleures scores
+            File.WriteAllText(UseFull.PATH_HIGH_SCORE, newHighScores); // enregistre le nouveaux tableau des meilleures scores
 
 
             string[] highScoreSplit = newHighScores.Split('!');
 
-            string[] tab = { HIGH_SCORE, 
+            string[] tab = { UseFull.HIGH_SCORE, 
                             "1 " + highScoreSplit[0].Split('?')[0] + " : " + highScoreSplit[0].Split('?')[1],
                             "2 " + highScoreSplit[1].Split('?')[0] + " : " + highScoreSplit[1].Split('?')[1], 
                             "3 " + highScoreSplit[2].Split('?')[0] + " : " + highScoreSplit[2].Split('?')[1], 
                             "4 " + highScoreSplit[3].Split('?')[0] + " : " + highScoreSplit[3].Split('?')[1], 
-                            "5 " + highScoreSplit[4].Split('?')[0] + " : " + highScoreSplit[4].Split('?')[1], 
-                            CONTINUE};
+                            "5 " + highScoreSplit[4].Split('?')[0] + " : " + highScoreSplit[4].Split('?')[1],
+                            UseFull.CONTINUE};
 
             Console.Clear();
 
@@ -1108,7 +1016,7 @@ namespace SpicyInvader_V_01
             int CurrentNbrMissile = a_ship.HowManyMissilesLeft();
             string realoadind = "             ";
 
-            Console.SetCursorPosition(MISSILE_DISPLAY_POSITION_X, MISSILE_DISPLAY_POSITION_Y);
+            Console.SetCursorPosition(UseFull.MISSILE_DISPLAY_POSITION_X, UseFull.MISSILE_DISPLAY_POSITION_Y);
             Console.Write("missiles : ");
 
             if (CurrentNbrMissile == 0)

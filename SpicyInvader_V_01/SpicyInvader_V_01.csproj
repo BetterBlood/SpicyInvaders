@@ -67,6 +67,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shape.cs" />
     <Compile Include="Ship.cs" />
+    <Compile Include="UseFull.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
