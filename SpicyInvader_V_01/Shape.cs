@@ -122,12 +122,12 @@ namespace SpicyInvader_V_01
         }
 
         /// <summary>
-        /// Retourne la hauteur de l'entité
+        /// Retourne la largeur max de l'unité
         /// </summary>
         /// <returns></returns>
         public int GetHorizontalHightSize()
         {
-            return _hightWidth; // TODO Jérémiah fait de la merde (il y a vertical et horizontal dans le nom c'est chelou)
+            return _hightWidth; // TODO Jérémiah fait de la merde (il y a vertical et horizontal dans le nom c'est chelou) aaa nan en fait ça retourn la taille horizontal maximal
         }
 
         /// <summary>

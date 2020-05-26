@@ -113,9 +113,9 @@ namespace SpicyInvader_V_01
 
         //public const string ENNEMY_SKIN_4 = "\\_||_/4-0||0-4__/\\__"; // Invader : X = 6, Y = 3
         public const string ENNEMY_SKIN_4 = "/00\\4|--|"; // Invader : X = 4, Y = 2
-        public const string ENNEMY_SKIN_5 = " ITI 4|/¨\\|"; // Invader : X = 5, Y = 2p
-        public const string ENNEMY_SKIN_6 = "-\\_/-4 ||| ";
-        public const string ENNEMY_SKIN_7 = " /|\\ 4.<|>.";
+        public const string ENNEMY_SKIN_5 = " ITI 4|/¨\\|"; // Invader : X = 5, Y = 2
+        public const string ENNEMY_SKIN_6 = "-\\_/-4 ||| "; // Invader : X = 5, Y = 2
+        public const string ENNEMY_SKIN_7 = " /|\\ 4.<|>."; // Invader : X = 5, Y = 2
 
 
 

@@ -711,6 +711,7 @@ namespace SpicyInvader_V_01
                 }
             }
         }
+        
         /// <summary>
         /// Affiche le menu de défaite
         /// </summary>
