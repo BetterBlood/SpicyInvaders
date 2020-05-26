@@ -18,7 +18,7 @@ namespace SpicyInvader_V_01
     public class Fleet
     {
         /// <summary>
-        /// Attrivut
+        /// Attribut
         /// </summary>
         private int _numberOfInvader;
         private int _fleetLevel;
