@@ -44,8 +44,15 @@ namespace SpicyInvader_V_01
         /// </summary>
         public Game()
         {
-            Console.WindowWidth = Console.LargestWindowWidth - 50;
-            Console.WindowHeight = Console.LargestWindowHeight - 10;
+            try
+            {
+                Console.WindowWidth = Console.LargestWindowWidth - 50;
+                Console.WindowHeight = Console.LargestWindowHeight - 10;
+            }
+            catch (Exception e)
+            {
+                // problème avec les tests unitaires donc obligé de faire comme ça
+            }
 
             _ship = new Ship();
 

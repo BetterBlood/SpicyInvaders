@@ -16,7 +16,7 @@ namespace SpicyInvader_V_01
     /// <summary>
     /// Class Boss
     /// </summary>
-    public class Boss : Enemy, IMovebale, IDrawable, ICanFire
+    public class Boss : Enemy
     {
         /// <summary>
         /// Attributs
