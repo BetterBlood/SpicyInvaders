@@ -40,7 +40,7 @@ namespace SpicyInvader_V_01
         /// </summary>
         /// <param name="a_position"></param>
         /// <param name="a_rightDisplay"></param>
-        public Invader(Position a_position, bool a_rightDisplay) : this (Menu.ENNEMY_SKIN_6, a_position, a_rightDisplay) { }
+        public Invader(Position a_position, bool a_rightDisplay) : this (UseFull.ENNEMY_SKIN_6, a_position, a_rightDisplay) { }
 
         /// <summary>
         /// Constructeur renseigné

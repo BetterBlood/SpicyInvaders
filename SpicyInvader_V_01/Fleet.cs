@@ -77,7 +77,7 @@ namespace SpicyInvader_V_01
         private void InitBosses(int a_lvl)
         {
             //_enemies.Add(new Boss(a_lvl, "  \\__/4 -<==>-4  \\__/"));
-            _enemies.Add(new Boss(a_lvl, Menu.ENNEMY_SKIN_1)); // TODO : faire une selection des skin de boss selon le lvl !!! (comme pour InitInvaders)
+            _enemies.Add(new Boss(a_lvl, UseFull.ENNEMY_SKIN_1)); // TODO : faire une selection des skin de boss selon le lvl !!! (comme pour InitInvaders)
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace SpicyInvader_V_01
 
             int invaderSize = Invader.HORIZONTAL_SIZE; // ptetre mettre en static dans Invader la taille par défaut genre un Invader.Width() ?
             int y = 0;
-            string skin = Menu.ENNEMY_SKIN_4; // ENNEMY_SKIN_7 // ENNEMY_SKIN_4
+            string skin = UseFull.ENNEMY_SKIN_4; // ENNEMY_SKIN_7 // ENNEMY_SKIN_4
 
             for (int i = 0, j = 0; i < _numberOfInvader; i++, j++)
             {
@@ -103,12 +103,12 @@ namespace SpicyInvader_V_01
 
                 if (a_fleet_lvl > 10)
                 {
-                    skin = Menu.ENNEMY_SKIN_5;
+                    skin = UseFull.ENNEMY_SKIN_5;
                     invaderSize = 4;
                 }
                 if (a_fleet_lvl > 20)
                 {
-                    skin = Menu.ENNEMY_SKIN_6; // normalement le 4 mais il est pas fonctionnel !
+                    skin = UseFull.ENNEMY_SKIN_6; // normalement le 4 mais il est pas fonctionnel !
                     invaderSize = 5;
                 }
 
