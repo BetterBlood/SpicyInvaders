@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+ * ETML
+ * Auteur : Jeremiah, Adrian, Laetitia et Toine
+ * Date : Janvier à Mai 2020
+ * Desciption : la classe Ship
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,8 +13,14 @@ using System.IO;
 
 namespace SpicyInvader_V_01
 {
+    /// <summary>
+    /// Class UserFull
+    /// </summary>
     public static class UseFull
     {
+        /// <summary>
+        /// Attributs
+        /// </summary>
         public static string NEW_GAME = "╔═════════════════╗." +
                                         "║ nouvelle partie ║." +
                                         "╚═════════════════╝";
@@ -46,6 +58,9 @@ namespace SpicyInvader_V_01
         private static string _PATH_REGLAGE = Path.GetFullPath("reglage.txt");
         private static string _PATH_HIGH_SCORE = Path.GetFullPath("high_score.txt");
 
+        /// <summary>
+        /// Propriétés
+        /// </summary>
         public static string PATH_SLOT_1
         {
             get { return _PATH_SLOT_1; }
@@ -116,9 +131,6 @@ namespace SpicyInvader_V_01
         public const string ENNEMY_SKIN_5 = " ITI 4|/¨\\|"; // Invader : X = 5, Y = 2p
         public const string ENNEMY_SKIN_6 = "-\\_/-4 ||| ";
         public const string ENNEMY_SKIN_7 = " /|\\ 4.<|>.";
-
-
-
 
 
         /// <summary>
