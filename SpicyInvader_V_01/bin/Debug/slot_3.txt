@@ -1,1 +1,1 @@
-Date?12.05.2020 15:30:10!score?102!fleet_lvl?6!ship_State?life.3/missile_number.2/max_life.3!difficulty?harder
+Date?29.05.2020 15:59:55!score?147!fleet_lvl?7!ship_State?life.3/missile_number.2/max_life.3!difficulty?harder

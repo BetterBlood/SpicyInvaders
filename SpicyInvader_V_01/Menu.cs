@@ -24,11 +24,11 @@ namespace SpicyInvader_V_01
         public Menu() { }
 
         /// <summary>
-        ///     
+        /// permet de multiplié un symbol
         /// </summary>
         /// <param name="a_symbol"></param>
         /// <param name="a_nbrOfMult"></param>
-        /// <returns></returns>
+        /// <returns>une string contenant le symbole a_nbrOfMult fois</returns>
         public string MultThisSymbol(string a_symbol, int a_nbrOfMult)
         {
             string result = "";
@@ -44,7 +44,7 @@ namespace SpicyInvader_V_01
         /// <summary>
         /// Affichage du menu voulu
         /// </summary>
-        /// <param name="a_menuType"></param>
+        /// <param name="a_menuType">type du menu souhaité pour l'affichage</param>
         /// <param name="a_game"></param>
         public void ShowMenu(string a_menuType, Game a_game)
         {
@@ -70,7 +70,7 @@ namespace SpicyInvader_V_01
             }
             else if (a_menuType.Equals(UseFull.HIGH_SCORE))
             {
-                ShowHighScore(a_game);
+                ShowHighScore();
             }
             else if (a_menuType.Equals(UseFull.DIFFICULTY_CHOISE))
             {
@@ -78,7 +78,15 @@ namespace SpicyInvader_V_01
             }
         }
 
-
+        /// <summary>
+        /// s'occupe de l'affichge des menus selon différents critères
+        /// </summary>
+        /// <param name="a_tab">tableau à afficher</param>
+        /// <param name="a_place">place actuel (surbrillance du text)</param>
+        /// <param name="a_selection">place séléctionnée</param>
+        /// <param name="a_confirmation">si une confirmation est nécessaire</param>
+        /// <param name="a_slotMenu">s'il sagit de l'affiche pour les sauvegardes</param>
+        /// <param name="a_slotMenuLike">s'il s'agit d'un affichage presque comme les sauvegardes</param>
         private void DisplayMenu(string[] a_tab, int a_place, int a_selection = -1, bool a_confirmation = false, bool a_slotMenu = false, bool a_slotMenuLike = false) // TODO : implémenter la confirmation, notamment pour les sauvegardes et le choix des bonus
         {
             if (a_slotMenu)
@@ -289,7 +297,7 @@ namespace SpicyInvader_V_01
 
                         case 3: // parametres
                             Console.Clear();
-                            ShowParamMenu(a_game);
+                            ShowSettingMenu(a_game);
                             break;
 
                         case 4: // quitter
@@ -309,7 +317,11 @@ namespace SpicyInvader_V_01
             }
         }
 
-        private void ShowParamMenu(Game a_game)
+        /// <summary>
+        /// affichage des réglages
+        /// </summary>
+        /// <param name="a_game"></param>
+        private void ShowSettingMenu(Game a_game)
         {
             bool retour = false;
             bool sound_on = UseFull.SoundIsON();
@@ -380,9 +392,9 @@ namespace SpicyInvader_V_01
 
 
         /// <summary>
-        /// 
+        /// affichage du menu des sauvegarde
         /// </summary>
-        /// <param name="abbleToSave"></param>
+        /// <param name="abbleToSave">true : si l'on souhaite sauvegarder, false : si l'on souhaite charger une partie</param>
         /// <param name="a_game"></param>
         private void ShowSlotMenu(bool abbleToSave, Game a_game)
         {
@@ -460,6 +472,7 @@ namespace SpicyInvader_V_01
                                 else if (!save1.Equals(""))
                                 {
                                     save = save1;
+                                    back = true;
                                 }
                                 break;
 
@@ -475,6 +488,7 @@ namespace SpicyInvader_V_01
                                 else if (!save2.Equals(""))
                                 {
                                     save = save2;
+                                    back = true;
                                 }
                                 break;
 
@@ -490,6 +504,7 @@ namespace SpicyInvader_V_01
                                 else if (!save3.Equals(""))
                                 {
                                     save = save3;
+                                    back = true;
                                 }
                                 break;
 
@@ -514,6 +529,10 @@ namespace SpicyInvader_V_01
             }
         }
 
+        /// <summary>
+        /// affiche les menu des Bonus (après une victoire sur un boss)
+        /// </summary>
+        /// <param name="a_game"></param>
         private void ShowBonusMenu(Game a_game)
         {
             bool reprendre = false;
@@ -595,7 +614,7 @@ namespace SpicyInvader_V_01
         {
             bool reprendre = false;
 
-            string[] tab = { UseFull.CONTINUE, UseFull.SAVE, UseFull.SETTINGS, UseFull.MAIN_MENU, UseFull.LEAVE };
+            string[] tab = { UseFull.CONTINUE, UseFull.SAVE, UseFull.SETTINGS, UseFull.LEAVE };
 
             Console.Clear();
 
@@ -632,15 +651,10 @@ namespace SpicyInvader_V_01
 
                         case 2: // parametres
                             Console.Clear();
-                            ShowParamMenu(a_game);
+                            ShowSettingMenu(a_game);
                             break;
 
-                        case 3: // menu principale
-                            // TODO : méthode permettant d'atteindre le menu principale
-                            // voir si ça perd la sauvegarde mais du coup depuis le menu principale si on fait continue on continue la partie courante
-                            break;
-
-                        case 4: // quitter
+                        case 3: // quitter
                             Environment.Exit(0);
                             break;
                     }
@@ -657,7 +671,7 @@ namespace SpicyInvader_V_01
         {
             bool reprendre = false;
 
-            string[] tab = { UseFull.CONTINUE, UseFull.LOAD, UseFull.SETTINGS, UseFull.MAIN_MENU, UseFull.LEAVE };
+            string[] tab = { UseFull.CONTINUE, UseFull.LOAD, UseFull.SETTINGS, UseFull.LEAVE };
 
             Console.Clear();
 
@@ -694,14 +708,10 @@ namespace SpicyInvader_V_01
 
                         case 2: // parametres
                             Console.Clear();
-                            ShowParamMenu(a_game);
+                            ShowSettingMenu(a_game);
                             break;
 
-                        case 3: // menu principale
-                            // TODO : méthode qui permet de rejoindre le menu principal
-                            break;
-
-                        case 4: // quitter
+                        case 3: // quitter
                             Environment.Exit(0);
                             break;
                     }
@@ -716,7 +726,7 @@ namespace SpicyInvader_V_01
         private void ShowGameOverMenu(Game a_game)
         {
             Console.Clear();
-            string[] tab = { UseFull.NEW_GAME, UseFull.LOAD, UseFull.SETTINGS, UseFull.MAIN_MENU, UseFull.LEAVE };
+            string[] tab = { UseFull.NEW_GAME, UseFull.LOAD, UseFull.SETTINGS, UseFull.LEAVE };
 
             int place = 0;
 
@@ -756,14 +766,10 @@ namespace SpicyInvader_V_01
 
                         case 2: // parametres
                             Console.Clear();
-                            ShowParamMenu(a_game);
+                            ShowSettingMenu(a_game);
                             break;
 
-                        case 3: // menu principale
-                            // TODO : méthode permettant d'atteindre le menu principale
-                            break;
-
-                        case 4: // quitter
+                        case 3: // quitter
                             Environment.Exit(0);
                             break;
                     }
@@ -776,6 +782,10 @@ namespace SpicyInvader_V_01
             }
         }
 
+        /// <summary>
+        /// Affiche la séléction de la difficulté (au début d'une nouvelle partie)
+        /// </summary>
+        /// <param name="a_game"></param>
         private void ShowDifficultyMenu(Game a_game)
         {
             Console.Clear();
@@ -851,7 +861,10 @@ namespace SpicyInvader_V_01
             }
         }
 
-        private void ShowHighScore(Game a_game) // TODO : voir si c'est utile d'avoir l'instance de game pour l'affichage des high scores
+        /// <summary>
+        /// affiche les meilleures Scores (à la fin de la partie)
+        /// </summary>
+        private void ShowHighScore() // TODO : voir si c'est utile d'avoir l'instance de game pour l'affichage des high scores
         {
             // TODO : demander a l'utilisateur son pseudo
             bool name_not_conforme = true;
@@ -939,6 +952,12 @@ namespace SpicyInvader_V_01
             }
         }
 
+        /// <summary>
+        /// s'occupe d'inscrire le pseudo et le score obtenu dans le tableau des meilleures scores
+        /// </summary>
+        /// <param name="a_highScores"> tableau des highScores actuel</param>
+        /// <param name="a_pseudo"></param>
+        /// <returns>le nouveau tableau des scores</returns>
         public string FindPlace(string a_highScores, string a_pseudo)
         {
             string newHighScores = "";
@@ -979,7 +998,7 @@ namespace SpicyInvader_V_01
         /// </summary>
         /// <param name="a_level"></param>
         /// <param name="a_enemyLife"></param>
-        public void DisplayEnemyLevel(int a_level, int a_enemyLife)
+        private void DisplayEnemyLevel(int a_level, int a_enemyLife)
         {
             Console.SetCursorPosition(0, 0);
             Console.Write(new string(' ', Console.WindowWidth));
@@ -990,14 +1009,23 @@ namespace SpicyInvader_V_01
         /// <summary>
         /// Affiche le score actuel
         /// </summary>
-        public void DisplayScore()
+        private void DisplayScore()
         {
             Console.SetCursorPosition(30, 44); // TODO : mettre en constante les valeur du display
             Console.Write("score : {0}", Game._score);
         }
 
         /// <summary>
-        /// Affiche tout les texts quand le jeu est lancé
+        /// Affiche les crédits
+        /// </summary>
+        private void DisplayCredits()
+        {
+            Console.SetCursorPosition(20, 50); // TODO : mettre en constante les valeur du display
+            Console.Write("Credits : Toine Riedo, Adrian Barreira, Laeticia Guidetti, Jeremiah Steiner");
+        }
+
+        /// <summary>
+        /// Affiche tout les texts quand le jeu est lancé (l'HUD quoi)
         /// </summary>
         /// <param name="a_ship"></param>
         /// <param name="a_level"></param>
@@ -1036,6 +1064,10 @@ namespace SpicyInvader_V_01
             Console.WriteLine("vies : " + a_ship.GetLife() + "/" + a_ship.GetMaxLife());
 
             // fin // vie
+
+            // Credits
+            DisplayCredits();
+
         }
     }
 }
