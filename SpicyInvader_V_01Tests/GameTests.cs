@@ -1,4 +1,11 @@
-﻿using System;
+﻿/*
+ * ETML
+ * Auteur : Jeremiah, Adrian, Laetitia et Toine
+ * Date : de Février à Mars 2020
+ * Desciption : la classe de Test sur la classe Game
+ */
+
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SpicyInvader_V_01;
 

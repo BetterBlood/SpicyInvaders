@@ -1,7 +1,7 @@
 ﻿/*
  * ETML
  * Auteur : Jeremiah, Adrian, Laetitia et Toine
- * Date : Janvier à Mai 2020
+ * Date : de Février à Mars 2020
  * Desciption : la clase HitBox
  */
 using System.Collections.Generic;

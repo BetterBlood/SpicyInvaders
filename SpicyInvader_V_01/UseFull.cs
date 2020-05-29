@@ -1,15 +1,15 @@
 ﻿/*
  * ETML
  * Auteur : Jeremiah, Adrian, Laetitia et Toine
- * Date : Mars 2020
- * Desciption : l'énumération EnumDirection 
+ * Date : de Février à Mars 2020
+ * Desciption : la Classe Usefull 
  */
 using System.IO;
 
 namespace SpicyInvader_V_01
 {
     /// <summary>
-    /// Class UserFull
+    /// Class Usefull
     /// </summary>
     public static class UseFull
     {
