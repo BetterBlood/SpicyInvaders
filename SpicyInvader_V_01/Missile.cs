@@ -4,13 +4,8 @@
  * Date : Mars 2020
  * Desciption : la classe Missile
  */
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Media;
-using System.Text;
-using System.Threading.Tasks;
-using System.Threading;
 
 namespace SpicyInvader_V_01
 {

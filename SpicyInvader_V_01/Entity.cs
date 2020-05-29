@@ -8,9 +8,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Media;
-using System.Text;
-using System.Threading.Tasks;
-using System.Threading;
 
 namespace SpicyInvader_V_01
 {
@@ -24,9 +21,6 @@ namespace SpicyInvader_V_01
         /// </summary>
         private Shape _shape;
         private HitBox _hitBox;
-        /// <summary>
-        /// hdeksfhesk
-        /// </summary>
         protected Position _position;
         protected List<Missile> _missiles;
         protected int _lifePoints;

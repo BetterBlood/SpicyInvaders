@@ -1,14 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/*
+ * ETML
+ * Auteur : Jeremiah, Adrian, Laetitia et Toine
+ * Date : Mars 2020
+ * Desciption : l'énumération EnumDirection 
+ */
 using System.IO;
 
 namespace SpicyInvader_V_01
 {
+    /// <summary>
+    /// Class Ship
+    /// </summary>
     public static class UseFull
     {
+        /// <summary>
+        /// attributs
+        /// </summary>
         public static string NEW_GAME = "╔═════════════════╗." +
                                         "║ nouvelle partie ║." +
                                         "╚═════════════════╝";
@@ -46,6 +53,10 @@ namespace SpicyInvader_V_01
         private static string _PATH_REGLAGE = Path.GetFullPath("reglage.txt");
         private static string _PATH_HIGH_SCORE = Path.GetFullPath("high_score.txt");
 
+
+        /// <summary>
+        /// Propriétés
+        /// </summary>
         public static string PATH_SLOT_1
         {
             get { return _PATH_SLOT_1; }
