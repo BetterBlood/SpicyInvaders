@@ -1,7 +1,7 @@
 ﻿/*
  * ETML
  * Auteur : Jeremiah, Adrian, Laetitia et Toine
- * Date : Mars 2020
+ * Date : de Février à Mars 2020
  * Desciption : la classe enemy
  */
 using System;
