@@ -1,7 +1,7 @@
 ﻿/*
  * ETML
  * Auteur : Jeremiah, Adrian, Laetitia et Toine
- * Date : Mars 2020
+ * Date : Janvier à Mai 2020
  * Desciption : la classe Menu
  */
 using System;
@@ -13,6 +13,9 @@ using System.Threading.Tasks;
 
 namespace SpicyInvader_V_01
 {
+    /// <summary>
+    /// Class Menu
+    /// </summary>
     public class Menu // classe utilitaire à propos des menus
     {
         /// <summary>
@@ -942,6 +945,12 @@ namespace SpicyInvader_V_01
             }
         }
 
+        /// <summary>
+        /// Modification du score
+        /// </summary>
+        /// <param name="a_highScores"></param>
+        /// <param name="a_pseudo"></param>
+        /// <returns></returns>
         public string FindPlace(string a_highScores, string a_pseudo)
         {
             string newHighScores = "";
@@ -1004,6 +1013,7 @@ namespace SpicyInvader_V_01
         /// </summary>
         /// <param name="a_ship"></param>
         /// <param name="a_level"></param>
+        /// <param name="a_enemyLife"></param>
         public void DisplayHUD(Ship a_ship, int a_level, int a_enemyLife)
         {
             // début // scores :

@@ -1,7 +1,7 @@
 ﻿/*
  * ETML
  * Auteur : Jeremiah, Adrian, Laetitia et Toine
- * Date : Mars 2020
+ * Date : Janvier à Mai 2020
  * Desciption : la classe entity
  */
 using System;
