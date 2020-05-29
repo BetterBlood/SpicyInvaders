@@ -4,12 +4,6 @@
  * Date : Janvier à Mai 2020
  * Desciption : la classe Ship
  */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Media;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpicyInvader_V_01
 {

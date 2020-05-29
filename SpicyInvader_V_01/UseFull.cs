@@ -1,14 +1,9 @@
 ﻿/*
  * ETML
  * Auteur : Jeremiah, Adrian, Laetitia et Toine
- * Date : Janvier à Mai 2020
- * Desciption : la classe Ship
+ * Date : Mars 2020
+ * Desciption : l'énumération EnumDirection 
  */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 
 namespace SpicyInvader_V_01
@@ -57,6 +52,7 @@ namespace SpicyInvader_V_01
         private static string _PATH_SLOT_3 = Path.GetFullPath("slot_3.txt");
         private static string _PATH_REGLAGE = Path.GetFullPath("reglage.txt");
         private static string _PATH_HIGH_SCORE = Path.GetFullPath("high_score.txt");
+
 
         /// <summary>
         /// Propriétés
