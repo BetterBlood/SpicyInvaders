@@ -129,9 +129,6 @@ namespace SpicyInvader_V_01
         public const string ENNEMY_SKIN_7 = " /|\\ 4.<|>."; // Invader : X = 5, Y = 2
 
 
-
-
-
         /// <summary>
         /// permet de connaitre les réglages du son
         /// </summary>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.16"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>SpicyInvader: F:/Projet/Space invader/SpicyInvaders/SpicyInvader_V_01/Program.cs Source File</title>
+<title>SpicyInvaders: F:/Projet/Space invader/SpicyInvaders/SpicyInvader_V_01/Program.cs Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -29,7 +29,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">SpicyInvader
+   <div id="projectname">SpicyInvaders
    </div>
   </td>
  </tr>
@@ -92,72 +92,68 @@ $(document).ready(function(){initNavTree('_program_8cs_source.html','');});
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * ETML</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> * Auteur : Jeremiah, Adrian, Laetitia et Toine</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> * Date : Janvier à Mai 2020</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> * Date : de Février à Mars 2020</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> * Desciption : la classe program</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> */</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">using</span> System;</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">using</span> System.Collections.Generic;</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">using</span> System.Linq;</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">using</span> System.Text;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">using</span> System.Threading.Tasks;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">using</span> System.Threading;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_spicy_invader___v__01.html">SpicyInvader_V_01</a></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="class_spicy_invader___v__01_1_1_program.html">   20</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">class </span><a class="code" href="class_spicy_invader___v__01_1_1_program.html">Program</a></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    {</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">void</span> Main(<span class="keywordtype">string</span>[] args)</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        {</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;            Console.Title = <span class="stringliteral">&quot;Spicy Invaders&quot;</span>;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;            <a class="code" href="class_spicy_invader___v__01_1_1_game.html">Game</a> game = <span class="keyword">new</span> <a class="code" href="class_spicy_invader___v__01_1_1_game.html">Game</a>();</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;            <span class="keywordtype">int</span> tics = 0;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            <span class="keywordtype">bool</span> wanna_play;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            <span class="keywordtype">bool</span> first_lauch = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">using</span> System.Threading;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_spicy_invader___v__01.html">SpicyInvader_V_01</a></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="class_spicy_invader___v__01_1_1_program.html">   16</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">class </span><a class="code" href="class_spicy_invader___v__01_1_1_program.html">Program</a></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    {</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">void</span> Main(<span class="keywordtype">string</span>[] args)</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;            Console.Title = <span class="stringliteral">&quot;Spicy Invaders&quot;</span>;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;            <a class="code" href="class_spicy_invader___v__01_1_1_game.html">Game</a> game = <span class="keyword">new</span> <a class="code" href="class_spicy_invader___v__01_1_1_game.html">Game</a>();</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;            </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;            <span class="keywordtype">int</span> tics = 0;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;            <span class="keywordtype">bool</span> wanna_play;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;            <span class="keywordtype">bool</span> first_lauch = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;            <span class="keywordflow">while</span> (<span class="keyword">true</span>) <span class="comment">// boucle du jeu</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            {</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;                wanna_play = <span class="keyword">true</span>;</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            <span class="keywordflow">while</span> (<span class="keyword">true</span>) <span class="comment">// boucle du jeu</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            {</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;                wanna_play = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;                game.<a class="code" href="class_spicy_invader___v__01_1_1_game.html#a868fe4c5de2942fe8a556cd439a1fe89">Begin</a>(first_lauch); <span class="comment">// appel le premier menu </span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                first_lauch = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                game.<a class="code" href="class_spicy_invader___v__01_1_1_game.html#a868fe4c5de2942fe8a556cd439a1fe89">Begin</a>(first_lauch); <span class="comment">// appel le premier menu </span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;                first_lauch = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;                <span class="keywordflow">while</span> (wanna_play)</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;                {</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                    game.<a class="code" href="class_spicy_invader___v__01_1_1_game.html#add8f9efd9e18655024c60ee69189b43e">Update</a>(tics);</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                <span class="keywordflow">while</span> (wanna_play)</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                {</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                    game.<a class="code" href="class_spicy_invader___v__01_1_1_game.html#add8f9efd9e18655024c60ee69189b43e">Update</a>(tics);</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;                    <span class="comment">//Temporisation FPS</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                    Thread.Sleep(10);</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;                    tics++;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                    <span class="keywordflow">if</span> (tics == Int32.MaxValue)</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                    {</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                        tics = 0;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                    }</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                    <span class="keywordflow">if</span> (game.<a class="code" href="class_spicy_invader___v__01_1_1_game.html#a55490a6032457ce509ced545dcdcad07">IsLost</a>())</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                    {</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                        wanna_play = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                        game.<a class="code" href="class_spicy_invader___v__01_1_1_game.html#afe21491124ecc12cd10d9121f226e862">ResetGame</a>();</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                        <span class="comment">// TODO : ptetre afficher le scoreBoard</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                    }</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                }</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            }</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        }</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    }</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;}</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                    <span class="comment">//Temporisation FPS</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                    Thread.Sleep(10);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;                    tics++;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                    <span class="keywordflow">if</span> (tics == Int32.MaxValue)</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                    {</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;                        tics = 0;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                    }</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                    <span class="keywordflow">if</span> (game.<a class="code" href="class_spicy_invader___v__01_1_1_game.html#a55490a6032457ce509ced545dcdcad07">IsLost</a>())</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                    {</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                        wanna_play = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                        game.<a class="code" href="class_spicy_invader___v__01_1_1_game.html#afe21491124ecc12cd10d9121f226e862">ResetGame</a>();</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                        <span class="comment">// TODO : ptetre afficher le scoreBoard</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                    }</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                }</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            }</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        }</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    }</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclass_spicy_invader___v__01_1_1_game_html_a55490a6032457ce509ced545dcdcad07"><div class="ttname"><a href="class_spicy_invader___v__01_1_1_game.html#a55490a6032457ce509ced545dcdcad07">SpicyInvader_V_01.Game.IsLost</a></div><div class="ttdeci">bool IsLost()</div><div class="ttdoc">Retourne l'état finale de la partie</div><div class="ttdef"><b>Definition:</b> <a href="_game_8cs_source.html#l00384">Game.cs:384</a></div></div>
-<div class="ttc" id="aclass_spicy_invader___v__01_1_1_game_html_a868fe4c5de2942fe8a556cd439a1fe89"><div class="ttname"><a href="class_spicy_invader___v__01_1_1_game.html#a868fe4c5de2942fe8a556cd439a1fe89">SpicyInvader_V_01.Game.Begin</a></div><div class="ttdeci">void Begin(bool a_begin=true)</div><div class="ttdoc">Lance la cinématique de début (intro, ou un game over si le vaisseau est mort)</div><div class="ttdef"><b>Definition:</b> <a href="_game_8cs_source.html#l00119">Game.cs:119</a></div></div>
-<div class="ttc" id="aclass_spicy_invader___v__01_1_1_game_html_add8f9efd9e18655024c60ee69189b43e"><div class="ttname"><a href="class_spicy_invader___v__01_1_1_game.html#add8f9efd9e18655024c60ee69189b43e">SpicyInvader_V_01.Game.Update</a></div><div class="ttdeci">void Update(int a_tics)</div><div class="ttdoc">Actualise du jeu en cours de partie</div><div class="ttdef"><b>Definition:</b> <a href="_game_8cs_source.html#l00149">Game.cs:149</a></div></div>
-<div class="ttc" id="anamespace_spicy_invader___v__01_html"><div class="ttname"><a href="namespace_spicy_invader___v__01.html">SpicyInvader_V_01</a></div><div class="ttdef"><b>Definition:</b> <a href="_ally_8cs_source.html#l00013">Ally.cs:13</a></div></div>
-<div class="ttc" id="aclass_spicy_invader___v__01_1_1_program_html"><div class="ttname"><a href="class_spicy_invader___v__01_1_1_program.html">SpicyInvader_V_01.Program</a></div><div class="ttdoc">Classe Program</div><div class="ttdef"><b>Definition:</b> <a href="_program_8cs_source.html#l00020">Program.cs:20</a></div></div>
-<div class="ttc" id="aclass_spicy_invader___v__01_1_1_game_html_afe21491124ecc12cd10d9121f226e862"><div class="ttname"><a href="class_spicy_invader___v__01_1_1_game.html#afe21491124ecc12cd10d9121f226e862">SpicyInvader_V_01.Game.ResetGame</a></div><div class="ttdeci">void ResetGame()</div><div class="ttdoc">Réinisialisation d'une partie</div><div class="ttdef"><b>Definition:</b> <a href="_game_8cs_source.html#l00311">Game.cs:311</a></div></div>
-<div class="ttc" id="aclass_spicy_invader___v__01_1_1_game_html"><div class="ttname"><a href="class_spicy_invader___v__01_1_1_game.html">SpicyInvader_V_01.Game</a></div><div class="ttdoc">Class Game</div><div class="ttdef"><b>Definition:</b> <a href="_game_8cs_source.html#l00024">Game.cs:24</a></div></div>
+<div class="ttc" id="aclass_spicy_invader___v__01_1_1_game_html_a55490a6032457ce509ced545dcdcad07"><div class="ttname"><a href="class_spicy_invader___v__01_1_1_game.html#a55490a6032457ce509ced545dcdcad07">SpicyInvader_V_01.Game.IsLost</a></div><div class="ttdeci">bool IsLost()</div><div class="ttdoc">Retourne l'état finale de la partie</div><div class="ttdef"><b>Definition:</b> <a href="_game_8cs_source.html#l00386">Game.cs:386</a></div></div>
+<div class="ttc" id="aclass_spicy_invader___v__01_1_1_game_html_a868fe4c5de2942fe8a556cd439a1fe89"><div class="ttname"><a href="class_spicy_invader___v__01_1_1_game.html#a868fe4c5de2942fe8a556cd439a1fe89">SpicyInvader_V_01.Game.Begin</a></div><div class="ttdeci">void Begin(bool a_begin=true)</div><div class="ttdoc">Lance la cinématique de début (intro, ou un game over si le vaisseau est mort)</div><div class="ttdef"><b>Definition:</b> <a href="_game_8cs_source.html#l00121">Game.cs:121</a></div></div>
+<div class="ttc" id="aclass_spicy_invader___v__01_1_1_game_html_add8f9efd9e18655024c60ee69189b43e"><div class="ttname"><a href="class_spicy_invader___v__01_1_1_game.html#add8f9efd9e18655024c60ee69189b43e">SpicyInvader_V_01.Game.Update</a></div><div class="ttdeci">void Update(int a_tics)</div><div class="ttdoc">Actualise du jeu en cours de partie</div><div class="ttdef"><b>Definition:</b> <a href="_game_8cs_source.html#l00151">Game.cs:151</a></div></div>
+<div class="ttc" id="anamespace_spicy_invader___v__01_html"><div class="ttname"><a href="namespace_spicy_invader___v__01.html">SpicyInvader_V_01</a></div><div class="ttdef"><b>Definition:</b> <a href="_ally_8cs_source.html#l00008">Ally.cs:8</a></div></div>
+<div class="ttc" id="aclass_spicy_invader___v__01_1_1_program_html"><div class="ttname"><a href="class_spicy_invader___v__01_1_1_program.html">SpicyInvader_V_01.Program</a></div><div class="ttdoc">Classe Program</div><div class="ttdef"><b>Definition:</b> <a href="_program_8cs_source.html#l00016">Program.cs:16</a></div></div>
+<div class="ttc" id="aclass_spicy_invader___v__01_1_1_game_html_afe21491124ecc12cd10d9121f226e862"><div class="ttname"><a href="class_spicy_invader___v__01_1_1_game.html#afe21491124ecc12cd10d9121f226e862">SpicyInvader_V_01.Game.ResetGame</a></div><div class="ttdeci">void ResetGame()</div><div class="ttdoc">Réinisialisation d'une partie</div><div class="ttdef"><b>Definition:</b> <a href="_game_8cs_source.html#l00313">Game.cs:313</a></div></div>
+<div class="ttc" id="aclass_spicy_invader___v__01_1_1_game_html"><div class="ttname"><a href="class_spicy_invader___v__01_1_1_game.html">SpicyInvader_V_01.Game</a></div><div class="ttdoc">Class Game</div><div class="ttdef"><b>Definition:</b> <a href="_game_8cs_source.html#l00019">Game.cs:19</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
