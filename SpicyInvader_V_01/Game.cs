@@ -152,7 +152,6 @@ namespace SpicyInvader_V_01
             if(_difficulty == null)
             {
                 _menu.ShowMenu(UseFull.DIFFICULTY_CHOISE, this);
-                // TODO : prendre la _difficulty et orienté le ship selon ça
 
                 switch (_difficulty)
                 {
@@ -246,7 +245,7 @@ namespace SpicyInvader_V_01
                 {
                     if (_fleet.IsBossStage())
                     {
-                        PlayBossVictory(); // TODO : vérifier si ça close l'ancien son
+                        PlayBossVictory();
                         _menu.ShowMenu(UseFull.BONUS_STAGE, this);
                     }
 
@@ -275,7 +274,7 @@ namespace SpicyInvader_V_01
 
             if (_difficulty.Equals("harder"))
             {
-                _score -= 5; // TODO : voir si ça vaut la peine
+                _score -= 5;
             }
         }
 
@@ -367,7 +366,6 @@ namespace SpicyInvader_V_01
 
             string[] shipStats = a_saveStat[3].Split('?');
             
-            //TODO : faire deux saves de vie, tot et actuelle
             _ship = new Ship(Convert.ToInt32(shipStats[1].Split('/')[2].Split('.')[1]), Convert.ToInt32(shipStats[1].Split('/')[1].Split('.')[1])); // life et nombre de missile
             _ship.TakeDamage(Convert.ToInt32(shipStats[1].Split('/')[2].Split('.')[1]) - Convert.ToInt32(shipStats[1].Split('/')[0].Split('.')[1])); // ajustement de la vie
             _menu = new Menu(); // ptetre pas util

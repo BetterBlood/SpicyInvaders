@@ -136,7 +136,7 @@ namespace SpicyInvader_V_01
 
             if (IsEntityHit(a_entities, a_fleet, a_game))
             {
-                // TODO : afficher une explosion ptetre ?
+                // TODO : si on a le temps : afficher une explosion 
                 Rearmed();
                 return false;
             }

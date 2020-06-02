@@ -23,7 +23,7 @@ namespace SpicyInvader_V_01
         private List<List<string>> _shapes;
         private List<int> _sizes; // la taille de la liste est sa hauteur // chaque nombre de la liste est la taille de la ligne
 
-        private int _hightWidth;
+        private int _maxWidth;
 
         //public Shape()
         //{
@@ -84,9 +84,9 @@ namespace SpicyInvader_V_01
             {
                 _sizes.Add(_shapes[i].Count);
 
-                if (_hightWidth < _shapes[i].Count)
+                if (_maxWidth < _shapes[i].Count)
                 {
-                    _hightWidth = _shapes[i].Count;
+                    _maxWidth = _shapes[i].Count;
                 }
             }
 
@@ -123,9 +123,9 @@ namespace SpicyInvader_V_01
         /// Retourne la largeur max de l'unité
         /// </summary>
         /// <returns></returns>
-        public int GetHorizontalHightSize()
+        public int GetHorizontalMaxSize()
         {
-            return _hightWidth; // TODO Jérémiah fait de la merde (il y a vertical et horizontal dans le nom c'est chelou) aaa nan en fait ça retourn la taille horizontal maximal
+            return _maxWidth; // TODO : en fait ça retourn la taille horizontal maximal ptetre modifié le nom car il n'est pas très clair
         }
 
         /// <summary>

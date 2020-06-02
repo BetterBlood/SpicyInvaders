@@ -60,27 +60,27 @@ namespace SpicyInvader_V_01
         public static string PATH_SLOT_1
         {
             get { return _PATH_SLOT_1; }
-            private set { PATH_SLOT_1 = value; } // TODO : voir si c'est mieux comme ça ou de pas mettre le setter (comme pour le slot 2)
+            private set { PATH_SLOT_1 = value; }
         }
         public static string PATH_SLOT_2
         {
             get { return _PATH_SLOT_2; }
-            set { }
+            private set { PATH_SLOT_2 = value; }
         }
         public static string PATH_SLOT_3
         {
             get { return _PATH_SLOT_3; }
-            set { }
+            private set { PATH_SLOT_3 = value; }
         }
         public static string PATH_REGLAGE
         {
             get { return _PATH_REGLAGE; }
-            set { }
+            private set { PATH_REGLAGE = value; }
         }
         public static string PATH_HIGH_SCORE
         {
             get { return _PATH_HIGH_SCORE; }
-            set { }
+            private set { PATH_HIGH_SCORE = value; }
         }
 
 
@@ -98,20 +98,25 @@ namespace SpicyInvader_V_01
 
 
         public static string MAIN_MENU = "╔═════════════════╗." +
-                                        "║ menu principale ║." +
-                                        "╚═════════════════╝";
+                                         "║ menu principale ║." +
+                                         "╚═════════════════╝";
         public static string PAUSE = "pause";
         public static string GAME_OVER = "game over";
         public static string STAGE_WIN = "stage win";
         public static string BONUS_STAGE = "bonus stage";
         public static string HIGH_SCORE = "╔════════════╗." +
-                                         "║ high score ║." +
-                                         "╚════════════╝";
+                                          "║ high score ║." +
+                                          "╚════════════╝";
         public static string DIFFICULTY_CHOISE = "choix de la difficultée";
 
         public static int MISSILE_DISPLAY_POSITION_X = 30;
         public static int MISSILE_DISPLAY_POSITION_Y = 40;
-        // TODO : faire aussi les coordonnée des autre HUD en const
+        public static int LIFE_DISPLAY_POSITION_X = 30;
+        public static int LIFE_DISPLAY_POSITION_Y = 42;
+        public static int SCORE_DISPLAY_POSITION_X = 30;
+        public static int SCORE_DISPLAY_POSITION_Y = 44;
+        public static int CREDITS_DISPLAY_POSITION_X = 20;
+        public static int CREDITS_DISPLAY_POSITION_Y = 50;
 
         public const char STRING_SHAPE_SEPARATOR = '4';  // ATTENTION : on ne peut donc pas utiliser le chiffre 4 pour la construction de silhouette
 
