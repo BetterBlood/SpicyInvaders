@@ -132,13 +132,13 @@ namespace SpicyInvader_V_01
         /// <summary>
         /// Tentative de lancer de missile par un ennemi
         /// </summary>
-        public void TryToFire()
+        public void TryToFire(bool a_bossStage)
         {
             if (_isInFrontLane)
             {
                 if (_random.Next(10)%10 == 0)
                 {
-                    Fire(GetFirePosition());
+                    Fire(GetFirePosition(), a_bossStage);
                 }
             }
         }
@@ -164,9 +164,9 @@ namespace SpicyInvader_V_01
         /// <summary>
         ///  Color l'ennemi selon sa position
         /// </summary>
-        public override void Draw() // TODO : ptetre enlever ça c'est pour le débug
+        public override void Draw() 
         {
-            if (_isInFrontLane)
+            if (_isInFrontLane) // initialement pour le débug mais en fait j'aime bien le surlignage en rouge des ennemis
             {
                 Console.ForegroundColor = ConsoleColor.DarkRed;
             }

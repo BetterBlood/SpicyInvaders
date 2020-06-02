@@ -78,7 +78,7 @@ namespace SpicyInvader_V_01
             // retour += a_separator;
             // retour += "missileNumber" + innerSeparator + _missiles.Size;
 
-            // TODO faudrai aussi ajouter la puissance des missiles etc etc...
+            // TODO : si on a le temps : faudrai ajouter la puissance des missiles et le type
             return  "life" + innerSeparator2 + _lifePoints + innerSeparator1 + 
                     "missile_number" + innerSeparator2 + _missiles.Count + innerSeparator1 + 
                     "max_life" + innerSeparator2 + _maxLifePoint; 
@@ -116,7 +116,7 @@ namespace SpicyInvader_V_01
         /// Retourne la position de tire
         /// </summary>
         /// <returns></returns>
-        protected override Position GetFirePosition() // TODO : voir pour utiliser cette méthode quand l'allié tire (permet d'avoir des vaisseaux de différentes tailles)
+        protected override Position GetFirePosition() // TODO : voir pour utiliser cette méthode quand l'allié tir (permet d'avoir des vaisseaux de différentes tailles)
         {
             return new Position(_position.X + GetHorizontalHightSize() / 2, _position.Y - 1);
         }

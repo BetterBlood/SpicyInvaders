@@ -104,7 +104,7 @@ namespace SpicyInvader_V_01
         /// Position verticale du missile
         /// </summary>
         /// <returns></returns>
-        public int GetMissileYPos() // TODO : il y a un truc bizarre dans cette méthode voir a quoi elle sert vraiment et la nommer en conséquence !
+        public int GetMissileYPos() // il me semble que l'on n'utilise plus cette méthode mais dans le doute on la garde
         {
             foreach (Missile missile in _missiles)
             {
@@ -156,11 +156,11 @@ namespace SpicyInvader_V_01
             }
             else if (UseFull.SoundIsON() && this is Enemy && !a_bossStage)
             {
-                // TODO : ptetre faire un son différent pour les ennemis
+                // les ennemis n'ont pour l'instant pas de son de tir de missile
             }
             else
             {
-                // le son est désactivé
+                // dans ce cas le son est désactivé
             }
             
         }
@@ -176,11 +176,11 @@ namespace SpicyInvader_V_01
                 {
                     if (this is Ally)
                     {
-                        missile.Fire(new Position(_position.X + _shape.GetHorizontalHightSize() / 2, _position.Y));
+                        missile.Fire(new Position(_position.X + _shape.GetHorizontalMaxSize() / 2, _position.Y));
                     }
                     else
-                    { // TODO : vérifier les positions de lancement : ptetre voir pour les trouver par rapport aux tailles de shape
-                        missile.Fire(new Position(_position.X + 2, _position.Y - 1)); // position de départ de missile peut être voir pour modifier selon le style d'ennemy
+                    { 
+                        missile.Fire(new Position(_position.X + _shape.GetHorizontalMaxSize() / 2, _position.Y + GetHeight())); // position de base de lancement de missile (ptetre voir selon le style d'ennemi pour changer la position)
                     }
 
                     PlayAttackSound(a_bossStage);
@@ -197,14 +197,14 @@ namespace SpicyInvader_V_01
         /// Lance un missile depuis une position donnée
         /// </summary>
         /// <param name="a_firePosition"></param>
-        public void Fire(Position a_firePosition)
+        public void Fire(Position a_firePosition, bool a_bossStage)
         {
             foreach (Missile missile in _missiles)
             {
                 if (!missile.IsFired())
                 {
                     missile.Fire(a_firePosition);
-                    PlayAttackSound(false);
+                    PlayAttackSound(a_bossStage);
                     return;
                 }
                 else
@@ -240,7 +240,7 @@ namespace SpicyInvader_V_01
             switch (a_direction)
             {
                 case EnumDirection.RIGHT:
-                    if (_position.X + _shape.GetHorizontalHightSize() < Console.WindowWidth - 1)
+                    if (_position.X + _shape.GetHorizontalMaxSize() < Console.WindowWidth - 1)
                     {
                         _position.X++;
                     }
@@ -293,7 +293,7 @@ namespace SpicyInvader_V_01
         /// <returns></returns>
         public int GetHorizontalHightSize()
         {
-            return _shape.GetHorizontalHightSize();
+            return _shape.GetHorizontalMaxSize();
         }
 
         /// <summary>
