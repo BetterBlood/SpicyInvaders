@@ -9,8 +9,6 @@ using System.Collections.Generic;
 using System.Media;
 using System.Threading;
 
-
-
 namespace SpicyInvader_V_01
 {
     /// <summary>

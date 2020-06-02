@@ -10,6 +10,9 @@ using System.Linq;
 
 namespace SpicyInvader_V_01
 {
+    /// <summary>
+    /// Class Menu
+    /// </summary>
     public class Menu // classe utilitaire à propos des menus
     {
         /// <summary>
@@ -1029,6 +1032,7 @@ namespace SpicyInvader_V_01
         /// </summary>
         /// <param name="a_ship"></param>
         /// <param name="a_level"></param>
+        /// <param name="a_enemyLife"></param>
         public void DisplayHUD(Ship a_ship, int a_level, int a_enemyLife)
         {
             // début // scores :

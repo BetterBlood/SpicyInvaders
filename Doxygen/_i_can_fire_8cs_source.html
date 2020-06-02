@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.16"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>SpicyInvader: F:/Projet/Space invader/SpicyInvaders/SpicyInvader_V_01/ICanFire.cs Source File</title>
+<title>SpicyInvaders: F:/Projet/Space invader/SpicyInvaders/SpicyInvader_V_01/ICanFire.cs Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -29,7 +29,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">SpicyInvader
+   <div id="projectname">SpicyInvaders
    </div>
   </td>
  </tr>
@@ -92,48 +92,44 @@ $(document).ready(function(){initNavTree('_i_can_fire_8cs_source.html','');});
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * ETML</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> * Auteur : Jeremiah, Adrian, Laetitia et Toine</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> * Date : Janvier à Mai 2020</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> * Date : de Février à Mars 2020</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> * Desciption : l&#39;interface ICanFire</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">using</span> System;</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">using</span> System.Collections.Generic;</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">using</span> System.Linq;</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">using</span> System.Text;</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">using</span> System.Threading.Tasks;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_spicy_invader___v__01.html">SpicyInvader_V_01</a></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="interface_spicy_invader___v__01_1_1_i_can_fire.html">   18</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">interface </span><a class="code" href="interface_spicy_invader___v__01_1_1_i_can_fire.html">ICanFire</a></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    {</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="interface_spicy_invader___v__01_1_1_i_can_fire.html#a9f149996b10a3f5b0c59edd30ea5f234">InitBasesMissiles</a>(<span class="keywordtype">int</span> a_missileNumber, <a class="code" href="namespace_spicy_invader___v__01.html#ab9e32e3cea8c9b370df4c43f947fdb89">EnumDirection</a> a_missileDirection);</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="interface_spicy_invader___v__01_1_1_i_can_fire.html#a03e4d94eedca71759986f12cf5895739">IsAMissileNotFired</a>();</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        List&lt;Missile&gt; <a class="code" href="interface_spicy_invader___v__01_1_1_i_can_fire.html#a485b3827a7748b470cfb65c360c217e4">GetMissiles</a>();</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keywordtype">int</span> <a class="code" href="interface_spicy_invader___v__01_1_1_i_can_fire.html#a35f76cb097fc5c1c70e7226509146cca">GetMissileYPos</a>();</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordtype">int</span> <a class="code" href="interface_spicy_invader___v__01_1_1_i_can_fire.html#afed31a6c460d43f39858f4dd34b609d5">GetMissilesCapacity</a>();</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keywordtype">int</span> <a class="code" href="interface_spicy_invader___v__01_1_1_i_can_fire.html#a6b8663dc79ee76b6ec8807692d78c377">HowManyMissilesLeft</a>();</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="interface_spicy_invader___v__01_1_1_i_can_fire.html#a9557188a68a010980a844bb857e05d4f">Fire</a>(<span class="keywordtype">bool</span> a_bossStage);</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    }</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;}</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">using</span> System.Collections.Generic;</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_spicy_invader___v__01.html">SpicyInvader_V_01</a></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="interface_spicy_invader___v__01_1_1_i_can_fire.html">   14</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">interface </span><a class="code" href="interface_spicy_invader___v__01_1_1_i_can_fire.html">ICanFire</a></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    {</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="interface_spicy_invader___v__01_1_1_i_can_fire.html#a9f149996b10a3f5b0c59edd30ea5f234">InitBasesMissiles</a>(<span class="keywordtype">int</span> a_missileNumber, <a class="code" href="namespace_spicy_invader___v__01.html#ab9e32e3cea8c9b370df4c43f947fdb89">EnumDirection</a> a_missileDirection);</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="interface_spicy_invader___v__01_1_1_i_can_fire.html#a03e4d94eedca71759986f12cf5895739">IsAMissileNotFired</a>();</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        List&lt;Missile&gt; <a class="code" href="interface_spicy_invader___v__01_1_1_i_can_fire.html#a485b3827a7748b470cfb65c360c217e4">GetMissiles</a>();</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keywordtype">int</span> <a class="code" href="interface_spicy_invader___v__01_1_1_i_can_fire.html#a35f76cb097fc5c1c70e7226509146cca">GetMissileYPos</a>();</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keywordtype">int</span> <a class="code" href="interface_spicy_invader___v__01_1_1_i_can_fire.html#afed31a6c460d43f39858f4dd34b609d5">GetMissilesCapacity</a>();</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordtype">int</span> <a class="code" href="interface_spicy_invader___v__01_1_1_i_can_fire.html#a6b8663dc79ee76b6ec8807692d78c377">HowManyMissilesLeft</a>();</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="interface_spicy_invader___v__01_1_1_i_can_fire.html#a9557188a68a010980a844bb857e05d4f">Fire</a>(<span class="keywordtype">bool</span> a_bossStage);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    }</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="ainterface_spicy_invader___v__01_1_1_i_can_fire_html_afed31a6c460d43f39858f4dd34b609d5"><div class="ttname"><a href="interface_spicy_invader___v__01_1_1_i_can_fire.html#afed31a6c460d43f39858f4dd34b609d5">SpicyInvader_V_01.ICanFire.GetMissilesCapacity</a></div><div class="ttdeci">int GetMissilesCapacity()</div><div class="ttdoc">Retourne le nombre de missiles présent dans la liste</div></div>
 <div class="ttc" id="ainterface_spicy_invader___v__01_1_1_i_can_fire_html_a9557188a68a010980a844bb857e05d4f"><div class="ttname"><a href="interface_spicy_invader___v__01_1_1_i_can_fire.html#a9557188a68a010980a844bb857e05d4f">SpicyInvader_V_01.ICanFire.Fire</a></div><div class="ttdeci">void Fire(bool a_bossStage)</div><div class="ttdoc">Tire un missile si les conditions sont remplies</div></div>
 <div class="ttc" id="ainterface_spicy_invader___v__01_1_1_i_can_fire_html_a35f76cb097fc5c1c70e7226509146cca"><div class="ttname"><a href="interface_spicy_invader___v__01_1_1_i_can_fire.html#a35f76cb097fc5c1c70e7226509146cca">SpicyInvader_V_01.ICanFire.GetMissileYPos</a></div><div class="ttdeci">int GetMissileYPos()</div><div class="ttdoc">Position verticale du missile</div></div>
 <div class="ttc" id="ainterface_spicy_invader___v__01_1_1_i_can_fire_html_a6b8663dc79ee76b6ec8807692d78c377"><div class="ttname"><a href="interface_spicy_invader___v__01_1_1_i_can_fire.html#a6b8663dc79ee76b6ec8807692d78c377">SpicyInvader_V_01.ICanFire.HowManyMissilesLeft</a></div><div class="ttdeci">int HowManyMissilesLeft()</div><div class="ttdoc">Nombre de missiles disponible</div></div>
-<div class="ttc" id="ainterface_spicy_invader___v__01_1_1_i_can_fire_html"><div class="ttname"><a href="interface_spicy_invader___v__01_1_1_i_can_fire.html">SpicyInvader_V_01.ICanFire</a></div><div class="ttdoc">Interface ICanFire</div><div class="ttdef"><b>Definition:</b> <a href="_i_can_fire_8cs_source.html#l00018">ICanFire.cs:18</a></div></div>
+<div class="ttc" id="ainterface_spicy_invader___v__01_1_1_i_can_fire_html"><div class="ttname"><a href="interface_spicy_invader___v__01_1_1_i_can_fire.html">SpicyInvader_V_01.ICanFire</a></div><div class="ttdoc">Interface ICanFire</div><div class="ttdef"><b>Definition:</b> <a href="_i_can_fire_8cs_source.html#l00014">ICanFire.cs:14</a></div></div>
 <div class="ttc" id="ainterface_spicy_invader___v__01_1_1_i_can_fire_html_a03e4d94eedca71759986f12cf5895739"><div class="ttname"><a href="interface_spicy_invader___v__01_1_1_i_can_fire.html#a03e4d94eedca71759986f12cf5895739">SpicyInvader_V_01.ICanFire.IsAMissileNotFired</a></div><div class="ttdeci">bool IsAMissileNotFired()</div><div class="ttdoc">Vérifie s'il y a un missile non tiré</div></div>
 <div class="ttc" id="ainterface_spicy_invader___v__01_1_1_i_can_fire_html_a9f149996b10a3f5b0c59edd30ea5f234"><div class="ttname"><a href="interface_spicy_invader___v__01_1_1_i_can_fire.html#a9f149996b10a3f5b0c59edd30ea5f234">SpicyInvader_V_01.ICanFire.InitBasesMissiles</a></div><div class="ttdeci">void InitBasesMissiles(int a_missileNumber, EnumDirection a_missileDirection)</div><div class="ttdoc">Ajoute le nombre nombre de missile possédé par une entité dans sa liste</div></div>
-<div class="ttc" id="anamespace_spicy_invader___v__01_html"><div class="ttname"><a href="namespace_spicy_invader___v__01.html">SpicyInvader_V_01</a></div><div class="ttdef"><b>Definition:</b> <a href="_ally_8cs_source.html#l00013">Ally.cs:13</a></div></div>
+<div class="ttc" id="anamespace_spicy_invader___v__01_html"><div class="ttname"><a href="namespace_spicy_invader___v__01.html">SpicyInvader_V_01</a></div><div class="ttdef"><b>Definition:</b> <a href="_ally_8cs_source.html#l00008">Ally.cs:8</a></div></div>
 <div class="ttc" id="ainterface_spicy_invader___v__01_1_1_i_can_fire_html_a485b3827a7748b470cfb65c360c217e4"><div class="ttname"><a href="interface_spicy_invader___v__01_1_1_i_can_fire.html#a485b3827a7748b470cfb65c360c217e4">SpicyInvader_V_01.ICanFire.GetMissiles</a></div><div class="ttdeci">List&lt; Missile &gt; GetMissiles()</div><div class="ttdoc">Liste des missiles</div></div>
-<div class="ttc" id="anamespace_spicy_invader___v__01_html_ab9e32e3cea8c9b370df4c43f947fdb89"><div class="ttname"><a href="namespace_spicy_invader___v__01.html#ab9e32e3cea8c9b370df4c43f947fdb89">SpicyInvader_V_01.EnumDirection</a></div><div class="ttdeci">EnumDirection</div><div class="ttdoc">Enum EnumDirection</div><div class="ttdef"><b>Definition:</b> <a href="_enum_direction_8cs_source.html#l00018">EnumDirection.cs:18</a></div></div>
+<div class="ttc" id="anamespace_spicy_invader___v__01_html_ab9e32e3cea8c9b370df4c43f947fdb89"><div class="ttname"><a href="namespace_spicy_invader___v__01.html#ab9e32e3cea8c9b370df4c43f947fdb89">SpicyInvader_V_01.EnumDirection</a></div><div class="ttdeci">EnumDirection</div><div class="ttdoc">Enum EnumDirection</div><div class="ttdef"><b>Definition:</b> <a href="_enum_direction_8cs_source.html#l00013">EnumDirection.cs:13</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

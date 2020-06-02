@@ -22,7 +22,8 @@ for the JavaScript code in this file
 */
 var NAVTREE =
 [
-  [ "SpicyInvader", "index.html", [
+  [ "SpicyInvaders", "index.html", [
+    [ "README", "md__f_1__projet__space_invader__spicy_invaders__r_e_a_d_m_e.html", null ],
     [ "Packages", "namespaces.html", [
       [ "Packages", "namespaces.html", "namespaces_dup" ],
       [ "Package Functions", "namespacemembers.html", [
