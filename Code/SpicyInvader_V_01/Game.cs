@@ -203,7 +203,7 @@ namespace SpicyInvader_V_01
                         break;
 
                     //MENU PAUSE
-                    case ConsoleKey.I:
+                    case ConsoleKey.P:
                         _menu.ShowMenu(UseFull.PAUSE, this);
                         break;
 

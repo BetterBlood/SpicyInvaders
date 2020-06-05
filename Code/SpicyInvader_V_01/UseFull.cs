@@ -54,38 +54,6 @@ namespace SpicyInvader_V_01
         private static string _PATH_HIGH_SCORE = Path.GetFullPath("high_score.txt");
 
 
-        /// <summary>
-        /// Propriétés
-        /// </summary>
-        public static string PATH_SLOT_1
-        {
-            get { return _PATH_SLOT_1; }
-            private set { PATH_SLOT_1 = value; }
-        }
-        public static string PATH_SLOT_2
-        {
-            get { return _PATH_SLOT_2; }
-            private set { PATH_SLOT_2 = value; }
-        }
-        public static string PATH_SLOT_3
-        {
-            get { return _PATH_SLOT_3; }
-            private set { PATH_SLOT_3 = value; }
-        }
-        public static string PATH_REGLAGE
-        {
-            get { return _PATH_REGLAGE; }
-            private set { PATH_REGLAGE = value; }
-        }
-        public static string PATH_HIGH_SCORE
-        {
-            get { return _PATH_HIGH_SCORE; }
-            private set { PATH_HIGH_SCORE = value; }
-        }
-
-
-
-
         public static string upgrade1 = "╔═════════════════════════╗." +
                                         "║  Increase Weapon Slot   ║." +
                                         "╚═════════════════════════╝";
@@ -133,6 +101,34 @@ namespace SpicyInvader_V_01
         public const string ENNEMY_SKIN_6 = "-\\_/-4 ||| "; // Invader : X = 5, Y = 2
         public const string ENNEMY_SKIN_7 = " /|\\ 4.<|>."; // Invader : X = 5, Y = 2
 
+        /// <summary>
+        /// Propriétés
+        /// </summary>
+        public static string PATH_SLOT_1
+        {
+            get { return _PATH_SLOT_1; }
+            private set { PATH_SLOT_1 = value; }
+        }
+        public static string PATH_SLOT_2
+        {
+            get { return _PATH_SLOT_2; }
+            private set { PATH_SLOT_2 = value; }
+        }
+        public static string PATH_SLOT_3
+        {
+            get { return _PATH_SLOT_3; }
+            private set { PATH_SLOT_3 = value; }
+        }
+        public static string PATH_REGLAGE
+        {
+            get { return _PATH_REGLAGE; }
+            private set { PATH_REGLAGE = value; }
+        }
+        public static string PATH_HIGH_SCORE
+        {
+            get { return _PATH_HIGH_SCORE; }
+            private set { PATH_HIGH_SCORE = value; }
+        }
 
         /// <summary>
         /// permet de connaitre les réglages du son
