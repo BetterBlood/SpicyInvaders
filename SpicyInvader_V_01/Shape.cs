@@ -125,7 +125,7 @@ namespace SpicyInvader_V_01
         /// <returns></returns>
         public int GetHorizontalMaxSize()
         {
-            return _maxWidth; // TODO : en fait ça retourn la taille horizontal maximal ptetre modifié le nom car il n'est pas très clair
+            return _maxWidth;
         }
 
         /// <summary>

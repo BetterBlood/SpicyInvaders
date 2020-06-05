@@ -70,7 +70,7 @@ namespace SpicyInvader_V_01
         /// </summary>
         public void DetectorBridge()
         {
-            if (_rightDirection && _position.X + GetHorizontalHightSize() >= Console.WindowWidth - 1 || !_rightDirection && _position.X <= 1) // détecte si on arrive proche de l'écran
+            if (_rightDirection && _position.X + GetHorizontalMaxSize() >= Console.WindowWidth - 1 || !_rightDirection && _position.X <= 1) // détecte si on arrive proche de l'écran
             {
                 _isChange = true;
             }
@@ -121,7 +121,7 @@ namespace SpicyInvader_V_01
         {
             List<Position> positions = new List<Position>();
 
-            for (int i = 0; i < GetHorizontalHightSize(); i++)
+            for (int i = 0; i < GetHorizontalMaxSize(); i++)
             {
                 positions.Add(new Position(_position.X + i, _position.Y));
             }
@@ -158,7 +158,7 @@ namespace SpicyInvader_V_01
         /// <returns></returns>
         protected override Position GetFirePosition()
         {
-            return new Position(_position.X + GetHorizontalHightSize()/2, _position.Y + GetHeight()); 
+            return new Position(_position.X + GetHorizontalMaxSize()/2, _position.Y + GetHeight()); 
         }
         
         /// <summary>
