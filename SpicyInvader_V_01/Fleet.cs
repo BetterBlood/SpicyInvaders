@@ -58,7 +58,7 @@ namespace SpicyInvader_V_01
         {
             if (_bossStage)
             {
-                InitBosses(_fleetLevel / 5); // TODO : no pourrait mettre le 5 en constante peut-être
+                InitBosses(_fleetLevel / 5); // TODO : on pourrait mettre le 5 en constante peut-être
             }
             else
             {

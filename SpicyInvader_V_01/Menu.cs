@@ -400,7 +400,7 @@ namespace SpicyInvader_V_01
         /// <param name="a_game"></param>
         private void ShowSlotMenu(bool abbleToSave, Game a_game)
         {
-            // TODO : si on a le temps : voir pour un try catch au cas où les fichiers n'existent pas
+            // TODO : si on a le temps : voir pour un try catch au cas où les fichiers n'existent pas pour créer les fichiers
             string save1 = File.ReadAllText(UseFull.PATH_SLOT_1);
             string save2 = File.ReadAllText(UseFull.PATH_SLOT_2);
             string save3 = File.ReadAllText(UseFull.PATH_SLOT_3);

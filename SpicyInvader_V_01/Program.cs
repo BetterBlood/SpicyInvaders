@@ -54,7 +54,6 @@ namespace SpicyInvader_V_01
                     {
                         wanna_play = false;
                         game.ResetGame();
-                        // TODO : ptetre afficher le scoreBoard
                     }
                 }
             }

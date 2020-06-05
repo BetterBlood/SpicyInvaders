@@ -118,7 +118,7 @@ namespace SpicyInvader_V_01
         /// <returns></returns>
         protected override Position GetFirePosition() // TODO : voir pour utiliser cette méthode quand l'allié tir (permet d'avoir des vaisseaux de différentes tailles)
         {
-            return new Position(_position.X + GetHorizontalHightSize() / 2, _position.Y - 1);
+            return new Position(_position.X + GetHorizontalMaxSize() / 2, _position.Y - 1);
         }
     }
 }

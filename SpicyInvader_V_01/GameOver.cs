@@ -17,11 +17,11 @@ namespace SpicyInvader_V_01
         /// <summary>
         /// Attributs
         /// </summary>
-        const int SCROLLINGSPEED = 50;
-        const int _INT_TITLE_INTRO = 6;
+        const int _SCROLLINGSPEED = 50;
+        const int _INT_TITLE_GAME_OVER = 6;
 
         bool scroll = true;
-        string[] text = new string[_INT_TITLE_INTRO];
+        string[] text = new string[_INT_TITLE_GAME_OVER];
 
         /// <summary>
         /// Constructeur par défaut
@@ -65,7 +65,7 @@ namespace SpicyInvader_V_01
                             scroll = false;
                         }
                     }
-                    Thread.Sleep(SCROLLINGSPEED);
+                    Thread.Sleep(_SCROLLINGSPEED);
                 }
                 else
                 {
@@ -75,7 +75,7 @@ namespace SpicyInvader_V_01
                         Console.CursorLeft = Console.WindowWidth / 2 - text[2].Length / 2;
                         Console.WriteLine(text[xx]);
                     }
-                    Thread.Sleep(SCROLLINGSPEED);
+                    Thread.Sleep(_SCROLLINGSPEED);
                 }
                 x++;
 

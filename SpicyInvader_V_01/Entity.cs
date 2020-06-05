@@ -288,10 +288,10 @@ namespace SpicyInvader_V_01
         }
 
         /// <summary>
-        /// Retourne la hauteur de l'entité
+        /// Retourne la largeur maximal de l'unité
         /// </summary>
         /// <returns></returns>
-        public int GetHorizontalHightSize()
+        public int GetHorizontalMaxSize()
         {
             return _shape.GetHorizontalMaxSize();
         }
@@ -377,7 +377,7 @@ namespace SpicyInvader_V_01
         /// <returns></returns>
         protected virtual Position GetFirePosition()
         {
-            return new Position(_position.X + GetHorizontalHightSize() / 2, _position.Y + GetHeight());
+            return new Position(_position.X + GetHorizontalMaxSize() / 2, _position.Y + GetHeight());
         }
     }
 }
